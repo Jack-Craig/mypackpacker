@@ -1,0 +1,45 @@
+{{#if (eq type 'list')}}
+<div class="gear-stat">
+    <div class="stat-header">
+        <h2>{{displayName}}</h2>
+    </div>
+    <div class="stat-content">
+        <div class="stat-value">
+            <span>{{v}}{{#if suffix}}{{suffix}}{{/if}}</span></span>
+        </div>
+        <div class="stat-data">
+            <span class="tooltip">{{flr statistic 1}}th percentile
+                <div class="tooltiptext">*Percentage of gear items in this category with a value LESS than this item.</div>
+            </span>
+        </div>
+        <div class="stat-graphic">
+            <div class="outer-bar">
+                <div style="width: {{flr statistic 1}}%;"  class="inner-bar"></div>
+                <div style="left: {{flr statistic 1}}%;"class="bar-val-stick"><p>{{flr statistic 1}}%</p></div>
+            </div>
+        </div>
+    </div>
+</div>
+{{else if (eq type 'in')}}
+<div class="gear-stat">
+    <div class="stat-header">
+        <h2>{{displayName}}</h2>
+    </div>
+    <div class="stat-content">
+        <div class="stat-value">
+            <span>{{v}}</span>
+        </div>
+        <div class="stat-data">
+            <span class="tooltip">Same as {{flr statistic 1}}% of other items in this category.
+                <div class="tooltiptext">*Percentage of gear items in this category with the SAME value as this item.</div>
+            </span>
+        </div>
+       <div class="stat-graphic">
+            <div class="outer-bar">
+                <div style="width: {{flr statistic 1}}%;"  class="inner-bar"></div>
+                <div style="left: {{flr statistic 1}}%;"class="bar-val-stick"><p>{{flr statistic 1}}%</p></div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/if}}

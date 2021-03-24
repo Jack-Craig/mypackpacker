@@ -1,0 +1,101 @@
+{{#if products}}
+<table class='data-table category-table'>
+    <thead>
+        <tr class='data-table-header'>
+            <th></th>
+            <th class='long-display-name'>Name</th>
+            {{#unless category.hideWeight}}
+            <th class="weight-cell">
+                <div class="weight-container" data-agear-id="*">
+                    Weight
+                    <select class="weight-uom-select" data-agear-id="*" id="bulk-uom-select">
+                        <option value="lb" {{#if (eq user.preferredUOM 'lb' )}}selected{{/if}}>lb</option>
+                        <option value="g" {{#if (eq user.preferredUOM 'g' )}}selected{{/if}}>g</option>
+                        <option value="kg" {{#if (eq user.preferredUOM 'kg' )}}selected{{/if}}>kg</option>
+                        <option value="oz" {{#if (eq user.preferredUOM 'oz' )}}selected{{/if}}>oz</option>
+                    </select>
+                </div>
+            </th>
+            {{/unless}}
+            {{#unless true}}
+            <th>Brand</th>
+            {{/unless}}
+            {{#each category.fields}}
+            <th class="cat-specific">{{this.displayName}}</th>
+            {{/each}}
+            <th>Price</th>
+            <th>Rating</th>
+            {{#if user}}
+            <th>Wishlist</th>
+            <th>Owned</th>
+            {{/if}}
+            <th class='buy'></th>
+        </tr>
+    </thead>
+    {{#each products}}
+    {{#if this.displayName}}
+    <tr class='data-table-data-row'>
+        <td>
+            <div class="image-cell">
+                {{#unless this.userCreated}}
+                <img src="{{reqDim this.productInfo.pictures.[0] 40}}">
+                {{/unless}}
+            </div>
+        </td>
+        <td class="stand-td-name">
+            <a href="{{../category._id}}/{{this._id}}">{{this.displayName}}</a>
+        </td>
+        {{#unless ../category.hideWeight}}
+        <td class="weight-cell stand-td-weight">
+            <div class="weight-container" data-agear-id="{{this._id}}{{@index}}">
+                <span class="weight-text" data-agear-id="{{this._id}}{{@index}}" id="weight-{{this._id}}{{@index}}"
+                    data-base-weight="{{this.productInfo.weight}}">
+                    {{UOM_ConvertTo this.productInfo.weight 'g' ../user.preferredUOM}}
+                </span>
+                <select class="weight-uom-select" data-agear-id="{{this._id}}{{@index}}">
+                    <option value="lb" {{#if (eq ../user.preferredUOM 'lb' )}}selected{{/if}}>lb</option>
+                    <option value="g" {{#if (eq ../user.preferredUOM 'g' )}}selected{{/if}}>g</option>
+                    <option value="kg" {{#if (eq ../user.preferredUOM 'kg' )}}selected{{/if}}>kg</option>
+                    <option value="oz" {{#if (eq ../user.preferredUOM 'oz' )}}selected{{/if}}>oz</option>
+                </select>
+            </div>
+        </td>
+        {{/unless}}
+        {{#unless true}}
+        <td class="stand-td-brand">{{this.brand}}</td>
+        {{/unless}}
+        {{#each ../category.fields}}
+        <td class="cat-specific">
+            {{dlookup ../this this.lookupKey}}{{this.suffix}}
+        </td>
+        {{/each}}
+        <td class="stand-td-price">{{getFormattedMinPrice this}}</td>
+        <td class="stand-td-stars">
+            {{>fiveStars product=this}}
+        </td>
+        {{#if ../user}}
+        <td class="cat-own stand-td-own"><input {{#if (lookup ../userOwnedObj this._id)}}checked{{/if}} type="checkbox"
+                class="user-cat-owned" data-id="{{this._id}}"></td>
+        <td class="cat-save stand-wishlist"><input {{#if (lookup ../userSavedObj this._id)}}checked{{/if}} type="checkbox"
+                class="user-cat-saved" data-id="{{this._id}}"></td>
+        {{/if}}
+        <td class="cat-atp stand-td-atp">
+            <button class='data-button add-to-pack' id='{{this._id}}'>Add</button>
+        </td>
+    </tr>
+    {{/if}}
+    {{/each}}
+</table>
+{{>paginationControls currentPage=paginationData.currentPage maxPages=paginationData.maxPages}}
+
+<script src="/js/helpers/weightUOM.js"></script>
+{{else}}
+<div class="no-content-sorry">
+    {{#unless user}}
+    Nothing to show! Try refining your filters.
+    {{else}}
+    <p>Nothing to show! Try refining your filters. </p>
+    <p>Can't find what you're looking for but own it? Upload a gear item <a href="/user/gear#upload">here</a>.</p>
+    {{/unless}}
+</div>
+{{/if}}

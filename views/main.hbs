@@ -1,0 +1,78 @@
+<main class="landing-main">
+    <div class="landing-image-wrapper">
+        <img class="landing-image" src="https://d1dfp97r2mlr1c.cloudfront.net/landing-background2.jpg">
+        <div class="image-overlay image-overlay-shaded">
+            <span class="welcome-home">
+                Backpacking Gear Made Simple
+            </span>
+            <a class="primary-cta-home" href="/pack">Start Packing</a>
+        </div>
+    </div>
+
+    </div>
+    <div class="landing-page-content">
+        <div class="plan-compare-share">
+            <div class="text-div">
+                <a class="header-link" href="/pack">
+                    <h1>Plan</h1>
+                </a>
+                <p>View gear categories to make a complete packing list.</p>
+            </div>
+            <div class="vertical-seperator-black"></div>
+            <div class="text-div">
+                <a class="header-link" href="/pack/backpacks">
+                    <h1>Compare</h1>
+                </a>
+                <p>Compare gear from various companies by price, weight, size, and more.</p>
+            </div>
+            <div class="vertical-seperator-black"></div>
+            <div class="text-div">
+                <a class="header-link" href="/completed">
+                    <h1>Share</h1>
+                </a>
+                <p>View complete packs published by the community and share your own packs.</p>
+            </div>
+        </div>
+        {{#if false}}
+        <div class="landing-detail-container">
+            <h1>What is MyPackPacker?</h1>
+            <div class="horizontal-colored-p">
+                <div class="icon-p-pair">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-map" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103zM10 1.91l-4-.8v12.98l4 .8V1.91zm1 12.98l4-.8V1.11l-4 .8v12.98zm-6-.8V1.11l-4 .8v12.98l4-.8z"/>
+                    </svg>
+                    <p>MyPackPacker is a platform for browsing, organizing, and sharing backpacking gear. </p>
+                </div>
+                 <div class="icon-p-pair">
+                    <p>MyPackPacker is a platform for browsing, organizing, and sharing backpacking gear. </p>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-map" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103zM10 1.91l-4-.8v12.98l4 .8V1.91zm1 12.98l4-.8V1.11l-4 .8v12.98zm-6-.8V1.11l-4 .8v12.98l4-.8z"/>
+                    </svg>
+                </div>
+                 <div class="icon-p-pair">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-map" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103zM10 1.91l-4-.8v12.98l4 .8V1.91zm1 12.98l4-.8V1.11l-4 .8v12.98zm-6-.8V1.11l-4 .8v12.98l4-.8z"/>
+                    </svg>
+                    <p>MyPackPacker is a platform for browsing, organizing, and sharing backpacking gear. </p>
+                </div>
+                <p class="read-more-about">
+                    <a class="sneaky-link" href="/blog">Read More...</a>
+                </p>
+            </div>
+        </div>
+        {{/if}}
+        <div class="featured-packs">
+            <h3>Featured Community Packs</h3>
+            <ul class="side-list">
+                {{#each communityPacks}}
+                {{> packGridItem pack=this}}
+                {{/each}}
+                <a href="/completed">
+                    <li class="pack-card">
+                        <h3>See More</h3>
+                    </li>
+                </a>
+            </ul>
+        </div>
+    </div>
+</main>

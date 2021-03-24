@@ -1,0 +1,42 @@
+<script src='/js/publish.js'></script>
+<main class='publish-main'>
+    <form class='publish-form' id="publish-form">
+        <input style="visibility: hidden; position: absolute;" name="id" value="{{pack._id}}" />
+        <h2>Publish Pack</h2>
+        <div class="label-group">
+            <label for='title' id='title-label'>Title ({{minus 24 (length pack.displayName)}})</label>
+            <input maxlength='24' class='short-input' name='title' id='title' value="{{pack.displayName}}" required>
+        </div>
+        <div class="label-group">
+            <label for='description' id='description-label'>Description ({{#if pack.description}}{{minus 1200 (length pack.description)}}{{else}}1200{{/if}})</label>
+            <textarea maxlength='1200' class='description-input' name='description' id='description' required>{{pack.description}}</textarea>
+        </div>
+        <div class="label-group">
+            <label for="raw-display-image" id="image-upload-label">Pack Image</label>
+            <div class="form-group">
+                <input class="keep-visible" type="file" id="image-upload" name="-full.png" value="" required>
+            </div>
+        </div>
+        <div class="crop-image-pair {{#unless pack.hasImages}}hidden{{/unless}}">
+            <div class="label-group">
+                <label>Full Image</label>
+                <img class="pack-image-preview" id="image-upload-preview" {{#if pack.hasImages}}src="https://d1dfp97r2mlr1c.cloudfront.net/{{pack._id}}-full.png"{{/if}}>
+            </div>
+            <div class="label-group">
+                <label>Preview Image*</label>
+                <img class="pack-image-preview-cropped" id="pack-image-preview-cropped">
+            </div>
+        </div>
+        <img class="final-pack-image hidden" id="final-pack-image">
+         <div>
+            *The full image will be displayed on your pack's profile page. The preview image will be displayed on your pack's preview tile in the community page. 
+        </div>
+        <div class="form-group">
+            <a class='data-button' href='/user/packs'> Cancel</a>
+            {{#if pack.published}}
+                <a class='data-button delete' href='/user/packs/unpublish/{{pack._id}}'>Unpublish</a>
+            {{/if}}
+            <button>Publish</button>
+        </div>
+    </form>
+</main>

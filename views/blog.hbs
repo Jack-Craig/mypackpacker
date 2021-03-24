@@ -1,0 +1,99 @@
+<main class="about-main">
+    <div class="header-container">
+        <h1>MyPackPacker 101</h1>
+        <h5>By Jack Craig</h5>
+    </div>
+    <div class="div-line"></div>
+    <div class="about-container">
+
+        <div class="image-container">
+            <img src="https://d1dfp97r2mlr1c.cloudfront.net/JackCraig.JPG" alt="MyPackPacker founder, Jack Craig, eating dinner in the back country">
+            <label class="image-label">Here's me eating rice on a backpacking trip in sunny Sequoia National
+                Park</label>
+        </div>
+        <div class="about-text">
+            <h3>What Is MyPackPacker?</h3>
+            <p> 
+                MyPackPacker is made to simplify gear planning and allow you to focus on being in the outdoors. Among other things, MyPackPacker gives you personal control of the immense breadth of the backpacking gear market. There are thousands of gear options out there, so MyPackPacker was created to give
+                you the tools to cut
+                through the
+                clutter and find exactly what you need at the best possible price.
+            </p>
+            <p>
+                There are 3 main functions
+                of MyPackPacker:
+            </p>
+            <ol>
+                <li><b>Plan</b> a packing list using curated gear categories while managing weight.</li>
+                <li><b>Compare</b> thousands of gear items and find the best match for your needs.</li>
+                <li><b>Share</b> your pack with the community, and browse and upvote other packs posted by other
+                    community members.</li>
+            </ol>
+            <p>
+                Additionally, if you are signed in you can upload custom/homemade/unlisted gear and create a cloud-based
+                packing list using items in your gear closet. You can also wishlist and mark gear as "owned" to quickly
+                build general shopping lists or build packs from your gear stash in the future. Sign in and click the
+                "gear"
+                button at the top of the screen to access your saved/wishlisted gear.
+            </p>
+            <h3>About Me</h3>
+            <p>
+                My name is Jack Craig. I come from the beautiful North Bay of California. My childhood was full of
+                science experiments and inventions, inspired by my dad who shared his knowledge and passion for working
+                with his hands with me. During this time I think I captured the spirit of the engineer, and from then on
+                I wanted to create things for a living.
+            </p>
+            <p>I joined the Boy Scouts when I was 11, which allowed me to spend a lot of time
+                in the
+                stunning California backcountry with like-minded adventurers. After hundereds of miles of backpacking
+                and dozens of merit badges, I acheived the rank of Eagle Scout. I will always be immensely
+                proud of this accomplishment.
+            </p>
+            <p>
+                I got engrossed in the world of computer science in my junior year of highschool, when I took a Java
+                computer
+                science class (shoutout Mr. Southam). After that I headed over to the University of Illinois to major in
+                Computer Science, which is where I am today. My dream is to take my passion and skills for
+                programming to the next frontier of adventuring: space exploration.
+            </p>
+            <p>
+                The story of MyPackPacker began in October of 2020, when I discovered I could apply my computer science
+                skills to my passion for backpacking. I would always flounder before a trip trying to figure out what
+                gear I owned, what I needed, how to keep it light, and the myriad of other factors that go into leaving
+                civilization for the freedoms and perils of the backcountry. I wanted a tool that could
+                help me pack, help me shop, help me keep track of my gear, and help me gain insights from the community.
+                Nothing like that existed,
+                and so I set out on my journey.
+            </p>
+            <h3>Other Work</h3>
+            <p>
+                In addition to MyPackPacker, I have also had the pleasure of being a part of The Future Is Good (The
+                FIG). The FIG is a
+                company dedicated to providing tools for everyday people to make a positive impact on our future. If you
+                like backpacking and the outdoors, chances are you'll get along well with The FIG. Check us out here:
+                <a target="_blank" href="https://www.thefutureisgood.co">TheFutureIsGood.co</a>.
+            </p>
+        </div>
+    </div>
+    <div class="roadmap">
+        {{#if user}}
+        <h4>Have an idea?</h4>
+        <button class="data-button" id="open-idea-modal">Submit it here!</button>
+        {{/if}}
+    </div>
+</main>
+<div class="modal hidden" id="submit-idea-modal">
+    <div class="modal-content">
+        <form id="feedback-form">
+            <div id="feedback-form-text">
+                <h2>What's Your Idea?</h2>
+                <textarea id="message-content" class="modal-textarea"></textarea>
+            </div>
+            <div class="pack-tab-header">
+                <input type="button" value="cancel" class="data-button" id="cancel-feedback">
+                <input type="submit" value="submit" class="data-button publish" id="submit-feedback">
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/js/about.js"></script>

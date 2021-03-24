@@ -1,0 +1,32 @@
+<footer>
+    <img class="footer-logo" src="https://d1dfp97r2mlr1c.cloudfront.net/logo-white.png">
+    <div class="vertical-seperator"></div>
+    <nav class="footer-nav">
+        {{#if user}}
+        <a href="/user/packs">My Packs</a>
+        {{else}}
+        <a href="/user/signup">Sign Up</a>
+        {{/if}}
+        <a href="/pack">Pack Packer</a>
+        <a href="/completed">Community Packs</a>
+    </nav>
+    <nav class="footer-nav">
+        <button class="data-button" id="report-bug">report a bug</button>
+    </nav>
+</footer>
+<div class="modal hidden" id="report-bug-modal">
+    <form id="report-bug-form">
+        <div class="modal-content">
+            <div id="bug-report-text">
+                <h2>Tell us about it</h2>
+                <p>Please include details on how to recreate the bug</p>
+                <textarea id="bug-report-textarea" class="modal-textarea"></textarea>
+            </div>
+            <div class="pack-tab-header">
+                <input type="button" id="cancel-bug-report" class="data-button delete" value="cancel">
+                <button id="submit-bug-report" class="data-button">submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/js/footer.js"></script>

@@ -1,0 +1,176 @@
+{{assign 'userOwned' (idEq user._id buildData.authorUserID)}}
+<table class='data-table pack-table'>
+    <thead>
+        <tr class='data-table-header'>
+            <th classs='display-name'>Group</th>
+            <th class='display-name'>Category</th>
+            <th></th>
+            <th>Selection</th>
+            <th>Brand</th>
+            <th>Price</th>
+            <th class="weight-cell">
+                <div class="weight-container" data-agear-id="*">
+                    Weight
+                    <select class="weight-uom-select" data-agear-id="*" id="bulk-uom-select">
+                        <option value="lb" {{#if (eq user.preferredUOM 'lb' )}}selected{{/if}}>lb</option>
+                        <option value="g" {{#if (eq user.preferredUOM 'g' )}}selected{{/if}}>g</option>
+                        <option value="kg" {{#if (eq user.preferredUOM 'kg' )}}selected{{/if}}>kg</option>
+                        <option value="oz" {{#if (eq user.preferredUOM 'oz' )}}selected{{/if}}>oz</option>
+                    </select>
+                </div>
+            </th>
+            {{#if user}}
+            <th class="checkbox-cell">
+                <div class="label-group">
+                    <label>Wishlist</label>
+                    <input type="checkbox" id="select-all-saved">
+                </div>
+
+            </th>
+            <th class="checkbox-cell">
+
+                <div class="label-group">
+                    <label>Owned</label>
+                    <input type="checkbox" id="select-all-owned">
+                </div>
+
+            </th>
+            {{/if}}
+            {{#if editable}}
+            <th class='remove'></th>
+            <th class='buy'></th>
+            {{/if}}
+        </tr>
+    </thead>
+    {{#each categoryList}}
+    <tr class="data-table-data-row pseudo-header category-heading">
+        <td class="non-data">
+            {{this.displayName}}
+        </td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+    </tr>
+    {{#each this.subCategories}}
+    {{#if (lookup ../../buildData.build this._id)}}
+    {{#each (lookup ../../buildData.build this._id)}}
+    <tr class='data-table-data-row {{#if (gt @../index 0)}}first-of-cat-type{{/if}}'>
+        <td class="non-data"></td>
+        <td class="display-name  {{#if (ne @index 0)}}non-data{{/if}}">
+            {{#if (eq @index 0)}}
+            <a href="/pack/{{../this._id}}" data-pack-id="{{../../../buildData._id}}" class="{{#if (and (nt ../../editable) @root.userOwned)}}cat-to-main{{/if}}">
+                {{../this.displayName}}
+            </a>
+            {{/if}}
+        </td>
+        <td>
+            <div class="image-cell">
+                {{#unless this.userCreated}}
+                <img src="{{reqDim this.productInfo.pictures.[0] 40}}">
+                {{/unless}}
+            </div>
+        </td>
+        <td>
+            <a href="/pack/{{this.categoryID}}/{{this._id}}" data-pack-id="{{../../../buildData._id}}" 
+                class="{{#if (and (nt ../../../editable) @root.userOwned)}}cat-to-main{{/if}}">
+                {{this.displayName}}
+            </a>
+        </td>
+        <td>{{this.brand}}</td>
+        <td>{{getFormattedMinPrice this}}</td>
+        <td class="weight-cell">
+            <div class="weight-container" data-agear-id="{{this._id}}{{@index}}">
+                <span class="weight-text" data-agear-id="{{this._id}}{{@index}}" id="weight-{{this._id}}{{@index}}"
+                    data-base-weight="{{this.productInfo.weight}}">
+                    {{UOM_ConvertTo this.productInfo.weight 'g' ../../../user.preferredUOM}}
+                </span>
+                <select class="weight-uom-select" data-agear-id="{{this._id}}{{@index}}">
+                    <option value="lb" {{#if (eq ../../../user.preferredUOM 'lb' )}}selected{{/if}}>lb</option>
+                    <option value="g" {{#if (eq ../../../user.preferredUOM 'g' )}}selected{{/if}}>g</option>
+                    <option value="kg" {{#if (eq ../../../user.preferredUOM 'kg' )}}selected{{/if}}>kg</option>
+                    <option value="oz" {{#if (eq ../../../user.preferredUOM 'oz' )}}selected{{/if}}>oz</option>
+                </select>
+            </div>
+        </td>
+        {{#if ../../../user}}
+        <td class="checkbox-cell cat-save">
+            <input {{#if (lookup ../../../userSavedObj this._id)}}checked{{/if}} type="checkbox" class="user-cat-saved"
+                data-id="{{this._id}}">
+        </td>
+        <td class="checkbox-cell cat-own"><input {{#if (lookup ../../../userOwnedObj this._id)}}checked{{/if}}
+                type="checkbox" class="user-cat-owned" data-id="{{this._id}}"></td>
+        {{/if}}
+        <td class="{{#if (nt ../../../editable)}}non-data{{/if}} cat-remove">{{#if ../../../editable}}<button
+                class="data-button delete remove-item" data-id="{{this._id}}">x</button>{{/if}}</td>
+        <td {{#if (nt ../../../editable)}}class="non-data cat-buy" {{/if}}>
+            {{#unless this.userCreated}}
+                <a class="data-button" style="color:black;" target="_blank" data-id="{{this._id}}" href="https://{{this.productInfo.unaffiliatedUrl}}">
+                    buy
+                </a>
+            {{/unless}}
+        </td>
+    </tr>
+    {{/each}}
+    {{else}}
+    <tr class='data-table-data-row {{#if (gt @../index 0)}}first-of-cat-type pseudo-header-paint{{/if}}'>
+        <td class="non-data"></td>
+        <td class='display-name'>
+            <a href="/pack/{{this._id}}" data-pack-id="{{../../buildData._id}}" class="{{#if (and (nt ../../editable) @root.userOwned)}}cat-to-main{{/if}} {{#unless (or ../../editable @root.userOwned)}}link-disabled
+                {{/unless}}">{{this.displayName}}</a>
+        </td>
+        <td class="non-data"></td>
+        <td class="non-data"> {{#if (or ../../editable @root.userOwned)}}<a href="/pack/{{this._id}}" data-pack-id="{{../../buildData._id}}" class="make-selection {{#if (and (nt ../../editable) @root.userOwned)}}cat-to-main{{/if}} {{#unless (or ../../editable @root.userOwned)}}link-disabled
+                {{/unless}}">Choose {{this.displayName}}</a>{{/if}}</td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        {{#if ../../user}}
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        {{/if}}
+        <td class="non-data"></td>
+    </tr>
+    {{/if}}
+    {{/each}}
+    {{/each}}
+    <tr class="data-table-data-row pseudo-header category-heading">
+        <td class="non-data">
+            Custom
+        </td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+    </tr>
+    <tr>
+        <td class="non-data"></td>
+        <td class="display-name"><button class="data-button open-ag-modal">Add Custom Item</button></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+    </tr>
+</table>
+{{#unless @root.scriptLoadedCatTable}}
+{{assign 'scriptLoadedCatTable' true}}
+<script defer src="/js/categoryTable.js"></script>
+<script src="/js/helpers/weightUOM.js"></script>
+{{/unless}}

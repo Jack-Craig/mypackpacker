@@ -1,0 +1,81 @@
+.by-the-numbers h2{
+    margin-bottom: 0px;
+}
+.by-the-numbers h3 {
+    margin-top: 0px;
+}
+.admin-panel {
+    display: grid;
+    padding-top: 20px;
+    grid-template-columns: 20% 1fr;
+}
+.data-panel {
+    display: flex;
+    flex-direction: column;
+}
+.right-button {
+    display: flex;
+    justify-content: flex-end;
+}
+.bulk-edit-data {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid black;
+}
+table, td, th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+.data-tab {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(auto-fit, 200px);
+}
+.data-header {
+    grid-row: 1 / 1;
+    grid-column: 1 / span 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid gray;
+    font-size: 40px;
+}
+.data-header h1 {
+    margin: 0;
+}
+.delete-message {
+    width: 100%;
+	display: flex;
+	justify-content: center;
+}
+.data-overview {
+    grid-column: 3 / span 2;
+    grid-row: 1 / 1;
+    border: 2px solid gray;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-content: center;
+    padding: 10px;
+}
+.label-group label {
+    font-size: 18px;
+    width: 100%;
+    text-align: center;
+}
+.label-group h3 {
+    font-size: 32px;
+    width: 100%;
+    text-align: center;
+}
+.chart-sidebar {
+    grid-column: 1/1;
+    grid-row: 2 / span 3;
+    border: 2px solid gray;
+}
+.chart-container {
+    grid-column: 2 / span 3;
+    grid-row: 2 / span 3;
+    border: 2px solid gray;
+}

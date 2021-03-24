@@ -1,0 +1,37 @@
+<ul class="pagination-controls">
+    {{#each (range maxPages)}}
+    {{#if (lt (abs (minus ../currentPage @index)) 3)}}
+    <li>
+        <a data-p="{{@index}}" href="#page={{@index}}">{{plus @index 1}}</a>
+    </li>
+    {{else}}
+    {{#if (eq @index (minus ../maxPages 1))}}
+    {{#unless (eq ../currentPage (minus ../maxPages 4))}}
+    <li>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+        </svg>
+    </li>
+    {{/unless}}
+    <li>
+        <a data-p="{{@index}}" href="#page={{@index}}">{{plus @index 1}}</a>
+    </li>
+    {{/if}}
+    {{#if (eq @index 0)}}
+    <li>
+        <a data-p="{{@index}}" href="#page={{@index}}">{{plus @index 1}}</a>
+    </li>
+    {{#unless (eq ../currentPage 3)}}
+    <li>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dot" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+        </svg>
+    </li>
+    {{/unless}}
+    {{/if}}
+    {{/if}}
+    {{/each}}
+</ul>
+<script src="/js/pagination.js"></script>

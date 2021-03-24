@@ -1,0 +1,15 @@
+<main class="sidebar-layout">
+    {{>sidebarMobile}}
+    <div class="sidebar">
+        {{>filtersAndSort user=user filterData=filterData}}
+    </div>
+    <div id="content-main">
+        <ul class="completed-pack-list grid-list">
+            {{#each packs}}
+            {{> packGridItem pack=this}}
+            {{/each}}
+        </ul>
+        {{>paginationControls currentPage=currentPage maxPages=maxPages}}
+    </div>
+</main>
+<script defer src="/js/completed.js"></script>

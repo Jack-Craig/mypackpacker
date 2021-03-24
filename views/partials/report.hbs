@@ -1,0 +1,22 @@
+<button class="report-button data-button delete" data-rel-id="{{repID}}" data-rep-type="{{repType}}">report</button>
+{{#unless @root.reportScriptLoaded}}
+{{assign 'reportScriptLoaded' true}}
+<div class="modal hidden" id="report-modal">
+    <div class="modal-content">
+        <form class="report-form">
+            <div id="report-modal-text">
+            <span>Reason for report</span>
+            <select id="report-select">
+                <option selected value="lang">Offensive Language</option>
+                <option value="vis">Offsensive Imagery</option>
+            </select>
+            </div>
+            <div class="pack-tab-header">
+                <input class="data-button delete" id="cancel-report" value="cancel" type="button">
+                <input class="data-button" id="submit-report" type="button" value="submit report">
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/js/report.js"></script>
+{{/unless}}

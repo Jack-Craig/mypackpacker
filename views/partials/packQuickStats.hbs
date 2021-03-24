@@ -1,0 +1,25 @@
+{{#if user}}
+{{assign 'prefUOM' user.preferredUOM}}
+{{/if}}
+<div id="quick-stats-container" data-uom="{{#if @root.prefUOM}}{{@root.prefUOM}}{{else}}lb{{/if}}"class="quick-stats {{#if alone}}pack-stats-alone{{/if}}">
+    <p>
+        <span class="stat-label">Total Cost</span>
+        <span id="total-price" class="stat-value" data-min="{{pack.priceRange.minPrice}}"
+            data-max="{{pack.priceRange.maxPrice}}">{{formatPriceInfo pack.priceRange}}</span>
+    </p>
+    <p>
+        <span class="stat-label">Worn Weight:</span>
+        <span id="worn-weight" class="stat-value" data-base-weight="{{pack.wornWeight}}">{{getDisplayWeight
+            pack.wornWeight 'g' @root.prefUOM}}</span>
+    </p>
+    <p>
+        <span class="stat-label">Base Weight: </span>
+        <span id="base-weight" class="stat-value" data-base-weight="{{pack.baseWeight}}">{{getDisplayWeight
+            pack.baseWeight 'g' @root.prefUOM}}</span>
+    </p>
+    <p>
+        <span class="stat-label">Total Weight</span>
+        <span id="total-weight" class="stat-value" data-base-weight="{{pack.totalWeight}}">{{getDisplayWeight
+            pack.totalWeight 'g' @root.prefUOM}}</span>
+    </p>
+</div>

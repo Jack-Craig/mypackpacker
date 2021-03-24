@@ -1,0 +1,86 @@
+<form class="filters-and-sort-form" id="filter-form">
+    <h2 class="sort-header">Narrow It Down</h2>
+    {{#each filterData.routeFilters}}
+    {{#if (eq this.t 'tex')}}
+    <div class="label-group search-container">
+        <label>Search</label>
+        <input val-store-key="{{this.vsKey}}" id="{{this.vsKey}}" class="search-filter filter-field"
+            data-field-type="tex">
+    </div>
+    {{/if}}
+    {{#if (eq this.t 'list')}}
+    <div class="double-slider-grouping">
+        <label>{{this.labelText}}</label>
+        <div data-field-type="2ws" class="double-slider filter-field"
+            min="{{lookup (lookup ../filterData.vsStore this.vsKey) 'min'}}"
+            max="{{lookup (lookup ../filterData.vsStore this.vsKey) 'max'}}" suffix="{{this.suffix}}" prefix=""
+            val-store-key="{{this.vsKey}}" step="{{this.step}}">
+        </div>
+    </div>
+    {{/if}}
+    {{/each}}
+    <div class="label-group category-sort">
+        <label>Sort</label>
+        <select id="category-sort">
+            <option value="nosort">No Sort</option>
+            {{#each filterData.routeSorts}}
+            <option {{#if (eq this.val ../sortVal)}}selected{{/if}} value="{{this.val}}">{{this.text}}</option>
+            {{/each}}
+            {{#each filterData.categorySorts}}
+            <option {{#if (eq this.val ../sortVal)}}selected{{/if}} value="{{this.val}}">{{this.text}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="double-slider-grouping">
+        <label>Price Range</label>
+        <div data-field-type="2ws" class="double-slider filter-field" min="{{filterData.vsStore.fP.min}}"
+            max="{{filterData.vsStore.fP.max}}" prefix="$" val-store-key="fP"></div>
+    </div>
+    <div class="double-slider-grouping">
+        <label>Weight Range</label>
+        <div data-field-type="2ws" class="double-slider filter-field"
+            data-uom="{{#if (and user user.preferredUOM)}}{{user.preferredUOM}}{{else}}lb{{/if}}"
+            min="{{UOM_ConvertTo filterData.vsStore.fW.min 'g' user.preferredUOM}}"
+            max="{{UOM_ConvertTo filterData.vsStore.fW.max 'g' user.preferredUOM}}"
+            suffix="{{#if (and user user.preferredUOM)}}{{user.preferredUOM}}{{else}}lb{{/if}}" val-store-key="fW">
+        </div>
+    </div>
+    {{#each filterData.routeFilters}}
+    {{#if (eq this.type 'checkbox')}}
+    <div class="label-group">
+        <label>{{this.labelText}}</label>
+        <input class="filter-field" data-field-type="cb" val-store-key="{{this.key}}" type="checkbox" {{#if
+            this.checked}}checked{{/if}}>
+    </div>
+    {{else if (eq this.type 'select')}}
+    {{/if}}
+    {{/each}}
+    {{#each filterData.categoryFilters}}
+    {{#if (eq this.t 'list')}}
+    <div class="double-slider-grouping">
+        <label>{{this.labelText}}</label>
+        <div data-field-type="2ws" class="double-slider filter-field"
+            min="{{lookup (lookup ../filterData.vsStore this.vsKey) 'min'}}"
+            max="{{lookup (lookup ../filterData.vsStore this.vsKey) 'max'}}" suffix="{{this.suffix}}" prefix=""
+            val-store-key="{{this.vsKey}}" step="{{this.step}}"></div>
+    </div>
+    {{/if}}
+    {{#if (and (eq this.t 'in') (gt (length (lookup ../filterData.vsStore this.vsKey)) 1))}}
+    <div class="multi-select-container">
+        <label>{{this.labelText}}</label>
+        <ul val-store-key="{{this.vsKey}}" id="{{this.vsKey}}" class="multi-select-list filter-field"
+            data-field-type="ms">
+            <li><input class="select-all" val-store-key="{{this.vsKey}}" type="checkbox" value="*">All</li>
+            {{#each (lookup ../filterData.vsStore this.vsKey)}}
+            <li {{#if (gt @index 4)}}class="hidden"{{/if}}><input val-store-key="{{../this.vsKey}}" type="checkbox" value="{{this}}">{{this}}</li>
+            {{/each}}
+        </ul>
+        {{#if (gt (length (lookup ../filterData.vsStore this.vsKey)) 4)}}
+        <a class="ms-change-vis multi-select-see-more" id="see-more-{{this.vsKey}}" data-ref-id="{{this.vsKey}}"><span>See More</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/></svg></a>
+        <a class="ms-change-vis multi-select-see-less hidden" id="see-less-{{this.vsKey}}" data-ref-id="{{this.vsKey}}"><span>See Less</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/></svg></a>
+        {{/if}}
+    </div>
+    {{/if}}
+    {{/each}}
+</form>
+<script defer src="/js/filtersAndSort.js"></script>

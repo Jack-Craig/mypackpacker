@@ -1,0 +1,15 @@
+<main class="main-build">
+    {{#if buildData}}
+    <div class="build-share-crud">
+        {{>packCRUD pack=buildData isEdit=true}}
+        {{>packQuickStats pack=buildData}}
+    </div>
+    {{else}}
+    {{>packQuickStats pack=buildData}}
+    {{/if}}
+    {{#if user}}
+    {{>addGear categories=categoryList addToPack=true}}
+    {{/if}}
+    {{>packData categoryList=categoryList pack=buildData editable=true}}
+</main>
+<script src="/js/quickStatsUOM.js"></script>

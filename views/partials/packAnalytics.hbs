@@ -1,0 +1,12 @@
+<div class="analytics-grid">
+    <div class="analytics-pie-chart-container">
+        <canvas id="price-chart" class="analytics-pie-chart"></canvas>
+    </div>
+    <div class="analytics-pie-chart-container">
+        <canvas id="weight-chart" class="analytics-pie-chart"></canvas>
+    </div>
+</div>
+{{#unless @root.scriptLoadedPackAnalytics}}
+{{assign 'scriptLoadedPackAnalytics' true}}
+<script id="packAnalytics" src='/js/packAnalytics.js' data-target-pack="{{pack._id}}" data-puom="{{user.preferredUOM}}"></script>
+{{/unless}}

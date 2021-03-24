@@ -1,0 +1,49 @@
+<main class="sidebar-layout">
+    {{>sidebarMobile}}
+    <nav class="sidebar">
+        <a href='#' class="side-nav-button" data-id="acc-det-tab">Overview</a>
+        <a href='/user/packs' class="side-nav-button">My Packs</a>
+        <a href='#' id="account-delete" class="side-nav-button">Delete</a>
+    </nav>
+    <div class="sidebar-main">
+        <div class="account-details-tab account-slice" id="acc-det-tab">
+            <span class='span-title'>Account Overview</span>
+            <div class="account-detail-container">
+                <span class="detail-header">Username:</span>
+                <span class="detail-data">{{user.username}}</span>
+            </div>
+            <div class="account-detail-container">
+                <span class="detail-header">Email:</span>
+                <span class="detail-data">{{user.email}}</span>
+            </div>
+            <form id="user-pref-form">
+                <span class='span-title'>Account Preferences</span>
+                <div class="label-group">
+                    <span class="detail-header">Preferred UOM:</span>
+                    <select id="pref-uom">
+                        <option value="lb" {{#if (eq user.preferredUOM 'lb' )}}selected{{/if}}>lb</option>
+                        <option value="g" {{#if (eq user.preferredUOM 'g' )}}selected{{/if}}>g</option>
+                        <option value="kg" {{#if (eq user.preferredUOM 'kg' )}}selected{{/if}}>kg</option>
+                        <option value="oz" {{#if (eq user.preferredUOM 'oz' )}}selected{{/if}}>oz</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="data-button">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal hidden" id="account-delete-modal">
+        <div class="modal-content account-delete-modal">
+            <h2>Are you sure?</h2>
+            <p>
+                Doing so will permentantly unpublish and delete all of your completed packs.
+            </p>
+            <div class="pack-tab-header">
+                <button id="do-not-delete" class="data-button delete">Cancel</button>
+                <button id="delete-button" class="data-button">Yes, delete my account</button>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="/js/account.js"></script>

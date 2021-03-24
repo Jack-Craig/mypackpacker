@@ -1,0 +1,29 @@
+<script src="/js/nav.js"></script>
+<nav class='main-nav'>
+	<nav class='main-nav-subnav'>
+		<!--<a href="/blog" class="user-button">about</a>!-->
+		{{#if user}}
+		{{#if (eq user.accessLevel 11)}}
+		<a href="/admin#dashboard" class="user-button">admin</a>
+		{{/if}}
+		<a href="/user/gear" class="user-button">gear</a>
+		<a href='/user/account' class='user-button'>account</a>
+		<a href='/user/logout' class='user-button'>logout</a>
+		{{else}}
+		<a href='/user/login' class='user-button'>login</a>
+		{{/if}}
+		<a class="user-button" href="/blog">about</a>
+	</nav>
+	<nav class='main-nav-main'>
+		<a class='logo-container' href='/'>
+			<img src='https://d1dfp97r2mlr1c.cloudfront.net/logo.png'>
+		</a>
+		<div class='site-actions'>
+			<a href='/pack' id="pack-nav">Pack Packer</a>
+			{{#if user}}
+			<a href='/user/packs' id="user-pack-nav">My Packs</a>
+			{{/if}}
+			<a href='/completed' id="community-pack-nav">Community Packs</a>
+		</div>
+	</nav>
+</nav>

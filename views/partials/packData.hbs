@@ -1,0 +1,24 @@
+{{#unless @root.scriptLoadedPackData}}
+    {{assign 'scriptLoadedPackData' true}}
+    <script src="/js/packData.js"></script>
+{{/unless}}
+{{#if user}}
+<div class="pack-complete-data">
+    <div class="tab-header">
+        <button data-id="data" data-pack-id="{{pack._id}}">
+            Gear
+        </button>
+        <button data-id="analytics" data-pack-id="{{pack._id}}">
+            Data
+        </button>
+    </div>
+    <div id="analytics_{{pack._id}}" class="section-window hidden {{pack._id}}-container">
+        {{>packAnalytics pack=pack}}
+    </div>
+    <div id="data_{{pack._id}}" class="section-window {{pack._id}}-container">
+        {{>categoryTable categoryList=categoryList buildData=pack editable=editable includesAnalytics=true}}
+    </div>
+</div>
+{{else}}
+{{>categoryTable categoryList=categoryList buildData=pack editable=editable includesAnalytics=false}}
+{{/if}}

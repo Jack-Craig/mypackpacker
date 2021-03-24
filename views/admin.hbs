@@ -1,0 +1,208 @@
+<link rel="stylesheet" type="text/css" href="/css/admin.css" />
+<nav class="main-nav-subnav" style="height:24px;">
+    <a class="user-button" href="#dashboard">dashboard</a>
+    <a class="user-button" href="#messages">messages</a>
+    <a class="user-button" href="#data">data</a>
+</nav>
+<main>
+    <div data-analytics-history="{{json data.analyticsHistory}}" id="analytics-history"></div>
+    <div class="admin-tab admin-panel" id="dashboard">
+        <div class="by-the-numbers">
+            <h2>Users</h2>
+            <h3>{{length data.users}}</h3>
+            <h2>Packs</h2>
+            <h3>{{data.numPacks}}</h3>
+            <h2>Session-Packs</h2>
+            <h3>{{data.numSessionPacks}}</h3>
+            <h2>Gear Items</h2>
+            <h3>{{data.numGearItems}}</h3>
+            <h2>Stored Images</h2>
+            <h3>{{data.numImages}}</h3>
+        </div>
+        <div class="data-panel">
+            <div class="bulk-edit-data hidden" id="bulk-edit-form">
+                <form id="bulk-edit-form-action">
+                    <div class="label-group">
+                        <label class="delete">Delete</label>
+                        <input id="bulk-delete" type="checkbox">
+                    </div>
+                    <div class="right-button">
+                        <button class="data-button">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Gear Wishlisted
+                        </th>
+                        <th>
+                            Gear Owned
+                        </th>
+                        <th>
+                            Edit
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data.users}}
+                    <tr>
+                        <td>
+                            {{this.username}}
+                        </td>
+                        <td>
+                            {{this.email}}
+                        </td>
+                        <td>
+                            {{this._id}}
+                        </td>
+                        <td>
+                            {{length this.gearListSaved}}
+                        </td>
+                        <td>
+                            {{length this.gearListOwned}}
+                        </td>
+                        <td>
+                            <input type="checkbox" data-uid="{{this._id}}" class="bulk-edit-check">
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="admin-tab hidden admin-panel" id="messages">
+        <div class="by-the-numbers">
+            <h2>Messages</h2>
+            <h3>{{length data.messages}}</h3>
+        </div>
+        <div class="data-panel">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Message ID</th>
+                        <th>User ID</th>
+                        <th>type</th>
+                        <th>Content</th>
+                        <th>Date</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data.messages}}
+                    <tr>
+                        <td>{{this._id}}</td>
+                        <td>{{#if this.senderId}}{{this.senderId}}{{else}}N/A{{/if}}</td>
+                        <td>{{this.type}}</td>
+                        <td>{{this.message}}</td>
+                        <td>{{formatDate this.date}}</td>
+                        <td><button class="delete-message delete data-button" data-id="{{this._id}}">X</button></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class='admin-tab' id="data">
+        <div class="tab-header">
+            <button data-a-id="users-data">users</button>
+            <button data-a-id="sessions-data">sessions</button>
+            <button data-a-id="packs-data">packs</button>
+            <button data-a-id="gear-data">gear</button>
+        </div>
+        <div>
+            <div class="data-tab" id="users-data">
+                <div class="data-header">
+                    <h1>Users</h1>
+                </div>
+                <div class="data-overview">
+                    <div class="label-group">
+                        <label>Total Users</label>
+                        <h3>{{length data.users}}</h3>
+                    </div>
+                    <div class="label-group">
+                        <label>Active Users</label>
+                        <h3>No Data</h3>
+                    </div>
+                    <div class="label-group">
+                        <label>Live Users</label>
+                        <h3>No Data</h3>
+                    </div>
+                </div>
+                <div class="chart-sidebar"></div>
+                <div class="chart-container">
+                    <canvas id="user-chart"></canvas>
+                </div>
+            </div>
+             <div class="data-tab hidden" id="sessions-data">
+                <div class="data-header">
+                    <h1>Sessions</h1>
+                </div>
+                <div class="data-overview">
+                    <div class="label-group">
+                        <label>TotalSessions</label>
+                        <h3>{{data.numSessions}}</h3>
+                    </div>
+                </div>
+                <div class="chart-sidebar"></div>
+                <div class="chart-container">
+                    <canvas id="sessions-chart"></canvas>
+                </div>
+            </div>
+           <div class="data-tab hidden" id="packs-data">
+                <div class="data-header">
+                    <h1>Pack</h1>
+                </div>
+                <div class="data-overview">
+                    <div class="label-group">
+                        <label>Total Packs</label>
+                        <h3>{{data.numPacks}}</h3>
+                    </div>
+                </div>
+                <div class="chart-sidebar"></div>
+                <div class="chart-container">
+                    <canvas id="pack-chart"></canvas>
+                </div>
+            </div>
+            <div class="data-tab hidden" id="gear-data">
+                <div class="data-header">
+                    <h1>Gear</h1>
+                </div>
+                <div class="data-overview">
+                    <div class="label-group">
+                        <label>Total Gear</label>
+                        <h3>{{data.numGearItems}}</h3>
+                    </div>
+                </div>
+                <div class="chart-sidebar"></div>
+                <div class="chart-container">
+                    <canvas id="gear-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- TODO: Make this ubiquitous for users and packs and gear and images and messages !-->
+<div class="modal hidden" id="bulk-edit-confirmation">
+    <div class="modal-content">
+        <h2>Are you sure?</h2>
+        <p>
+            Doing so will permentantly delete <span id="num-users"></span> users.
+        </p>
+        <div class="pack-tab-header">
+            <button id="do-not-delete" class="data-button delete">Cancel</button>
+            <button id="delete-button" class="data-button">Yes</button>
+        </div>
+    </div>
+</div>
+<script src="/js/admin.js"></script>

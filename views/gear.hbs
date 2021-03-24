@@ -1,0 +1,17 @@
+<main class="top-spaced-main">
+    <div class="tab-container">
+        {{>addGear categories=categories subcategories=true addToPack=false}}
+        <div class="tab-header">
+            <button data-ass-id="saved-gear">Wishlist Gear</button>
+            <button data-ass-id="owned-gear">Owned Gear</button>
+        </div>
+        <div class="pack-tab" id="saved-gear">
+           {{>subCategoryTable user=user categories=categories buildData=savedGear ownedGear=false editable=true}}
+        </div> 
+        <div class="pack-tab hidden" id="owned-gear">
+            {{>subCategoryTable user=user categories=categories buildData=ownedGear ownedGear=true editable=true}}
+        </div>
+    </div>
+  
+</main>
+<script src="/js/gear.js"></script>

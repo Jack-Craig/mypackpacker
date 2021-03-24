@@ -1,0 +1,6 @@
+<ul class="completed-pack-list grid-list">
+    {{#each packs}}
+    {{> packGridItem pack=this}}
+    {{/each}}
+</ul>
+{{>paginationControls currentPage=currentPage maxPages=maxPages}}

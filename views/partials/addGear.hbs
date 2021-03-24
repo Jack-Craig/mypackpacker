@@ -1,0 +1,158 @@
+<div class="add-gear-container">
+    <div class="add-new-items-prompt">
+        <button class="data-button open-ag-modal">Create New Item(s)</button>
+    </div>
+    <div class="modal ag-modal hidden">
+        <div class="modal-content expanded-modal add-new-items-container">
+            <form class="add-new-items-form">
+                <div class="pack-tab-header">
+                    <h3 class="form-header">Create Item(s)</h3>
+                    <label class="data-button import-csv-label">
+                        <input id="import-elem" type="file">
+                        import csv
+                    </label>
+                </div>
+                <span id="add-gear-error" class='form-error hidden'>
+                    Make sure all fields are filled out, and the item(s) are either saved or owned.
+                </span>
+                <table class="add-gear-table" id="add-gear-table">
+                    <thead>
+                        <tr class="add-new-items-header">
+                            <th class="table-sidebar"></th>
+                            <th>Category</th>
+                            <th>Name</th>
+                            <th class="weight-cell">Weight</th>
+                            <th>Price</th>
+                            <th>Brand</th>
+                            <th class="checkbox-cell">Wishlist</th>
+                            <th class="checkbox-cell">Owned</th>
+                            <th class="checkbox-cell">Remove</th>
+                            <th class="checkbox-cell">Select</th>
+                        </tr>
+                        <tr class="last-row">
+                            <td class="table-sidebar">Bulk Edit</td>
+                            <th>
+                                <select class="add-custom-gear-category bulk-edit-valchange"
+                                    data-bid="new-gear-category">
+                                    <option value="" disabled selected>Category</option>
+                                    {{#if subcategories}}
+                                    {{#each this.categories}}
+                                    <option value="{{this._id}}">{{this.displayName}}</option>
+                                    {{/each}}
+                                    {{else}}
+                                    {{#each categories}}
+                                    {{#each this.subCategories}}
+                                    <option value="{{this._id}}">{{this.displayName}}</option>
+                                    {{/each}}
+                                    {{/each}}
+                                    {{/if}}
+                                </select>
+                            </th>
+                            <th> <input placeholder="Name" data-bid="new-gear-name" class="bulk-edit-valchange"></th>
+                            {{assign 'prefUOM' user.preferredUOM}}
+                            <th class="weight-cell">
+                                <div class="weight-container" id="container-weight-">
+                                    <input placeholder="Weight" style="text-align: right;"
+                                        class="bulk-edit-valchange numeric-input weight-input"
+                                        data-bid="new-gear-weight">
+                                    <select class="add-gear-uom" data-index=""
+                                        data-prevUOM="{{#if @root.prefUOM}}{{@root.prefUOM}}{{else}}g{{/if}}">
+                                        <option value="lb" {{#if (eq user.preferredUOM 'lb' )}}selected{{/if}}>lb
+                                        </option>
+                                        <option value="g" {{#if (eq user.preferredUOM 'g' )}}selected{{/if}}>g
+                                        </option>
+                                        <option value="kg" {{#if (eq user.preferredUOM 'kg' )}}selected{{/if}}>kg
+                                        </option>
+
+                                        <option value="oz" {{#if (eq user.preferredUOM 'oz' )}}selected{{/if}}>oz
+                                        </option>
+                                    </select>
+                                </div>
+                            </th>
+                            <th> <span class="currency-input">$<input placeholder="Price" data-bid="new-gear-price"
+                                        class="bulk-edit-valchange numeric-input"></span></th>
+                            <th> <input placeholder="Brand" data-bid="new-gear-brand" class="bulk-edit-valchange"></th>
+                            <th class="checkbox-cell"> <input type="checkbox" data-bid="new-gear-fav"
+                                    class="bulk-edit-valchange"></th>
+                            <th class="checkbox-cell"><input type="checkbox" data-bid="new-gear-owned"
+                                    class="bulk-edit-valchange"></th>
+                            <th class="checkbox-cell"><input type="checkbox" data-bid="new-gear-remove"
+                                    class="bulk-edit-valchange"></th>
+                            <th class="checkbox-cell"><input type="checkbox" data-bid="bulk-edit-selected"
+                                    class="bulk-edit-valchange"></th>
+                        </tr>
+                        <tr class="spacer-row"></tr>
+                    </thead>
+                    <tbody>
+                        <tr id="new-gear-table-row-0" data-idx="0">
+                            <td class="table-sidebar">Gear</td>
+                            <td>
+                                <select class="add-custom-gear-category" id="new-gear-category-0">
+                                    <option value="" disabled selected>Category</option>
+                                    {{#if subcategories}}
+                                    {{#each this.categories}}
+                                    <option value="{{this._id}}">{{this.displayName}}</option>
+                                    {{/each}}
+                                    {{else}}
+                                    {{#each categories}}
+                                    {{#each this.subCategories}}
+                                    <option value="{{this._id}}">{{this.displayName}}</option>
+                                    {{/each}}
+                                    {{/each}}
+                                    {{/if}}
+                                </select>
+                            </td>
+                            <td><input placeholder="Name" id="new-gear-name-0"></td>
+                            <td class="weight-cell">
+                                <div class="weight-container" id="container-weight-0">
+                                    <input class="numeric-input weight-input" placeholder="Weight"
+                                        id="new-gear-weight-0">
+                                    <select class="add-gear-uom"
+                                        data-prevUOM="{{#if @root.prefUOM}}{{@root.prefUOM}}{{else}}g{{/if}}"
+                                        data-index="0">
+                                        <option value="lb" {{#if (eq user.preferredUOM 'lb' )}}selected{{/if}}>lb
+                                        </option>
+                                        <option value="g" {{#if (eq @root.prefUOM 'g' )}}selected{{/if}}>g
+                                        </option>
+                                        <option value="kg" {{#if (eq user.preferredUOM 'kg' )}}selected{{/if}}>kg
+                                        </option>
+
+                                        <option value="oz" {{#if (eq user.preferredUOM 'oz' )}}selected{{/if}}>oz
+                                        </option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td><span class="currency-input">$<input class="numeric-input" placeholder="Price"
+                                        id="new-gear-price-0"></span></td>
+                            <td><input placeholder="Brand" id="new-gear-brand-0"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="new-gear-fav-0"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="new-gear-owned-0"></td>
+                            <td class="checkbox-cell"><input type="checkbox" id="new-gear-remove-0"></td>
+                            <td class="checkbox-cell"><input class="bulk-edit-select" type="checkbox"
+                                    id="bulk-edit-selected-0"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="add-gear-table" id="new-gear-add-gear-table">
+                    <tbody>
+                        <tr>
+                            <td class="borderless-cell"><input class="new-gear-button" type="button" value="New"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="right-align-buttons">
+                    <input class="data-button delete" type="button" value="Cancel" id="add-gear-cancel">
+                    <input class="data-button non-mobile" type="button" value="Update" id="add-gear-update">
+                    <input class="data-button publish" type="button" value="Add" id="add-gear-submit-mobile" {{#if
+                        addToPack}}data-atp{{/if}}>
+                    <input class="data-button publish non-mobile" type="button" value="Add All" id="add-gear-submit"
+                        {{#if addToPack}}data-atp{{/if}}>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{#unless @root.addGearLoaded}}
+{{assign 'addGearLoaded' true}}
+<script defer src="/js/addGear.js"></script>
+{{/unless}}
