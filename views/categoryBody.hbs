@@ -25,9 +25,11 @@
             {{/each}}
             <th>Price</th>
             <th>Rating</th>
+            {{#if 0}}
             {{#if user}}
             <th>Wishlist</th>
             <th>Owned</th>
+            {{/if}}
             {{/if}}
             <th class='buy'></th>
         </tr>
@@ -73,11 +75,13 @@
         <td class="stand-td-stars">
             {{>fiveStars product=this}}
         </td>
+        {{#if 0}}
         {{#if ../user}}
         <td class="cat-own stand-td-own"><input {{#if (lookup ../userOwnedObj this._id)}}checked{{/if}} type="checkbox"
                 class="user-cat-owned" data-id="{{this._id}}"></td>
         <td class="cat-save stand-wishlist"><input {{#if (lookup ../userSavedObj this._id)}}checked{{/if}} type="checkbox"
                 class="user-cat-saved" data-id="{{this._id}}"></td>
+        {{/if}}
         {{/if}}
         <td class="cat-atp stand-td-atp">
             <button class='data-button add-to-pack' id='{{this._id}}'>Add</button>

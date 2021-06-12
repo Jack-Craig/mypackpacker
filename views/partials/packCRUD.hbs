@@ -8,16 +8,16 @@
     <div class="pack-edit-container">
         {{>shareBuild buildData=pack}}
         {{#unless isEdit}}
-        <button class='data-button data-edit-button' data-pack-id="{{pack._id}}">Edit Gear</button>
+        <button class='data-button data-edit-button' data-pack-id="{{pack._id}}">Edit</button>
         {{/unless}}
         {{#if user}}
         <button class='data-button delete data-delete-button' data-pack-id="{{pack._id}}">Delete</button>
       
         <button class='data-button publish data-publish-button' data-pack-id="{{pack._id}}">
             {{#if pack.published}}
-            Edit Pack Profile
+            View
             {{else}}
-            Publish
+            Post
             {{/if}}
         </button>
         {{/if}}

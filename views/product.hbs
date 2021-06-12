@@ -153,11 +153,15 @@
         {{> productStatistic c=category.displayName displayName="Rating" type="list" statistic=(lookup product.relStats
         'rat') v=product.productInfo.rating.r}}
         {{#each category.filters}}
+        {{#if (idEq this.t 'list')}}
         {{> productStatistic c=category.displayName displayName=this.labelText type=this.t statistic=(lookup
         ../product.relStats this.vsKey) v=(lookup ../product this.key) suffix=this.suffix}}
+        {{/if}}
         {{/each}}
     </div>
-    <label class="graphic-label">*Majority means percent of gear items on MyPackPacker in this category with a spec value LESS than this item.</label>
-    <label class="graphic-label">*Percentile mean gear items on MyPackPacker in this category that SHARE the spec value.</label>
+    <label class="graphic-label">*Majority means percent of gear items on MyPackPacker in this category with a spec
+        value LESS than this item.</label>
+    <label class="graphic-label">*Percentile mean gear items on MyPackPacker in this category that SHARE the spec
+        value.</label>
 </main>
 <script src="/js/product.js"></script>

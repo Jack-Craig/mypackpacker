@@ -19,6 +19,7 @@
                     </select>
                 </div>
             </th>
+            {{#if 0}}
             {{#if user}}
             <th class="checkbox-cell">
                 <div class="label-group">
@@ -35,6 +36,7 @@
                 </div>
 
             </th>
+            {{/if}}
             {{/if}}
             {{#if editable}}
             <th class='remove'></th>
@@ -55,8 +57,10 @@
         <td class="non-data"></td>
         <td class="non-data"></td>
         <td class="non-data"></td>
+        {{#if 0}}
         <td class="non-data"></td>
         <td class="non-data"></td>
+        {{/if}}
     </tr>
     {{#each this.subCategories}}
     {{#if (lookup ../../buildData.build this._id)}}
@@ -99,6 +103,7 @@
                 </select>
             </div>
         </td>
+        {{#if 0}}
         {{#if ../../../user}}
         <td class="checkbox-cell cat-save">
             <input {{#if (lookup ../../../userSavedObj this._id)}}checked{{/if}} type="checkbox" class="user-cat-saved"
@@ -106,6 +111,7 @@
         </td>
         <td class="checkbox-cell cat-own"><input {{#if (lookup ../../../userOwnedObj this._id)}}checked{{/if}}
                 type="checkbox" class="user-cat-owned" data-id="{{this._id}}"></td>
+        {{/if}}
         {{/if}}
         <td class="{{#if (nt ../../../editable)}}non-data{{/if}} cat-remove">{{#if ../../../editable}}<button
                 class="data-button delete remove-item" data-id="{{this._id}}">x</button>{{/if}}</td>
@@ -131,9 +137,11 @@
         <td class="non-data"></td>
         <td class="non-data"></td>
         <td class="non-data"></td>
+        {{#if 0}}
         {{#if ../../user}}
         <td class="non-data"></td>
         <td class="non-data"></td>
+        {{/if}}
         {{/if}}
         <td class="non-data"></td>
     </tr>
@@ -151,8 +159,10 @@
         <td class="non-data"></td>
         <td class="non-data"></td>
         <td class="non-data"></td>
+        {{#if 0}}
         <td class="non-data"></td>
         <td class="non-data"></td>
+        {{/if}}
         <td class="non-data"></td>
     </tr>
     <tr>
@@ -164,8 +174,10 @@
         <td class="non-data"></td>
         <td class="non-data"></td>
         <td class="non-data"></td>
+        {{#if 0}}
         <td class="non-data"></td>
         <td class="non-data"></td>
+        {{/if}}
         <td class="non-data"></td>
     </tr>
 </table>

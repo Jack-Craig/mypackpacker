@@ -7,8 +7,10 @@
     {{else}}
     {{>packQuickStats pack=buildData}}
     {{/if}}
+    {{#if 0}}
     {{#if user}}
     {{>addGear categories=categoryList addToPack=true}}
+    {{/if}}
     {{/if}}
     {{>packData categoryList=categoryList pack=buildData editable=true}}
 </main>

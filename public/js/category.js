@@ -24,11 +24,14 @@ const registerButtons = () => {
 const reqAndRender = () => {
     const catId = window.location.pathname.substr(6)
     const hashQuery = window.location.hash.substr(1)
+    $('#loading-notif').removeClass('hidden')
+    $('#category-body').addClass('hidden')
     $.ajax({
         method: 'get',
         url: `/pack/content/${catId}?${hashQuery}`
     }).done(r => {
-        $('#category-body').html(r)
+        $('#category-body').html(r).removeClass('hidden')
+        $('#loading-notif').addClass('hidden')
         registerButtons()
     })
 }

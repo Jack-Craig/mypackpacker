@@ -180,12 +180,20 @@ router.get('/add/:id', async (req, res) => {
 
 router.get('/remove/:id', async (req, res) => {
   const pID = req.params.id
-  const sessionID = req.sessionID
   const user = req.user
   const productDoc = await ProductModel.findById(pID).lean()
   const productCategory = await SubCategoryModel.findById(productDoc.categoryID).lean()
+  let activePack = await BuildModel.findById(req.user.activePackId, {build: 1}).lean()
+  
+  for (let i = 0; i < activePack.build.length; ++i) {
+    const strRep = activePack.build[i].toString()
+    if (strRep === pID) {
+      activePack.build.splice(i, 1)
+      break
+    }
+  }
   const update = {
-    '$pull': { build: ObjectId(pID) },
+    'build': activePack.build,
     '$inc': {
       wornWeight: productCategory.weightCat === 'worn' ? -productDoc.productInfo.weight : 0,
       baseWeight: productCategory.weightCat === 'pack' ? -productDoc.productInfo.weight : 0,

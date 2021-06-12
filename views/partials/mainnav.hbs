@@ -1,12 +1,13 @@
 <script src="/js/nav.js"></script>
 <nav class='main-nav'>
 	<nav class='main-nav-subnav'>
-		<!--<a href="/blog" class="user-button">about</a>!-->
 		{{#if user}}
 		{{#if (eq user.accessLevel 11)}}
 		<a href="/admin#dashboard" class="user-button">admin</a>
 		{{/if}}
+		{{#if 0}}
 		<a href="/user/gear" class="user-button">gear</a>
+		{{/if}}
 		<a href='/user/account' class='user-button'>account</a>
 		<a href='/user/logout' class='user-button'>logout</a>
 		{{else}}
