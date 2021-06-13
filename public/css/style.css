@@ -369,6 +369,14 @@ footer {
 	font-size: 14px;
 	border: 1px solid black;
 	background-color: white;
+	width: 40%;
+}
+.tab-header button:hover {
+	background-color: rgba(255, 133, 31, 0.25);
+}
+button.folder-selected {
+	border: 1px solid black;
+	border-bottom: none;
 }
 .tab-header button:last-child {
 	margin-right: 0;
@@ -454,14 +462,14 @@ footer {
 	height: 100%;
 	grid-template-rows: repeat(2, 1fr);
 	align-items: center;
-	padding: 25% 0 25% 0;
+	padding: 20% 0 20% 0;
 	box-sizing: border-box;
 }
 .landing-cta-container {
 	display: grid;
 	padding: 30px;
 	box-sizing: border-box;
-	grid-template-columns: 4fr 10px 3fr;
+	grid-template-columns: 5fr 5px 2fr;
 }
 .landing-cta-container .vertical-seperator {
 	border-left: 3px solid white;
@@ -475,7 +483,7 @@ footer {
 	height: 100%;
 }
 .image-overlay-shaded {
-	background-color: rgba(0,0,0,.2);
+	background-color: rgba(0,0,0,.25);
 }
 .welcome-home {
 	color: white;
@@ -910,6 +918,7 @@ span.emphasized-span {
 	height: 30px;
 	font-size: 14px;
 	margin: 0;
+	margin-bottom: 15px;
 }
 .add-gear-container {
 	width: 100%;
@@ -1764,6 +1773,9 @@ td.buy-on-site-td {
 	
 	.non-mobile {
 		display: none;
+	}
+	.landing-cta-container {
+		padding: 10px;
 	}
 }
 .hidden {

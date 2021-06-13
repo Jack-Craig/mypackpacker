@@ -1,5 +1,17 @@
 <form class="filters-and-sort-form" id="filter-form">
     <h2 class="sort-header">Narrow It Down</h2>
+    <div class="label-group category-sort">
+        <label>Sort</label>
+        <select id="category-sort">
+            <option value="nosort">No Sort</option>
+            {{#each filterData.routeSorts}}
+            <option {{#if (eq this.val ../sortVal)}}selected{{/if}} value="{{this.val}}">{{this.text}}</option>
+            {{/each}}
+            {{#each filterData.categorySorts}}
+            <option {{#if (eq this.val ../sortVal)}}selected{{/if}} value="{{this.val}}">{{this.text}}</option>
+            {{/each}}
+        </select>
+    </div>
     {{#each filterData.routeFilters}}
     {{#if (eq this.t 'tex')}}
     <div class="label-group search-container">
@@ -19,18 +31,6 @@
     </div>
     {{/if}}
     {{/each}}
-    <div class="label-group category-sort">
-        <label>Sort</label>
-        <select id="category-sort">
-            <option value="nosort">No Sort</option>
-            {{#each filterData.routeSorts}}
-            <option {{#if (eq this.val ../sortVal)}}selected{{/if}} value="{{this.val}}">{{this.text}}</option>
-            {{/each}}
-            {{#each filterData.categorySorts}}
-            <option {{#if (eq this.val ../sortVal)}}selected{{/if}} value="{{this.val}}">{{this.text}}</option>
-            {{/each}}
-        </select>
-    </div>
     <div class="double-slider-grouping">
         <label>Price Range</label>
         <div data-field-type="2ws" class="double-slider filter-field" min="{{filterData.vsStore.fP.min}}"
