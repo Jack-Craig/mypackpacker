@@ -171,6 +171,7 @@ app.use('/completed', require('./routes/completed'))
 app.use('/user', require('./routes/user'))
 app.use('/api', require('./routes/api'))
 app.use('/blog', require('./routes/blog'))
+app.use('/help', require('./routes/help'))
 app.use('/admin', require('./routes/admin'))
 app.use('*', require('./routes/404'))
 

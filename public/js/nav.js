@@ -9,5 +9,8 @@ $(window).on('load', () => {
         case '/user/packs':
             $('#user-pack-nav').addClass('selected')
             break
+        case '/blog':
+            $('#about-nav').addClass('selected')
+            break
     }
 })

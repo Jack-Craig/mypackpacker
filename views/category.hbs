@@ -1,6 +1,6 @@
 <main class='category-page sidebar-layout'>
-    {{>sidebarMobile}}
-    <div class="sidebar">
+    {{>sidebarMobile relId="cat-side"}}
+    <div id="cat-side" class="sidebar">
         {{>filtersAndSort user=user filterData=filterData}}
     </div>
     <div id="category-body">

@@ -1,14 +1,20 @@
-$('.sidebar').prepend($('.hamburger-menu-exit-container').clone().removeClass('hidden').attr('id', "hamburger-exit-container"))
+$('.sidebar').each((idx, elem) => {
+    const jElem = $(elem)
+    jElem.prepend($(`.hamburger-menu-exit-container[rel-id=${jElem.attr('id')}]`).clone().removeClass('hidden').attr('id', "hamburger-exit-container"))
+})
 const initHeight = $('.sidebar').css('height')
 $('main').css('min-height', initHeight)
-$('#hamburger-stack').on('click', e => {
+$('.hamburger-menu').on('click', e => {
     $('main').css('min-height', $('.sidebar').css('height'))
-    const sidebar = $('.sidebar')
+    const id = e.currentTarget.getAttribute('rel-id')
+    const sidebar = $(`#${id}`)
     sidebar.css('display', 'block')
     sidebar.animate({ left: '0px' })
 })
-$('#hamburger-exit-container').on('click', e => {
+$('.hamburger-menu-exit-container').on('click', e => {
     $('main').css('min-height', initHeight)
-    const sidebar = $('.sidebar')
+    const id = e.currentTarget.getAttribute('rel-id')
+    console.log(id)
+    const sidebar = $(`#${id}`)
     sidebar.animate({ left: '-' + sidebar.css('width') }, {}, () => sidebar.css('display', 'none'))
 })

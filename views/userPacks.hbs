@@ -1,7 +1,7 @@
 <script src='/js/userpack.js'></script>
 <main class="sidebar-layout user-packs-main">
-    {{>sidebarMobile}}
-    <nav class='sidebar'>
+    {{>sidebarMobile relId="up-side"}}
+    <nav id="up-side" class='sidebar'>
         {{#each userPacks}}
         <a href='#' id="{{this._id}}-button"
             class="side-nav-button pack-set-active {{#if (idEq this._id ../user.activePackId)}}tab-selected pack-active{{/if}}"

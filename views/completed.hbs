@@ -1,6 +1,6 @@
 <main class="sidebar-layout">
-    {{>sidebarMobile}}
-    <div class="sidebar">
+    {{>sidebarMobile relId="comp-side"}}
+    <div id="comp-side" class="sidebar">
         {{>filtersAndSort user=user filterData=filterData}}
     </div>
     <div id="content-main">

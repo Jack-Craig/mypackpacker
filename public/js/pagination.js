@@ -1,8 +1,10 @@
 {
-    const usp = new URLSearchParams(window.location.search)
-    $('.pagination-controls a').each((idx, elem) => {
+    $('.pagination-action').on('click', e => {
+        console.log(e.target)
+        const elem = e.target
+        const usp = new URLSearchParams(window.location.hash)
         const spAddition = elem.getAttribute('data-p')
         usp.set('page', spAddition)
-        elem.setAttribute('href', `?${usp.toString()}`)
+        window.location.hash = usp.toString()
     })
 }

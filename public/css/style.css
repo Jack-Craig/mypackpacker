@@ -4,12 +4,15 @@
 	--tertiary-color: #266f5d;
 	--variation-color: #d24814;
 	--variation-secondary-color: #ff851f;
-	--header-font: '';
-	--body-font: '';
+	--header-font: 'Noto Sans JP', sans-serif;
+	--body-font: 'Poppins';
 }
 html {
-	font-family: 'Poppins', sans-serif;
+	font-family: var(--body-font);
 	background-color: var(--primary-color);
+}
+h1, h2, h3, h4, h5, h6, a {
+	font-family: var(--header-font);
 }
 label {
 	font-size: 10px;
@@ -24,7 +27,7 @@ a, a:visited {
 	color: blue;
 }
 textarea, input {
-	font-family: 'Poppins'
+	font-family: var(--body-font);
 }
 select {
 	background-color: white;
@@ -52,13 +55,13 @@ select {
 	font-size: 24px !important;
 }
 .main-nav {
-  height: 120px;
+  height: 90px;
   display: flex;
   flex-direction: column;
-  position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 1px 5px;
+  border-bottom: 1px lightgray solid;
+  /**box-shadow: 0 1px 5px; */
 }
 .main-nav-main {
 	padding: 0 min(200px, 6%) 0 min(200px, 6%);
@@ -83,7 +86,7 @@ select {
 	min-width: 0px;
 	text-decoration: none;
 	color: black;
-	font-size: 22px;
+	font-size: 18px;
 	font-weight: 600;
 }
 .user-button, .user-button:visited {
@@ -871,6 +874,10 @@ a .pack-card h3 {
 .cropper-modal {
 	background-color: white;
 }
+.pagination-action {
+	cursor: pointer;
+	text-decoration: underline;
+}
 .pagination-controls {
 	width: 100%;
 	list-style-type: none;
@@ -1570,14 +1577,35 @@ td.buy-on-site-td {
 }
 .mobile-nav {
 	display: none;	
+	justify-items: center;
+	align-items: center;
 }
 .mobile-nav a {
 	height: inherit;
 }
-.mobile-logo {
+.mobile-logo, .mobile-nav .hamburger-menu {
 	justify-content: center;
 	display: flex;
 	align-items: center;
+	border: none;
+}
+.mobile-sidebar a {
+	font-size: 18px;
+	text-decoration: none;
+	color: black;
+	display: flex;
+	justify-content: left;
+	margin: 10px 0 10px 0;
+}
+.mobile-sidebar a:focus {
+	text-decoration: underline;
+}
+.mobile-sidebar .subnav {
+	font-size: 14px;
+}
+.mobile-sidebar {
+	display: none;
+	justify-content: flex-start;
 }
 .mobile-logo img {
 	width: auto;
@@ -1586,6 +1614,9 @@ td.buy-on-site-td {
 .mobile-nav svg {
 	width: 32px;
 	height: auto;
+}
+#main-side {
+	z-index: 22;
 }
 @media screen and (max-width: 1024px) {
 	.plan-compare-share .text-div {
@@ -1653,9 +1684,12 @@ td.buy-on-site-td {
 		display: grid;
 		grid-template-columns: 20% 60% 20%;
 		background-color: white;
-		position: sticky;
-		box-shadow: 0 1px 5px;
-		z-index: 3;
+		position: relative;
+		border-bottom: 1px solid lightgray;
+		z-index: 11;
+	}
+	.mobile-sidebar {
+		display: flex;
 	}
 	.main-nav {
 		display: none;
