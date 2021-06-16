@@ -66,6 +66,7 @@ app.engine('hbs', handlebars({
         getDisplayPrice: priceRangeHelpers.getDisplayPrice,
         formatPriceInfo: priceRangeHelpers.formatPriceInfo,
         getFormattedMinPrice: priceRangeHelpers.getFormattedMinPrice,
+        lower: a => a.toLowerCase(),
         lookup: (obj, key) => {
             if (!obj) {
                 return false
@@ -139,7 +140,25 @@ app.engine('hbs', handlebars({
             return [n_full, n_half, n_empty] 
         },
         tern: (con, o1, o2) => con ? o1 : o2,
-        flr: (n, m) => Math.floor(n * m) / m
+        flr: (n, m) => Math.floor(n * m) / m,
+        percentile: v => {
+            let lastDigit = String(v)
+            let last2Digits = lastDigit.substr(lastDigit.length - 2, 2)
+            lastDigit = lastDigit[lastDigit.length - 1]
+            switch (last2Digits) {
+                case '11': return v + 'th percentile'
+                case '12': return v + 'th percentile'
+                case '13': return v + 'th percentile'
+            }
+            switch (lastDigit) {
+                case '1': return v + 'st percentile'
+                case '2': return v + 'nd percentile'
+                case '3': return v + 'rd percentile' 
+            }
+            return v + 'th percentile'
+        },
+        perc: a => a * 100,
+        div: (a,b) => a / b
     }
 }));
 

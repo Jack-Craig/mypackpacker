@@ -14,19 +14,18 @@
         </div>
     </div>
     <div class="detail-body">
-        <div class="detail-col img-col">
+        <div id="product-image-container" class="detail-col img-col">
             <div class="breadcrumb-container">
                 <a href="/pack/{{category._id}}" class="breadcrumb">{{category.displayName}}</a>
                 .
                 <a href="" class="breadcrumb">{{product.displayName}}</a>
             </div>
             <div class="detail-image-container">
-                <img src="{{reqDim product.productInfo.pictures.[0] 400}}">
+                <img src="{{reqDim product.productInfo.pictures.[0] 500}}">
             </div>
         </div>
-        <div class="detail-col sources-col">
+        <div id="product-sources-container" class="detail-col sources-col">
             <h3 class="table-header">Prices</h3>
-
             <table class="pricing-table nocollapse">
                 <thead class="nocollapse">
                     <tr class="nocollapse">
@@ -61,107 +60,122 @@
             </table>
             <span>Note: More sources coming soon.</span>
         </div>
-        <div class="detail-col atp-column">
-            <div class="atp-info-box">
-                <h2>Pack It</h2>
-                <div class="atp-pack-difs">
-                    <div class="dif-row">
-                        <div class="dif-header">
-                            Total Price
-                        </div>
-                        <div class="dif-content">
-                            <span>${{flr (tern userPack userPack.priceRange.minPrice 0) 100}}</span>
-                            <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                                </svg>
-                            </span>
-                            <span>
-                                ${{flr (plus (tern userPack userPack.priceRange.minPrice 0)
-                                product.lowestPriceRange.minPrice) 100}}
-                            </span>
-                        </div>
-                        {{#if (eq category.weightCat 'worn')}}
-                        <div class="dif-header">
-                            Worn Weight
-                        </div>
-                        <div class="dif-content">
-                            <span>{{getDisplayWeight (tern userPack userPack.wornWeight 0) 'g'
-                                user.preferredUOM}}</span>
-                            <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                                </svg>
-                            </span>
-                            <span>
-                                {{getDisplayWeight (plus (tern userPack userPack.wornWeight 0)
-                                product.productInfo.weight) 'g' user.preferredUOM}}
-                            </span>
-                        </div>
-                        {{else}}
-                        <div class="dif-header">
-                            Base Weight
-                        </div>
-                        <div class="dif-content">
-                            <span>{{getDisplayWeight (tern userPack userPack.baseWeight 0) 'g'
-                                user.preferredUOM}}</span>
-                            <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                                </svg>
-                            </span>
-                            <span>
-                                {{getDisplayWeight (plus (tern userPack userPack.baseWeight 0)
-                                product.productInfo.weight) 'g' user.preferredUOM}}
-                            </span>
-                        </div>
-                        {{/if}}
-                        <div class="dif-header">
-                            Total Weight
-                        </div>
-                        <div class="dif-content">
-                            <span>{{getDisplayWeight (tern userPack userPack.totalWeight 0) 'g'
-                                user.preferredUOM}}</span>
-                            <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                                </svg>
-                            </span>
-                            <span>
-                                {{getDisplayWeight (plus (tern userPack userPack.totalWeight 0)
-                                product.productInfo.weight) 'g' user.preferredUOM}}
-                            </span>
-                        </div>
+        <div id="product-rel-stats-container" class="product-statistics-container">
+            {{> productStatistic rText="More expensive" pt=product.productInfo.type c=category displayName="Price" type="list"
+            statistic=(lookup product.relStats
+            'fP') v=(getFormattedMinPrice product)}}
+            {{> productStatistic rText="Heavier" pt=product.productInfo.type c=category displayName="Weight" type="list"
+            statistic=(lookup product.relStats
+            'fW') v=(getDisplayWeight (lookup product 'productInfo.weight') 'g' user.preferredUOM)}}
+            {{> productStatistic rText="Higher rated" pt=product.productInfo.type c=category displayName="Rating" type="list"
+            statistic=(lookup product.relStats
+            'rat') v=product.productInfo.rating.r}}
+            {{#each category.filters}}
+            {{#if (idEq this.t 'list')}}
+            {{> productStatistic
+            pt=../product.productInfo.type rText=this.relText displayName=this.labelText
+            type=this.t statistic=(lookup
+            ../product.relStats this.vsKey) v=(lookup ../product this.key) suffix=this.suffix}}
+            {{/if}}
+            {{/each}}
+        </div>
+        <div id="product-atp-container" class="atp-info-box">
+            <h2>Pack It</h2>
+            <div class="atp-pack-difs">
+                <div class="dif-row">
+                    <div class="dif-header">
+                        Total Price
+                    </div>
+                    <div class="dif-content">
+                        <span>${{flr (tern userPack userPack.priceRange.minPrice 0) 100}}</span>
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                            </svg>
+                        </span>
+                        <span>
+                            ${{flr (plus (tern userPack userPack.priceRange.minPrice 0)
+                            product.lowestPriceRange.minPrice) 100}}
+                        </span>
+                    </div>
+                    {{#if (eq category.weightCat 'worn')}}
+                    <div class="dif-header">
+                        Worn Weight
+                    </div>
+                    <div class="dif-content">
+                        <span>{{getDisplayWeight (tern userPack userPack.wornWeight 0) 'g'
+                            user.preferredUOM}}</span>
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                            </svg>
+                        </span>
+                        <span>
+                            {{getDisplayWeight (plus (tern userPack userPack.wornWeight 0)
+                            product.productInfo.weight) 'g' user.preferredUOM}}
+                        </span>
+                    </div>
+                    {{else}}
+                    <div class="dif-header">
+                        Base Weight
+                    </div>
+                    <div class="dif-content">
+                        <span>{{getDisplayWeight (tern userPack userPack.baseWeight 0) 'g'
+                            user.preferredUOM}}</span>
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                            </svg>
+                        </span>
+                        <span>
+                            {{getDisplayWeight (plus (tern userPack userPack.baseWeight 0)
+                            product.productInfo.weight) 'g' user.preferredUOM}}
+                        </span>
+                    </div>
+                    {{/if}}
+                    <div class="dif-header">
+                        Total Weight
+                    </div>
+                    <div class="dif-content">
+                        <span>{{getDisplayWeight (tern userPack userPack.totalWeight 0) 'g'
+                            user.preferredUOM}}</span>
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                            </svg>
+                        </span>
+                        <span>
+                            {{getDisplayWeight (plus (tern userPack userPack.totalWeight 0)
+                            product.productInfo.weight) 'g' user.preferredUOM}}
+                        </span>
                     </div>
                 </div>
-                <button class="action-button-inv atp-button-main" data-id="{{product._id}}" id="atp-button">Add to
-                    Pack</button>
             </div>
+            <button class="action-button-inv atp-button-main" data-id="{{product._id}}" id="atp-button">Add to
+                Pack</button>
+        </div>
+        <div id="product-info-container" class="non-comp-specbox">
+            {{#each category.filters}}
+            {{#if (idEq this.t 'in')}}
+            <div>
+                <div class="spec-header">
+                    <span>
+                        {{this.labelText}}
+                    </span>
+                </div>
+                <div class="spec-data">
+                    <span>
+                        {{lookup ../product this.key}}
+                    </span>
+                </div>
+            </div>
+            {{/if}}
+            {{/each}}
         </div>
     </div>
-
-    <div class="product-statistics-container">
-        <h2>The Specs</h2>
-        {{> productStatistic c=category.displayName displayName="Weight" type="list" statistic=(lookup product.relStats
-        'fW') v=(getDisplayWeight (lookup product 'productInfo.weight') 'g' user.preferredUOM)}}
-        {{> productStatistic c=category.displayName displayName="Price" type="list" statistic=(lookup product.relStats
-        'fP') v=(getFormattedMinPrice product)}}
-        {{> productStatistic c=category.displayName displayName="Rating" type="list" statistic=(lookup product.relStats
-        'rat') v=product.productInfo.rating.r}}
-        {{#each category.filters}}
-        {{#if (idEq this.t 'list')}}
-        {{> productStatistic c=category.displayName displayName=this.labelText type=this.t statistic=(lookup
-        ../product.relStats this.vsKey) v=(lookup ../product this.key) suffix=this.suffix}}
-        {{/if}}
-        {{/each}}
-    </div>
-    <label class="graphic-label">*Majority means percent of gear items on MyPackPacker in this category with a spec
-        value LESS than this item.</label>
-    <label class="graphic-label">*Percentile mean gear items on MyPackPacker in this category that SHARE the spec
-        value.</label>
 </main>
 <script src="/js/product.js"></script>
