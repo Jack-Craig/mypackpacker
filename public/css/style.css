@@ -1,5 +1,5 @@
 html {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Noto Sans JP', sans-serif;
 	background-color: #126b96;
 }
 label {
@@ -43,13 +43,13 @@ select {
 	font-size: 24px !important;
 }
 .main-nav {
-  height: 120px;
+  height: 90px;
   display: flex;
   flex-direction: column;
-  position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 1px 5px;
+  border-bottom: 1px lightgray solid;
+  /**box-shadow: 0 1px 5px; */
 }
 .main-nav-main {
 	padding: 0 min(200px, 6%) 0 min(200px, 6%);
@@ -74,7 +74,7 @@ select {
 	min-width: 0px;
 	text-decoration: none;
 	color: black;
-	font-size: 22px;
+	font-size: 18px;
 	font-weight: 600;
 }
 .user-button, .user-button:visited {
