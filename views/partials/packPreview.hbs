@@ -1,0 +1,20 @@
+<div class="product-preview">
+    <div class="product-preview-image-container">
+        <img src="http://rei.com/media/c5dd81e7-d1a5-41e6-800f-8f3bb8bb58b4?size=500x500">
+    </div>
+    <div class="product-preview-detail-container">
+        <div>
+            <span class="p-cat">{{product.brand}}</span>
+            {{>fiveStars product=product}}
+        </div>
+        <div>
+            <h2 class="p-name">{{product.displayName}}</h2>
+            <div class="d-p">
+                <span>{{getFormattedMinPrice product}}</span>
+                {{> icons/dot}}
+                <span>{{getDisplayWeight product.productInfo.weight 'g' user.preferredUOM}}</span>
+            </div>
+        </div>
+        <a class="action-button p-cta" href="/pack/backpacks/{{product._id}}">Check It Out</a>
+    </div>
+</div>

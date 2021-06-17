@@ -158,7 +158,8 @@ app.engine('hbs', handlebars({
             return v + 'th percentile'
         },
         perc: a => a * 100,
-        div: (a,b) => a / b
+        div: (a,b) => a / b,
+        mult: (a,b) => a * b
     }
 }));
 
