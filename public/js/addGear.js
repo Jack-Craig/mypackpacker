@@ -2,7 +2,6 @@ const onUOMSelectChange = e => {
     const $el = $(e.target)
     const newUOM = $el.val()
     const idx = $el.attr('data-index')
-    console.log(idx, Boolean(idx))
     if (idx) {
         const targetInput = $(`#container-weight-${idx} > input`)
         setWeightData(targetInput, $el, newUOM)
@@ -11,7 +10,6 @@ const onUOMSelectChange = e => {
         let i = 0
         let targetContainer = $(`#container-weight-${i}`)
         while (targetContainer.length) {
-            console.log('Setting!', i)
             const targetSelect = $(`#container-weight-${i} > select`)
             targetSelect.val(newUOM)
             setWeightData($(`#container-weight-${i} > input`), targetSelect, newUOM)
@@ -79,7 +77,6 @@ const setSelectedValue = (baseId, value, isCheckbox = false) => {
                 if (baseId === 'new-gear-weight') {
                     const uomSelect = $(`#container-weight-${i} > select`)
                     const newUOM = $('.add-gear-uom[data-index=""]').val()
-                    console.log(uomSelect.length)
                     uomSelect.attr('data-prevUOM', newUOM)
                     uomSelect.val(newUOM)
                 }

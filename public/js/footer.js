@@ -6,7 +6,6 @@ $('#cancel-bug-report').on('click', e => {
 })
 $('#report-bug-form').on('submit', e => {
     e.preventDefault()
-    console.log('Submit!')
     $.post('/api/messages/create', {
         type: 'bugreport',
         isAdminMessage: true,

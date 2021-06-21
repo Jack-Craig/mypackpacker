@@ -65,7 +65,7 @@
             val-store-key="{{this.vsKey}}" step="{{this.step}}"></div>
     </div>
     {{/if}}
-    {{#if (and (eq this.t 'in') (gt (length (lookup ../filterData.vsStore this.vsKey)) 1))}}
+    {{#if (and (or (eq this.t 'in') (eq this.t 'inter')) (gt (length (lookup ../filterData.vsStore this.vsKey)) 1))}}
     <div class="multi-select-container">
         <label>{{this.labelText}}</label>
         <ul val-store-key="{{this.vsKey}}" id="{{this.vsKey}}" class="multi-select-list filter-field"

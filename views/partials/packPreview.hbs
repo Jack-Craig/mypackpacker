@@ -1,20 +1,26 @@
-<div class="product-preview">
-    <div class="product-preview-image-container">
-        <img src="http://rei.com/media/c5dd81e7-d1a5-41e6-800f-8f3bb8bb58b4?size=500x500">
-    </div>
-    <div class="product-preview-detail-container">
-        <div>
-            <span class="p-cat">{{product.brand}}</span>
-            {{>fiveStars product=product}}
-        </div>
-        <div>
-            <h2 class="p-name">{{product.displayName}}</h2>
+<a href="/completed/{{pack._id}}" class="product-preview-shell">
+    <div class="product-preview">
+        <div class="product-preview-detail-container">
+            <h1 class="p-name">{{pack.displayName}}</h1>
+            <div>
+                <span>{{getFirstSentence pack.description}}</span>
+            </div>
+            <div class="tent-bag-pack">
+                <span>{{pack.build.tent.displayName}}</span>
+                <span>{{pack.build.backpack.displayName}}</span>
+                <span>{{pack.build.bag.displayName}}</span>
+            </div>
             <div class="d-p">
-                <span>{{getFormattedMinPrice product}}</span>
-                {{> icons/dot}}
-                <span>{{getDisplayWeight product.productInfo.weight 'g' user.preferredUOM}}</span>
+                <span>{{formatMinPrice pack.priceRange}}</span>
+                <span>{{getDisplayWeight pack.totalWeight 'g' user.preferredUOM}}</span>
             </div>
         </div>
-        <a class="action-button p-cta" href="/pack/backpacks/{{product._id}}">Check It Out</a>
+        <div class="padding-wall">
+            <div class="product-preview-image-container">
+            <img class="sub-image" src="{{pack.build.tent.productInfo.pictures.[0]}}">
+            <img class="sub-image" src="{{pack.build.backpack.productInfo.pictures.[0]}}">
+            <img class="sub-image" src="{{pack.build.bag.productInfo.pictures.[0]}}">
+            </div>
+        </div>
     </div>
-</div>
+</a>

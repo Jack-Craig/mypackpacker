@@ -25,7 +25,7 @@ module.exports = function (passport) {
                         }
                     })
                 })
-                .catch((err) => { console.log(err) })
+                .catch((err) => { console.error(err) })
         })
     )
     
@@ -59,7 +59,7 @@ module.exports = function (passport) {
         User.findById(user._id).lean().then(u => {
             done(null, u)
         }).catch(e => {
-            console.log(e)
+            console.error(e)
             done(e, user)
         })
     })

@@ -1,50 +1,46 @@
 var express = require('express')
 var router = express.Router()
-const { performance } = require('perf_hooks')
 
 const BuildModel = require('../models/Build')
 const ImageModel = require('../models/Image')
+const ProductModel = require('../models/Product')
 
 // define the home page route
 router.get('/', async (req, res) => {
-  const featuredList = [{
-    _id: '6005252e046acb39d02a5f94',
-    brand: 'REI Co-op',
-    categoryID: 'backpacks',
-    displayName: "REI Co-op Trailbreak 60 Pack - Men's",
-    lowestPriceRange: {
-      minPrice: 149,
-      maxPrice: null
-    },
-    productInfo: {
-      weight: 1728,
-      type: 'Backpacking Packs',
-      rating: {
-        r: 4.8,
-        n: 12
+  const promiseList = [
+    // Featured Packs
+    ProductModel.find({ featured: true }).lean(),
+    // Featured Builds
+    BuildModel.aggregate([
+      { $match: {featured: true}},
+      {$lookup: {
+        from: 'products',
+        localField: 'build',
+        foreignField: '_id',
+        as: 'build'
+      }}
+    ]),
+    // Highest rated builds
+    BuildModel.aggregate([{ $match: { published: true } }, { $sort: { upvotes: -1 } }, { $limit: 3 }, { $lookup: { from: 'users', localField: 'authorUserID', foreignField: '_id', as: 'authorUserObj' } }, { $unwind: '$authorUserObj' }])
+  ]
+  Promise.all(promiseList).then(results => {
+    // Join featured packs and builds
+    let featuredPacks = results[1]
+    for (let pack of featuredPacks) {
+      let p = {}
+      for (const product of pack.build) {
+        if (p.hasOwnProperty('backpack') && p.hasOwnProperty('tent') && p.hasOwnProperty('bag')) {
+          break
+        }
+        switch (product.categoryID) {
+          case 'backpacks': p.backpack = product; break;
+          case 'tents': p.tent = product; break;
+          case 'sleeping-bags': p.bag = product; break; 
+        }
       }
+      pack.build = p
     }
-  },
-  {
-    _id: '6005252e046acb39d02a5f94',
-    brand: 'REI Co-op',
-    categoryID: 'backpacks',
-    displayName: "REI Co-op Trailbreak 60 Pack - Men's",
-    lowestPriceRange: {
-      minPrice: 149,
-      maxPrice: null
-    },
-    productInfo: {
-      weight: 1728,
-      type: 'Backpacking Packs',
-      rating: {
-        r: 4.8,
-        n: 12
-      }
-    }
-  }]
-  BuildModel.aggregate([{ $match: { published: true } }, { $sort: { upvotes: -1 } }, { $limit: 3 }, { $lookup: { from: 'users', localField: 'authorUserID', foreignField: '_id', as: 'authorUserObj' } }, { $unwind: '$authorUserObj' }]).then(async docs => {
-    res.render('main', { user: req.user, communityPacks: docs, featuredList: featuredList })
+    res.render('main', { user: req.user, communityPacks: results[2], featuredProducts: results[0], featuredPacks: results[1] })
   }).catch(err => {
     console.log(err)
     res.render('main', { user: req.user })

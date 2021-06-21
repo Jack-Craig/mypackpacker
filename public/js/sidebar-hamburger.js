@@ -14,7 +14,12 @@ $('.hamburger-menu').on('click', e => {
 $('.hamburger-menu-exit-container').on('click', e => {
     $('main').css('min-height', initHeight)
     const id = e.currentTarget.getAttribute('rel-id')
-    console.log(id)
     const sidebar = $(`#${id}`)
-    sidebar.animate({ left: '-' + sidebar.css('width') }, {}, () => sidebar.css('display', 'none'))
+    sidebar.animate(
+        { left: '-' + sidebar.css('width') },
+        () => {
+            if (id === 'main-side')
+                sidebar.addClass('hidden')
+        }
+    )
 })

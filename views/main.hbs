@@ -1,7 +1,6 @@
 <main class="landing-main">
     <div class="landing-image-wrapper">
-        <img class="landing-image"
-            src="https://mypackpacker-static.s3.us-west-2.amazonaws.com/holly-mandarich-UVyOfX3v0Ls-unsplash.jpg">
+        <img class="landing-image" src="https://mypackpacker-static.s3.us-west-2.amazonaws.com/landing-background2.jpg">
         <div class="image-overlay image-overlay-shaded landing-cta-container">
             <div class="landing-cta-c1">
                 <span class="welcome-home">
@@ -12,13 +11,11 @@
             </div>
             <div class="landing-cta-c2">
                 <div class="slideshow-container">
-                {{#each featuredList}}
-                <div class="slideshow-panel {{#if (eq @index 0)}}animate-copy{{/if}}">
-                <div class="cta-rec">
-                    {{> productPreview product=this}}
-                </div>
-                </div>
-                {{/each}}
+                    {{#each featuredPacks}}
+                    <div class="slideshow-panel {{#if (eq @index 0)}}animate-copy{{else}}ip-loading{{/if}}">
+                        {{> packPreview pack=this}}
+                    </div>
+                    {{/each}}
                 </div>
             </div>
         </div>

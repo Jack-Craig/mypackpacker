@@ -163,8 +163,6 @@ router.get('/add/:id', async (req, res) => {
         let id = req.session.activePackId
         if (!req.session.activePackId)
           id = new ObjectId()
-        console.log(id)
-        console.log(req.session)
         BuildModel.findByIdAndUpdate(id, {...update, sessionID: sessionID}, {setDefaultsOnInsert: true, new:true, upsert: true}).lean().then(async newDoc => {
           if (req.session.activePackId !== newDoc._id)
             req.session.activePackId = newDoc._id
@@ -211,7 +209,6 @@ router.get('/remove/:id', async (req, res) => {
     })
   } else {
     const s = req.session
-    console.log(s)
     BuildModel.findByIdAndUpdate(s.activePackId, update, { upsert: false }).lean().then(() => {
       res.sendStatus(200)
     }).catch(e => {
@@ -310,6 +307,13 @@ router.get('/:categoryID', async (req, res) => {
     categoryFilters: [{ t: 'list', labelText: 'Rating', vsKey: 'rat', step: .5, suffix: ' stars' }, ...category.filters],
     vsStore: category.vsStore
   }
+  filterData.categoryFilters.sort((a, b) => {
+    if (a.t === 'list' && b.t === 'list')
+      return 0
+    if (a.t==='in'||a.t==='inter')
+      return 1
+    return -1
+  })
   res.render('category', { category: category, user: req.user, filterData: filterData, sortVal: req.query.sort })
 })
 

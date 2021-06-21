@@ -66,6 +66,7 @@ app.engine('hbs', handlebars({
         getDisplayPrice: priceRangeHelpers.getDisplayPrice,
         formatPriceInfo: priceRangeHelpers.formatPriceInfo,
         getFormattedMinPrice: priceRangeHelpers.getFormattedMinPrice,
+        formatMinPrice: priceRangeHelpers.formatMinPrice,
         lower: a => a.toLowerCase(),
         lookup: (obj, key) => {
             if (!obj) {
@@ -159,7 +160,8 @@ app.engine('hbs', handlebars({
         },
         perc: a => a * 100,
         div: (a,b) => a / b,
-        mult: (a,b) => a * b
+        mult: (a,b) => a * b,
+        getFirstSentence: a => a.split('.')[0] + '.' // Could do firstIndexOf and then substring, might be better big O
     }
 }));
 

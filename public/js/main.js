@@ -1,26 +1,24 @@
 {
-    const animDelay = 8000
+    const animDelay = 7000
     const animDur = 400
+    $('.slideshow-panel:not(.animate-copy)').css('top', '-'+$('.animate-copy').css('height'))
     const runFrame = () => {
-        const parentElem = $('.landing-image-wrapper')
         const windowElem = $('.slideshow-container')
-        const pp = parentElem.offset()
         const curSlide = $('.animate-copy')
+        
         let newSlide = curSlide.next()
         if (!newSlide.length) {
             newSlide = $('.slideshow-container').children().first()
         }
-        console.log(windowElem.offset())
-        console.log(windowElem.css('height'))
         
         curSlide.animate({
             top: windowElem.css('height')
         }, animDur,()=> {
             curSlide.css('top', '-'+curSlide.css('height'))
-            curSlide.addClass('hidden')
+            curSlide.addClass('ip-loading')
         })
                 
-        newSlide.removeClass('hidden').animate({
+        newSlide.removeClass('ip-loading').animate({
             top: '0%',
         }, animDur)
 
@@ -29,5 +27,4 @@
       
     }
     setInterval(runFrame, animDelay)
-    runFrame()
 }

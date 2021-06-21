@@ -1,7 +1,7 @@
 const typeQueryConv = {
     'list': v => {const [v1,v2] = v.split(',');return {'$gte': parseFloat(v1), '$lte': parseFloat(v2)}},
     'bool': v => {return {v}},
-    'inter': v => {const l = v.split(',');return{$setIntersection:l}},
+    'inter': v => {const l = v.split(',');return{$elemMatch:{$in: l}}},
     'in': v => {
         if (v === '*') {
             return {$exists: true}

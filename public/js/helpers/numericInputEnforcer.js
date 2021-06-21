@@ -8,7 +8,6 @@ const enforceNumericValue = (e) => {
 
     while (targetV.length) {
         targetV = targetV.slice(0, targetV.length - 1)
-        console.log(targetV)
         targetN = parseFloat(targetV)
         if (!isNaN(targetN)) {
             e.target.value = targetN

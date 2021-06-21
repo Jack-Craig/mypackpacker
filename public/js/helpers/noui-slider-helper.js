@@ -3,7 +3,7 @@ $('.double-slider').each((idx, elem) => {
     const start = Math.floor(parseFloat(elem.getAttribute('min')))
     const end = Math.ceil(parseFloat(elem.getAttribute('max')))
     if (start == end || (isNaN(start) && isNaN(end))) {
-        $(elem).parent().addClass('hidden')
+        $(elem).removeClass('double-slider').parent().addClass('hidden')
         return
     }
     let prefix = elem.getAttribute('prefix')
@@ -17,7 +17,6 @@ $('.double-slider').each((idx, elem) => {
     if (vsKey) {
         const urlParams = new URLSearchParams(window.location.search)
         if (urlParams.has(vsKey)) {
-            console.log('vskey:', urlParams.get(vsKey))
             const rangeArr = urlParams.get(vsKey).split(',')
             if (elem.hasAttribute('data-uom')) {
                 const uom = elem.getAttribute('data-uom')

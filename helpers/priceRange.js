@@ -25,6 +25,15 @@ const formatPriceInfo =  priceInfoSub => {
     }
     return `$${priceInfoSub.priceRange.minPrice}`
 }
+// Currently only used for packs on main slideshow, maybe will also move to mobile versions for everything
+const formatMinPrice = priceInfoSub => {
+    if (priceInfoSub == null)
+        return '$0'
+    let suffix = ''
+    if (priceInfoSub.hasOwnProperty('maxPrice'))
+        suffix = '+'
+    return `$${Math.round(priceInfoSub.minPrice*100) / 100}${suffix}`
+}
 const getLast = array => {
     if (array.length > 0)
         return array[array.length - 1]
@@ -42,3 +51,4 @@ module.exports.getDisplayPrice = getDisplayPrice
 module.exports.formatPriceInfo = formatPriceInfo
 module.exports.getLast = getLast
 module.exports.getFormattedMinPrice = getFormattedMinPrice 
+module.exports.formatMinPrice = formatMinPrice

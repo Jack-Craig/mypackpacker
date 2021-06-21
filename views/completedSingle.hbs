@@ -1,8 +1,10 @@
 <main>
-    <div class="pack-complete-container">
+    <div class="pack-complete-container {{#unless pack.published}} pack-no-image {{/unless}}">
+        {{#if pack.published}}
         <div class="image-banner">
             <img src="https://d1dfp97r2mlr1c.cloudfront.net/{{pack._id}}-full.png">
         </div>
+        {{/if}}
         <div>
             <div class="completed-single-header">
                 <h1>{{pack.displayName}}</h1>
@@ -15,7 +17,7 @@
                             {{> icons/thumbsUpFull}}
                         </div>
                         <div class="vote-unfilled {{#if @root.didUserUpvote}}hidden{{/if}}">
-                           {{> icons/thumbsUp}}
+                            {{> icons/thumbsUp}}
                         </div>
 
                     </button>
@@ -24,21 +26,26 @@
                     <button class="data-button pack-vote-button downvote" data-way="downvote" data-rel-id="{{pack._id}}"
                         {{#if user}}data-u="t" {{/if}}>
                         <div class="vote-filled {{#unless @root.didUserDownvote}}hidden{{/unless}}">
-                           {{> icons/thumbsDownFull}}
+                            {{> icons/thumbsDownFull}}
                         </div>
                         <div class="vote-unfilled {{#if @root.didUserDownvote}}hidden{{/if}}">
-                          {{> icons/thumbsDown}}
+                            {{> icons/thumbsDown}}
                         </div>
                     </button>
 
                 </div>
+
+                {{#if pack.published}}
                 <div class="published-report-container">
                     {{>report repType="pack" repID=pack._id }}
                 </div>
+                {{/if}}
             </div>
+            {{#if pack.published}}
             <div class="completed-single-subheader">
                 <span>Shared by </span><span class="emphasized-span">{{pack.authorUserObj.username}}</span>
             </div>
+            {{/if}}
             <p>{{pack.description}}</p>
         </div>
     </div>

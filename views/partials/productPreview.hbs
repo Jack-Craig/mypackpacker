@@ -1,6 +1,6 @@
 <div class="product-preview">
     <div class="product-preview-image-container">
-        <img src="http://rei.com/media/c5dd81e7-d1a5-41e6-800f-8f3bb8bb58b4?size=500x500">
+        <img src="{{product.productInfo.pictures.[0]}}">
     </div>
     <div class="product-preview-detail-container">
         <div>
@@ -15,6 +15,6 @@
                 <span>{{getDisplayWeight product.productInfo.weight 'g' user.preferredUOM}}</span>
             </div>
         </div>
-        <a class="action-button p-cta" href="/pack/backpacks/{{product._id}}">Check It Out</a>
+        <a class="action-button p-cta" href="/pack/{{product.categoryID}}/{{product._id}}">Check It Out</a>
     </div>
 </div>

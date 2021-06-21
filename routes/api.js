@@ -19,7 +19,7 @@ router.get('/image/:assId/:subId', (req, res) => {
         res.send({ src: src })
     }).catch(err => {
         res.sendStatus(500)
-        console.log(err)
+        console.error(err)
     })
 })
 

@@ -1,9 +1,8 @@
 {{>packData categoryList=categoryList pack=buildData editable=true}}
 {{assign 'uom' user.preferredUOM}}
-{{log buildData}}
 <div id="build-quickstats-data" data-uom="{{#if user.preferredUOM}}{{user.preferredUOM}}{{else}}lb{{/if}}"
-    data-displayPrice="{{formatPriceInfo buildData.priceRange}}" data-displayWorn={{getDisplayWeight buildData.wornWeight 'g'
-    @root.uom}} data-base-worn={{buildData.wornWeight}} data-displayBase={{getDisplayWeight buildData.baseWeight 'g' @root.uom}}
-    data-base-base={{buildData.baseWeight}} data-displayTotal={{getDisplayWeight buildData.totalWeight 'g' @root.uom}}
-    data-base-total={{buildData.totalWeight}}>
+    data-displayPrice="{{formatPriceInfo buildData.priceRange}}" data-displayWorn={{getDisplayWeight
+    buildData.wornWeight 'g' @root.uom}} data-base-worn={{buildData.wornWeight}} data-displayBase={{getDisplayWeight
+    buildData.baseWeight 'g' @root.uom}} data-base-base={{buildData.baseWeight}} data-displayTotal={{getDisplayWeight
+    buildData.totalWeight 'g' @root.uom}} data-base-total={{buildData.totalWeight}}>
 </div>
