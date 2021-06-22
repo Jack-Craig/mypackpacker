@@ -1,21 +1,22 @@
-<button class="share-pack-button data-button" data-pack-id="{{buildData._id}}">
-  {{> icons/share}}
+<button class="share-pack-button data-button" data-mod-id="share-{{buildData._id}}">
+    {{> icons/share}}
 </button>
-<div class="modal hidden" id="share-modal">
+<div class="modal hidden" id="share-{{buildData._id}}">
     <div class="modal-content share-build">
-        <h2>Share</h2>
-        <span>
-            <input readonly id="share-pack-input"
-                value="www.mypackpacker.com/{{#if buildData.published}}completed{{else}}packs{{/if}}/{{buildData._id}}"
-                class="share-input">
-            <button class="data-button" id="copy-share">copy</button>
+        <span class="modal-message" id="notif-{{buildData._id}}">
+            Copied To Clipboard!
         </span>
-        <div class="lone-button">
-            <button class="data-button" id="share-pack-cancel">close</button>
+        <h2>Share</h2>
+        <input readonly id="copy-{{buildData._id}}"
+            value="www.mypackpacker.com/{{#if buildData.published}}completed{{else}}packs{{/if}}/{{buildData._id}}"
+            class="share-input">
+        <div class="pack-tab-header">
+            <button class="data-button delete share-pack-cancel" data-mod-id="share-{{buildData._id}}">close</button>
+            <button class="data-button copy-share" data-mod-id="copy-{{buildData._id}}">copy</button>
         </div>
     </div>
 </div>
 {{#unless @root.shareScriptLoaded}}
 {{assign 'shareScriptLoaded' true}}
-<script src="/js/share.js"></script>
+<script defer src="/js/share.js"></script>
 {{/unless}}

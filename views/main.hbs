@@ -1,24 +1,28 @@
 <main class="landing-main">
     <div class="landing-image-wrapper">
         <img class="landing-image" src="https://mypackpacker-static.s3.us-west-2.amazonaws.com/landing-background2.jpg">
-        <div class="image-overlay image-overlay-shaded landing-cta-container">
-            <div class="landing-cta-c1">
-                <span class="welcome-home">
-                    <span>Backpacking Gear</span>
-                    <span>Made Simple</span>
-                </span>
-                <a class="primary-cta-home" href="/pack">Start Packing</a>
-            </div>
-            <div class="landing-cta-c2">
-                <div class="slideshow-container">
-                    {{#each featuredPacks}}
-                    <div class="slideshow-panel {{#if (eq @index 0)}}animate-copy{{else}}ip-loading{{/if}}">
-                        {{> packPreview pack=this}}
+        <div class="image-overlay image-overlay-shaded">
+            <div class="landing-cta-container">
+                <div class="landing-cta-c1">
+                    <span class="welcome-home">
+                        <span>Backpacking Gear</span>
+                        <span>Made Simple</span>
+                    </span>
+                    <a class="primary-cta-home" href="/pack">Start Packing</a>
+                </div>
+                <div class="landing-cta-c2">
+                    <div class="slideshow-container">
+                        {{#each featuredPacks}}
+                        <div class="slideshow-panel {{#if (eq @index 0)}}animate-copy{{else}}ip-loading{{/if}}">
+                            {{> packPreview pack=this}}
+                        </div>
+                        {{/each}}
                     </div>
-                    {{/each}}
                 </div>
             </div>
+
         </div>
+    </div>
     </div>
     <div class="landing-page-content">
         <div class="plan-compare-share">

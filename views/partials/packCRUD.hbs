@@ -1,10 +1,9 @@
-{{#unless @root.scriptLoadedCrud}}
-<script src="/js/packCRUD.js"></script>
-{{/unless}}
 <div class="grid-tab-header">
     <form class="title-input-form" data-pack-id="{{pack._id}}">
-        <input class="title-input {{#if (idEq pack.displayName 'New Pack')}} default-name {{/if}}" id="{{pack._id}}-title"
-            data-pack-id="{{pack._id}}" maxlength="24" role="textbox" value="{{pack.displayName}}"></form>
+        <input class="title-input {{#if (idEq pack.displayName 'New Pack')}} default-name {{/if}}"
+            id="{{pack._id}}-title" data-pack-id="{{pack._id}}" maxlength="24" role="textbox"
+            value="{{pack.displayName}}">
+    </form>
     <div class="pack-edit-container">
         {{>shareBuild buildData=pack}}
         {{#unless isEdit}}
@@ -12,7 +11,7 @@
         {{/unless}}
         {{#if user}}
         <button class='data-button delete data-delete-button' data-pack-id="{{pack._id}}">Delete</button>
-      
+
         <button class='data-button publish data-publish-button' data-pack-id="{{pack._id}}">
             {{#if pack.published}}
             View
@@ -31,7 +30,7 @@
             <p>
                 Doing so will permentantly delete and unpublish this pack.
             </p>
-            <div class="pack-tab-header"> 
+            <div class="pack-tab-header">
                 <button class="data-button delete no-dont-delete">Cancel</button>
                 <button data-id="{{pack._id}}" class="data-button yes-delete">Yes, delete this pack</button>
             </div>
@@ -39,3 +38,6 @@
     </div>
 </div>
 {{/if}}
+{{#unless @root.scriptLoadedCrud}}
+<script src="/js/packCRUD.js"></script>
+{{/unless}}
