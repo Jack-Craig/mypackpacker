@@ -1,11 +1,11 @@
 :root {
-	--primary-color: #126b96;
-	--secondary-color: #1747fa;
-	--tertiary-color: #266f5d;
-	--tertiary-comp: #6f3326;
-	--variation-color: #d24814;
-	--variation-secondary-color: #ff851f;
-	--header-font: 'Noto Sans JP', sans-serif;
+
+	--primary-color: #063274;
+	--secondary-color: #538BF3;
+	--tertiary-color: #6AB2DE;
+	--variation-color: #ED9B02;
+
+	--header-font: 'Lato', sans-serif;;
 	--body-font: 'Poppins';
 }
 html {
@@ -15,7 +15,7 @@ html {
 h1, h2, h3, h4, h5, h6, a {
 	font-family: var(--header-font);
 }
-label {
+label { 
 	font-size: 10px;
 }
 td {
@@ -122,7 +122,7 @@ select {
 	font-weight: 600;
 }
 .site-actions a:hover, .user-button:hover {
-	color: var(--variation-color);
+	color: var(--secondary-color);
 }
 .site-actions a.selected {
 	border-bottom: 3px solid black;
@@ -385,7 +385,8 @@ footer {
 	width: 40%;
 }
 .tab-header button:hover {
-	background-color: rgba(255, 133, 31, 0.25);
+	background-color: var(--variation-color);
+	color: white;
 }
 button.folder-selected {
 	border: 1px solid black;
@@ -544,12 +545,15 @@ button.folder-selected {
 	box-shadow: 2px 2px 10px black;
 	color: white;
 	box-sizing: border-box;
-	border: 3px solid transparent;
+	border: 2px solid transparent;
 	max-height: 100%;
+	transform: scale(1);
+	transition: transform .4s ease;
 }
 .product-preview:hover {
 	box-shadow: none;
-	border: 3px solid var(--tertiary-comp);
+	transform: scale(1.04);
+	border: 2px solid var(--primary-color);
 }
 .product-preview *:not(h1) {
 	font-family: var(--body-font);
@@ -559,7 +563,7 @@ button.folder-selected {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	color: var(--variation-secondary-color);
+	color: var(--primary-color);
 }
 .tent-bag-pack > span {
 	margin: 1% 0 1% 0;
@@ -628,7 +632,6 @@ button.folder-selected {
 	justify-items: center;
 	font-size: 24px;
 	width: 100%;
-	color: white;
 }
 .product-preview-detail-container .p-name {
 	margin: 0px;
@@ -827,7 +830,8 @@ a > .pack-card {
 .non-comp-specbox > div {
 	border-radius: 10px;
 	padding: 10px;
-	background-color:rgba(38, 111, 93, .4);
+	color: black;
+	background-color: var(--primary-color);
 }
 .spec-data {
 	display: flex;
@@ -1050,7 +1054,7 @@ a .pack-card h3 {
 span.emphasized-span {
 	font-weight: 600;
 	font-size: 18px;
-	color: var(--variation-secondary-color);
+	color: var(--variation-color);
 }
 .completed-vote-container {
 	display: flex;
@@ -1190,7 +1194,7 @@ span.emphasized-span {
 	box-sizing: content-box;
 }
 .product-detail-main .detail-header {
-	background-color: var(--tertiary-color);
+	background-color: var(--secondary-color);
 	color: white;
 	padding: 20px;
 	text-align: center;
@@ -1206,7 +1210,7 @@ span.emphasized-span {
 }
 .r-detail-data {
 	font-size: 18px;
-	color: var(--variation-secondary-color);
+	color: var(--variation-color);
 }
 .image-a-src {
 	display: grid;
@@ -1259,10 +1263,10 @@ span.emphasized-span {
 	padding-right: 25px;
 	border-radius: 10px;
 	color: black;
-	box-shadow: inset 0 1px 5px var(--tertiary-color);
+	box-shadow: inset 0 1px 5px var(--secondary-color);
 }
 .gear-stat:nth-of-type(odd) {
-	background-color: var(--tertiary-color);
+	background-color: var(--secondary-color);
 	box-shadow: inset 0 1px 5px whitesmoke;
 	color: white;
 }
@@ -1287,7 +1291,7 @@ span.emphasized-span {
 .inner-bar {
 	width: 40px;
 	height: 10px;
-	background-color: var(--variation-secondary-color);
+	background-color: var(--variation-color);
 	border-radius: 5px 0px 0px 5px;
 }
 .bar-val-stick {
@@ -1390,7 +1394,7 @@ td.buy-on-site-td {
 	padding: 8px 20px 8px 20px;
 }
 .atp-info-box {
-	border:2px solid var(--tertiary-color);
+	border: 2px solid var(--primary-color);
 	text-align:center;
 	padding: 10px;
 	border-radius: 15px;
@@ -1622,7 +1626,7 @@ td.buy-on-site-td {
 	box-sizing:border-box;
 }
 .five-star-container {
-	color: var(--variation-secondary-color);
+	color: var(--variation-color);
 }
 .five-star-container span {
 	color: black;

@@ -40,6 +40,7 @@ router.get('/', async (req, res) => {
       }
       pack.build = p
     }
+    featuredPacks.reverse()
     res.render('main', { user: req.user, communityPacks: results[2], featuredProducts: results[0], featuredPacks: results[1] })
   }).catch(err => {
     console.log(err)
