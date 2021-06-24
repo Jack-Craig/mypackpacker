@@ -63,11 +63,30 @@
         {{/if}}
     </tr>
     {{#each this.subCategories}}
-    {{#if (lookup ../../buildData.build this._id)}}
-    {{#each (lookup ../../buildData.build this._id)}}
-    <tr class='data-table-data-row {{#if (gt @../index 0)}}first-of-cat-type{{/if}}'>
+    <tr class='data-table-data-row {{#if (gt @../index 0)}}first-of-cat-type pseudo-header-paint{{/if}} {{#if (lookup ../../buildData.build this._id)}}hidden{{/if}}' data-scat="{{this._id}}">
         <td class="non-data"></td>
-        <td class="display-name  {{#if (ne @index 0)}}non-data{{/if}}">
+        <td class='display-name'>
+            <a href="/pack/{{this._id}}" data-pack-id="{{../../buildData._id}}" class="{{#if (and (nt ../../editable) @root.userOwned)}}cat-to-main{{/if}} {{#unless (or ../../editable @root.userOwned)}}link-disabled
+                {{/unless}}">{{this.displayName}}</a>
+        </td>
+        <td class="non-data"></td>
+        <td class="non-data"> {{#if (or ../../editable @root.userOwned)}}<a href="/pack/{{this._id}}" data-pack-id="{{../../buildData._id}}" class="make-selection {{#if (and (nt ../../editable) @root.userOwned)}}cat-to-main{{/if}} {{#unless (or ../../editable @root.userOwned)}}link-disabled
+                {{/unless}}">Choose {{this.displayName}}</a>{{/if}}</td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        {{#if 0}}
+        {{#if ../../user}}
+        <td class="non-data"></td>
+        <td class="non-data"></td>
+        {{/if}}
+        {{/if}}
+        <td class="non-data"></td>
+    </tr>
+    {{#each (lookup ../../buildData.build this._id)}}
+    <tr class='data-table-data-row {{#if (gt @../index 0)}}first-of-cat-type{{/if}}' data-scat="{{../this._id}}">
+        <td class="non-data"></td>
+        <td class="display-name {{#if (ne @index 0)}}non-data{{/if}}">
             {{#if (eq @index 0)}}
             <a href="/pack/{{../this._id}}" data-pack-id="{{../../../buildData._id}}" class="{{#if (and (nt ../../editable) @root.userOwned)}}cat-to-main{{/if}}">
                 {{../this.displayName}}
@@ -124,30 +143,9 @@
         </td>
     </tr>
     {{/each}}
-    {{else}}
-    <tr class='data-table-data-row {{#if (gt @../index 0)}}first-of-cat-type pseudo-header-paint{{/if}}'>
-        <td class="non-data"></td>
-        <td class='display-name'>
-            <a href="/pack/{{this._id}}" data-pack-id="{{../../buildData._id}}" class="{{#if (and (nt ../../editable) @root.userOwned)}}cat-to-main{{/if}} {{#unless (or ../../editable @root.userOwned)}}link-disabled
-                {{/unless}}">{{this.displayName}}</a>
-        </td>
-        <td class="non-data"></td>
-        <td class="non-data"> {{#if (or ../../editable @root.userOwned)}}<a href="/pack/{{this._id}}" data-pack-id="{{../../buildData._id}}" class="make-selection {{#if (and (nt ../../editable) @root.userOwned)}}cat-to-main{{/if}} {{#unless (or ../../editable @root.userOwned)}}link-disabled
-                {{/unless}}">Choose {{this.displayName}}</a>{{/if}}</td>
-        <td class="non-data"></td>
-        <td class="non-data"></td>
-        <td class="non-data"></td>
-        {{#if 0}}
-        {{#if ../../user}}
-        <td class="non-data"></td>
-        <td class="non-data"></td>
-        {{/if}}
-        {{/if}}
-        <td class="non-data"></td>
-    </tr>
-    {{/if}}
     {{/each}}
     {{/each}}
+    {{#if 0}}
     <tr class="data-table-data-row pseudo-header category-heading">
         <td class="non-data">
             Custom
@@ -180,6 +178,7 @@
         {{/if}}
         <td class="non-data"></td>
     </tr>
+    {{/if}}
 </table>
 {{#unless @root.scriptLoadedCatTable}}
 {{assign 'scriptLoadedCatTable' true}}
