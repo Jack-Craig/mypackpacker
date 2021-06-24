@@ -51,6 +51,53 @@ $('#filter-form').on('submit', event => {
     window.location.hash = urlParams.toString()
 })
 $('#filter-form .double-slider').each((idx, elem) => {
-    elem.noUiSlider.on('change', e=>$('#filter-form').submit())
+    elem.noUiSlider.on('change', e => $('#filter-form').submit())
 })
-$('#filter-form input, #filter-form select').on('change', e=>$('#filter-form').submit())
+$('#filter-form input, #filter-form select').on('change', e => $('#filter-form').submit())
+
+{
+
+    const hashParams = new URLSearchParams('?' + window.location.hash.slice(1))
+    $('#category-sort').val(hashParams.get('sort'))
+    $('.filter-field').each((idx, elem) => {
+        if (!hashParams.has(elem.getAttribute('val-store-key'))) {
+            return
+        }
+        const paramVal = hashParams.get(elem.getAttribute('val-store-key'))
+        switch (elem.getAttribute('data-field-type')) {
+            case 'cb':
+                break
+            case '2ws':
+                const [min, max] = paramVal.split(',')
+                const slider = elem.noUiSlider
+                let unencMin = min
+                let unencMax = max
+                if (elem.hasAttribute('data-uom')) {
+                    const uom = elem.getAttribute('data-uom')
+                    unencMin = UOM_ConvertTo(parseFloat(min), 'g', uom)
+                    unencMax = UOM_ConvertTo(parseFloat(max), 'g', uom)
+                }
+                elem.setAttribute('unenc-min', unencMin)
+                elem.setAttribute('unenc-max', unencMax)
+                slider.set([unencMin, unencMax])
+                break
+            case 'ms':
+                const selectedVals = new Set(paramVal.split(','))
+                const $e = $(elem)
+                const checkBoxes = $e.find('> li > input')
+                checkBoxes.each((idx2, cb) => {
+                    let v = cb.getAttribute('value')
+
+                    if (v === '*')
+                        cb.checked = false
+                    if (selectedVals.has(v)) {
+                        cb.checked = true
+                    }
+                })
+                break
+            case 'tex':
+                elem.setAttribute('value', paramVal)
+                break
+        }
+    })
+}

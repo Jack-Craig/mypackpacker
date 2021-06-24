@@ -314,7 +314,7 @@ router.get('/:categoryID', async (req, res) => {
       return 1
     return -1
   })
-  res.render('category', { category: category, user: req.user, filterData: filterData, sortVal: req.query.sort })
+  res.render('category', { category: category, user: req.user, filterData: filterData})
 })
 
 router.get('/:categoryID/:productID', async (req, res) => {
