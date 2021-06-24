@@ -10,7 +10,9 @@ $('.remove-item').on('click', event => {
     const itemId = $e.attr('data-id')
     const parentRow = $e.parent().parent()
     $.get(`/pack/remove/${itemId}`).done(()=>{
-        $(`.pseudo-header-paint[data-scat="${parentRow.attr('data-scat')}"]`).removeClass('hidden')
+        if ($(`.data-table-data-row[data-scat="${parentRow.attr('data-scat')}"]`).length == 1) {
+            $(`.pseudo-header-paint[data-scat="${parentRow.attr('data-scat')}"]`).removeClass('hidden')
+        }
         parentRow.remove()
     })
 })
