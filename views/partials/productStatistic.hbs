@@ -8,13 +8,76 @@
         </div>
         <div class="stat-data">
             <span class="tooltip">
-                #{{statistic.placement}} of {{statistic.total}} {{lower pt}}
+                Ranked
+                <span class="perc">
+                    {{statistic.placement}}
+                </span>
+                of
+                <span class="perc-secondary">
+                    {{statistic.total}}
+                </span>
+                in
+                {{lower (orExists p.productInfo.type c.displayName)}}
             </span>
         </div>
         <div class="stat-data">
             <span>
-                {{rText}} than {{flr (perc (div statistic.placement statistic.total)) 1}}% of {{lower pt}}
+                {{rText}} than <span class="perc">{{flr (perc (div statistic.placement statistic.total)) 1}}</span><span
+                    class="perc-accessory">% </span> of {{lower (orExists p.productInfo.type c.displayName)}}
             </span>
+        </div>
+    </div>
+    <div class="stat-context">
+        <h3>
+            {{removeMetaText displayName}} Distribtion of {{orExists p.productInfo.type c.displayName}}
+        </h3>
+        <div class="histogram-box">
+            <div class="hist-y-ax hist-ax">
+                <span class="hist-count"></span>
+                <span class="hist-ax-label">Count</span>
+                <span class="hist-count"></span>
+            </div>
+            <div class="hist-x-ax hist-ax">
+                <span class="hist-count"></span>
+                <span class="hist-ax-label">{{displayName}}</span>
+                <span class="hist-count"></span>
+            </div>
+            <dl class="histogram">
+                {{assign 'hObj' (lookup (lookup (lookup c.vsStore vsKey) 'hist') p.productInfo.type)}}
+                {{#if histData}}
+                    {{assign 'hObjOld' @root.hObj}}
+                    {{assign 'hObj' histData}}
+                {{/if}}
+                {{assign 'maxVal' ( mult 1.1 (max (lookup @root.hObj 'bars') ) ) }}
+                {{#each @root.hObj.bars}}
+                {{assign 'start' @root.hObj.start}}
+                {{assign 'stride' @root.hObj.partitionWidth}}
+                {{assign 'lb' (plus @root.start (mult @index @root.stride))}}
+                {{assign 'rb' (plus @root.start (mult (plus 1 @index) @root.stride))}}
+                {{assign 'fLb' (tern ../histData (plus @root.hObjOld.start (mult @index @root.hObjOld.partitionWidth)) @root.lb)}}
+                {{assign 'fRb' (tern ../histData (plus @root.hObjOld.start (mult (plus @index 1) @root.hObjOld.partitionWidth)) @root.rb)}}
+                {{assign 'rawVal' (dlookup ../p ../pKey)}}
+                {{assign 'isFeatured' (and (lt @root.fLb @root.rawVal) (lte @root.rawVal @root.fRb))}}
+                {{assign 'isFeatured' (or @root.isFeatured (and (eq @index 0) (eq @root.lb @root.rawVal)))}}
+                <dd class="hist-bar{{#if @root.isFeatured}} histo-featured{{/if}}"
+                    style="height: {{perc (div this @root.maxVal)}}%;">
+                    <a target="blank_" href="/pack/{{../c._id}}#{{../vsKey}}={{@root.fLb}}%2C{{@root.fRb}}&pt={{urlEncode ../p.productInfo.type}}">
+                        <span class="hist-label hist-upper-label">{{#if this}}{{this}}{{/if}}</span>
+                        {{#if @root.isFeatured}}
+                        <span class="featured-marker">
+                            {{> icons/arrowDown}}
+                        </span>
+                        {{/if}}
+                        <span class="hist-label hist-lower-label">
+                            {{../prefix}}{{sFlr @root.lb}}{{../suffix}}
+                            -
+                            {{../prefix}}{{sFlr @root.rb}}{{../suffix}}
+                        </span>
+                    </a>
+                </dd>
+
+                {{/each}}
+            </dl>
         </div>
     </div>
 </div>

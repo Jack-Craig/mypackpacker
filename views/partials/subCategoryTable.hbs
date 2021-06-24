@@ -1,7 +1,8 @@
 <div>
     {{#if editable}}
     <div class="add-new-items-prompt">
-        <button data-type="{{#if ownedGear}}owned{{else}}saved{{/if}}" class="data-button delete submit-remove-request hidden">remove all selected</button>
+        <button data-type="{{#if ownedGear}}owned{{else}}saved{{/if}}"
+            class="data-button delete submit-remove-request hidden">remove all selected</button>
     </div>
     {{/if}}
     <table class='data-table gear-table'>
@@ -24,7 +25,8 @@
                 <th>Brand</th>
                 <th class="cb-cell">
                     <div class="pack-tab-header">
-                        Remove<input class="select-all"  data-type="{{#if ownedGear}}owned{{else}}saved{{/if}}" type="checkbox">
+                        Remove<input class="select-all" data-type="{{#if ownedGear}}owned{{else}}saved{{/if}}"
+                            type="checkbox">
                     </div>
                 </th>
             </tr>
@@ -36,7 +38,8 @@
                 </a>
             </td>
             <td class="non-data">
-                <a href="/pack/{{this._id}}" class="make-selection">Choose {{this.displayName}}
+                <a href="/pack/{{this._id}}" class="make-selection">
+                    Choose {{this.displayName}}
                 </a>
             </td>
             <td class="non-data"></td>
@@ -49,7 +52,7 @@
             <td class="non-data"></td>
             <td><a href="/pack/{{this.categoryID}}/{{this._id}}" {{#unless ../../editable}}class="link-disabled"
                     {{/unless}}>{{this.displayName}}</a></td>
-            <td>{{formatPriceInfo this.lowestPriceRange}}</td>
+            <td>{{getFormattedPriceNoSplit this}}</td>
             <td class="weight-cell">
                 <div class="weight-container" data-agear-id="{{this._id}}{{@index}}">
                     <span class="weight-text" data-agear-id="{{this._id}}{{@index}}" id="weight-{{this._id}}{{@index}}"
@@ -59,13 +62,14 @@
                     <select class="weight-uom-select" data-agear-id="{{this._id}}{{@index}}">
                         <option value="lb" {{#if (eq ../../user.preferredUOM 'lb' )}}selected{{/if}}>lb</option>
                         <option value="g" {{#if (eq ../../user.preferredUOM 'g' )}}selected{{/if}}>g</option>
-                        <option value="kg" {{#if (eq ../../user.preferredUOM 'kg' )}}selected{{/if}}>kg</option> 
+                        <option value="kg" {{#if (eq ../../user.preferredUOM 'kg' )}}selected{{/if}}>kg</option>
                         <option value="oz" {{#if (eq ../../user.preferredUOM 'oz' )}}selected{{/if}}>oz</option>
                     </select>
                 </div>
             </td>
             <td>{{this.brand}}</td>
-            <td class="cb-cell"><input class="subcat-edit-input" type="checkbox" data-ref-id="{{this._id}}" data-type="{{#if ../../ownedGear}}owned{{else}}saved{{/if}}"></td>
+            <td class="cb-cell"><input class="subcat-edit-input" type="checkbox" data-ref-id="{{this._id}}"
+                    data-type="{{#if ../../ownedGear}}owned{{else}}saved{{/if}}"></td>
         </tr>
         {{/each}}
         {{/each}}

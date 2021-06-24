@@ -25,7 +25,7 @@
             </div>
         </div>
         <div id="product-sources-container" class="detail-col sources-col">
-            <h3 class="table-header">Prices</h3>
+            <h3 class="table-header">Pricing</h3>
             <table class="pricing-table nocollapse">
                 <thead class="nocollapse">
                     <tr class="nocollapse">
@@ -52,23 +52,64 @@
             <span>Note: More sources coming soon.</span>
         </div>
         <div id="product-rel-stats-container" class="product-statistics-container">
-            {{> productStatistic rText="More expensive" pt=product.productInfo.type c=category displayName="Price"
+            {{> productStatistic 
+            rText="More expensive"
+            p=product
+            c=category
+            histData=false
+            displayName="Price"
             type="list"
-            statistic=(lookup product.relStats
-            'fP') v=(getFormattedMinPrice product)}}
-            {{> productStatistic rText="Heavier" pt=product.productInfo.type c=category displayName="Weight" type="list"
-            statistic=(lookup product.relStats
-            'fW') v=(getDisplayWeight (lookup product 'productInfo.weight') 'g' user.preferredUOM)}}
-            {{> productStatistic rText="Higher rated" pt=product.productInfo.type c=category displayName="Rating"
+            pKey="lowestPriceRange.minPrice"
+            vsKey="fP"
+            statistic=(lookup product.relStats 'fP')
+            v=(getFormattedPriceNoSplit product)
+            suffix=""
+            prefix="$"
+            }}
+            {{> productStatistic 
+            rText="Heavier"
+            p=product
+            c=category
+            histData=(uomHistData (lookup category.vsStore.fW.hist product.productInfo.type) user.preferredUOM)
+            displayName="Weight"
             type="list"
-            statistic=(lookup product.relStats
-            'rat') v=product.productInfo.rating.r}}
+            vsKey="fW"
+            pKey="productInfo.weight"
+            statistic=(lookup product.relStats 'fW')
+            v=(UOM_ConvertTo (lookup product 'productInfo.weight') 'g' user.preferredUOM)
+            suffix=(tern user user.preferredUOM 'lb')
+            prefix=""
+            }}
+            {{> productStatistic
+            rText="Higher rated"
+            p=product
+            c=category
+            histData=false
+            displayName="Rating"
+            vsKey="rat"
+            pKey="productInfo.rating.r"
+            type="list"
+            statistic=(lookup product.relStats 'rat')
+            v=product.productInfo.rating.r
+            suffix=""
+            prefix=""
+            }}
             {{#each category.filters}}
             {{#if (idEq this.t 'list')}}
             {{> productStatistic
-            pt=../product.productInfo.type rText=this.relText displayName=this.labelText
-            type=this.t statistic=(lookup
-            ../product.relStats this.vsKey) v=(lookup ../product this.key) suffix=this.suffix}}
+            vsKey=this.vsKey
+            pKey=this.key
+            p=../product
+            histData=false
+            rText=this.relText
+            displayName=this.labelText
+            type=this.t
+            c=../category
+            statistic=(lookup ../product.relStats this.vsKey)
+            v=(lookup ../product this.key)
+            suffix=this.suffix
+            prefix=""
+            }}
             {{/if}}
             {{/each}}
         </div>
@@ -127,7 +168,7 @@
                         <span>{{getDisplayWeight (tern userPack userPack.totalWeight 0) 'g'
                             user.preferredUOM}}</span>
                         <span>
-                             {{> icons/arrowRight}}
+                            {{> icons/arrowRight}}
                         </span>
                         <span>
                             {{getDisplayWeight (plus (tern userPack userPack.totalWeight 0)
@@ -139,9 +180,10 @@
             <button class="action-button-inv atp-button-main" data-id="{{product._id}}" id="atp-button">Add to
                 Pack</button>
         </div>
-        <div id="product-info-container" class="non-comp-specbox">
+        <div id="product-info-container">
+            <div class="non-comp-specbox">
             {{#each category.filters}}
-            {{#if (idEq this.t 'in')}}
+            {{#if (and (idEq this.t 'in') (lookup ../product this.key))}}
             <div>
                 <div class="spec-header">
                     <span>
@@ -156,6 +198,7 @@
             </div>
             {{/if}}
             {{/each}}
+            </div>
         </div>
     </div>
 </main>

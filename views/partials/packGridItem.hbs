@@ -10,7 +10,7 @@
         <div class="pack-info-container">
         
             <div class="author-box">  <h3 class="pack-title">{{pack.displayName}}</h3></div>
-            <span>{{formatPriceInfo pack.priceRange}}</span>
+            <span>{{getFormattedPriceNoSplit pack}}</span>
             <span>{{formatDate pack.publishDate}}</span>
             <span>{{#if pack.upvotes}}{{#if (gt pack.upvotes 0)}} +{{pack.upvotes}} {{else}}
                 {{pack.upvotes}}{{/if}}{{else}}0{{/if}}

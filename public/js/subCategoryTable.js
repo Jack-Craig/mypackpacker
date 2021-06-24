@@ -22,9 +22,6 @@
             numSelected[targetType]++
         else if (numSelected[targetType] > 0)
             numSelected[targetType]--
-
-        console.log(numSelected[targetType], targetType)
-
         if (numSelected[targetType] > 0) {
             $(`.submit-remove-request[data-type="${targetType}"]`).removeClass('hidden')
         } else {

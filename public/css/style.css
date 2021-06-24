@@ -2,8 +2,10 @@
 	--header-height: 90px;
 	--primary-color: #063274;
 	--secondary-color: #538BF3;
-	--tertiary-color: #6AB2DE;
+	--tertiary-color: #47A0D7;
 	--variation-color: #ED9B02;
+	--secondary-variation-color: #F71491;
+	--good-green: #6ae06a;
 
 	--header-font: 'Lato', sans-serif;;
 	--body-font: 'Poppins';
@@ -470,7 +472,7 @@ button.folder-selected {
 	color: red;
 }
 .publish, .publish:visited {
-	color: #6ae06a;
+	color: var(--good-green);
 }
 .landing-image{
 	width: 100%;
@@ -567,6 +569,13 @@ button.folder-selected {
 	max-height: 100%;
 	transform: scale(1);
 	transition: transform .4s ease;
+}
+.slideshow-panel:nth-of-type(odd) .product-preview {
+	background-color: #D1BF89;
+	color: black;
+}
+.slideshow-panel:nth-of-type(odd) .tent-bag-pack {
+	color: white;
 }
 .product-preview:hover {
 	box-shadow: none;
@@ -845,20 +854,36 @@ a > .pack-card {
 	display: grid;
 	grid-gap: 10px;
 	width: 100%;
+	color: white;
 	margin-top: 10px;
-	grid-template-rows: repeat(auto-fit, minmax(150px));
+	grid-template-rows: repeat(auto-fit, max(200px, min-content));
 }
 .non-comp-specbox > div {
-	border-radius: 10px;
+	border-radius: 7px;
 	padding: 10px;
-	color: black;
 	background-color: var(--primary-color);
+	height: min-content;
+}
+.perc {
+	color: var(--good-green);
+	font-size: 190%;
+	font-weight: bold;
+}
+.perc-secondary {
+	font-weight: bold;
+	font-size: 120%;
+}
+.perc-accessory {
+	font-size: 130%;
+	color: var(--good-green);
 }
 .spec-data {
 	display: flex;
 	padding: 20px 0px 20px 0px;
 	align-items: center;
+	font-size: 18px;
 	justify-content: center;
+	text-align: center;
 }
 .product-data-col-container {
 	display: grid;
@@ -866,7 +891,7 @@ a > .pack-card {
 	grid-template-columns: auto max(160px, 20%);
 }
 .spec-header {
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid white;
 }
 .see-more-pack-card {
 	border: 1px solid black;
@@ -1243,9 +1268,11 @@ span.emphasized-span {
 	justify-content: center;
 	display: flex;
 	width: 100%;
+	align-items: flex-start;
 }
 .detail-image-container img {
 	max-width: 100%;
+	height: auto;
 }
 .detail-body {
 	display: grid;
@@ -1279,16 +1306,206 @@ span.emphasized-span {
 }
 .gear-stat {
 	margin-bottom: 5px;
-	padding: 10px;
+	padding: 15px;
 	padding-left: 25px;
 	padding-right: 25px;
-	border-radius: 10px;
 	color: black;
-	box-shadow: inset 0 1px 5px var(--secondary-color);
+	box-shadow: inset 0 0 10px var(--secondary-color);
+	transition: height .25s ease;
+	overflow: hidden;
+	border-radius: 32.5px;
+}
+.stat-context {
+	opacity: 0;
+	transition: all .15s ease;
+	height: 0px;
+	background-color: white;
+	padding: 0;
+	padding-top: 0;
+	margin-top: 0;
+	box-sizing: border-box;
+	color: black;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.stat-context h3 {
+	font-weight: normal; 
+	margin: 0;
+}
+.histogram-box {
+	--axis-size: 30px;
+	height: 100%;
+	width: 100%;
+	padding: 0 0 var(--axis-size) var(--axis-size);
+	box-sizing: border-box;
+	background-color: white;
+	position: relative;
+}
+/** https://css-tricks.com/making-charts-with-css */
+.histogram {
+	height: 100%;	
+	width: 100%;
+	background: repeating-linear-gradient(
+		to top,
+		lightgray,
+		lightgray 1px,
+		#fff 1px,
+		#fff 10%
+	);
+	border: 2px solid lightgray;
+	border-right: 2px solid transparent;
+	border-top: none;
+	box-sizing:border-box;
+	display: flex;
+	align-items: flex-end;
+	margin: 0;
+}
+.hist-bar {
+	margin: 0;
+	background-color: var(--variation-color);
+	transition: all .2s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	flex-grow: 1;
+	position: relative;
+	margin: 0 2px 0 2px;
+}
+.hist-bar:nth-of-type(odd) {
+	background-color: #F0B241;
+}
+.hist-label {
+	position: absolute;
+	opacity: 0;
+	color: black;
+	font-size: 16px;
+	transition: all .2s ease;
+}
+.hist-upper-label {
+	top: 0;
+	left: 50%;
+	font-size: 24px;
+	transform: translate(-50%,-100%);
+}
+.hist-lower-label {
+	bottom: 0;
+	left: 50%;
+	font-size: 18px;
+	transform: translate(-50%, 100%);
+	white-space: nowrap;
+}
+.hist-lb-label {
+	bottom: 0;
+	left: 0;
+	transform: translate(-50%, 100%);
+}
+.hist-ub-label {
+	bottom: 0;
+	transform: translate(50%, 100%);
+	right: 0;
+}
+.hist-bar:hover {
+	background-color: #FED486;
+	cursor: default;
+}
+.hist-bar a {
+	width: 100%;
+	height: 100%;
+}
+.hist-bar.histo-featured {
+	background-color: var(--tertiary-color);
+}
+.hist-bar.histo-featured:hover {
+	background-color: #8AC2E5;
+}
+.histo-featured .featured-marker {
+	position: absolute;
+	left: 50%;
+	top: 0;
+	transform: translate(-50%, -100%);
+	white-space: nowrap;
+	color: black;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	transition: all .1s ease;
+	opacity: 1;
+	z-index:10;
+}
+.histo-featured .featured-marker svg {
+	width: 32px;
+	height: 32px;
+}
+.hist-bar.histo-featured:hover .featured-marker {
+	opacity: 0;
+}
+.hist-bar:hover .hist-label {
+	opacity: 1;
+}
+.hist-ax {
+	position: absolute;
+	color: black;
+}
+.hist-ax span {
+	width: var(--axis-size);
+	height: var(--axis-size);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.hist-y-ax {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: calc(100% - var(--axis-size));
+	left: 0;
+	width: var(--axis-size);
+	box-sizing: border-box;
+}
+.hist-ax-label {
+	white-space: nowrap;
+	position: relative;
+
+}
+.hist-y-ax .hist-ax-label {
+	transform: rotate(270deg);
+	left: -10px;
+}
+.hist-y-ax span:first-child {
+	border-top: 2px solid lightgray;
+}
+.hist-y-ax span:last-child {
+	border-bottom: 2px solid lightgray;
+}
+.hist-x-ax {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: calc(100% - var(--axis-size));
+	height: var(--axis-size);
+	top: calc(100% - var(--axis-size));
+}
+.hist-x-ax .hist-ax-label {
+	top: 10px;
+}
+.hist-x-ax span:first-child {
+	border-left: 2px solid lightgray;
+}
+.hist-x-ax span:last-child {
+	border-right: 2px solid lightgray;
+}
+.gear-stat:hover .stat-context {
+	opacity: 1;
+	height: 400px;
+	margin-top: 20px;
+	padding: 20px;
+	padding-top: 10px;
 }
 .gear-stat:nth-of-type(odd) {
 	background-color: var(--secondary-color);
-	box-shadow: inset 0 1px 5px whitesmoke;
+	box-shadow: inset 0 0 10px var(--primary-color);
 	color: white;
 }
 .gear-stat h2 {
@@ -1810,6 +2027,13 @@ td.buy-on-site-td {
 	:root {
 		--header-height: 75px;
 	}
+	.histo-featured .featured-marker svg {
+		width: 24px;
+		height: 24px;
+	}
+	.hist-lower-label {
+		font-size: 16px;
+	}
 	.slideshow-container {
 		width: min(800px, max(300px, 80%));
 	}
@@ -1819,6 +2043,12 @@ td.buy-on-site-td {
 	}
 	.padding-wall {
 		padding: 0 1% 1% 1%;
+	}
+	.gear-stat .stat-content {
+		display: grid;
+		grid-template-rows: auto auto auto;
+		grid-template-columns: 1fr; 
+		grid-gap: 0;
 	}
 	.product-preview-detail-container .d-p {
 		font-size: 14px;
@@ -1878,6 +2108,12 @@ td.buy-on-site-td {
 	}
 }
 @media screen and (max-width: 1000px) {
+	.gear-stat:hover .stat-context {
+		height: 300px;
+		padding: 10px;
+		padding-top: 5px;
+		margin-top: 10px;
+	}
 	.form-incorrect > td:not(.table-sidebar) {
 		border-top: 2px solid red !important;
 		border-bottom: 2px solid red !important;
@@ -1987,6 +2223,9 @@ td.buy-on-site-td {
 	}
 }
 @media screen and (max-width: 768px) {
+	.pricing-table td, th {
+		padding-right: 0;
+	}
 	.mobile-nav {
 		justify-content: center;
 		height: var(--header-height);
@@ -1997,6 +2236,15 @@ td.buy-on-site-td {
 		position: relative;
 		border-bottom: 1px solid lightgray;
 		z-index: 11;
+	}
+	.histogram-box {
+		--axis-size: 20px;
+	}
+	.hist-lower-label {
+		font-size: 14px;
+	}
+	.hist-bar {
+		margin: 0 .5px 0 .5px;
 	}
 	#main-side {
 		display: block !important;
@@ -2041,6 +2289,11 @@ td.buy-on-site-td {
 		grid-column: 1 / span 2;
 		grid-row: 4;
 		grid-template-columns: 1fr 1fr;
+		display: flex;
+		align-items: flex-start;
+	}
+	.gear-stat {
+		padding: 20px;
 	}
 	.gear-stat .stat-value {
 		font-size: 16px;

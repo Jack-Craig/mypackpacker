@@ -11,7 +11,7 @@
                 <span>{{pack.build.bag.displayName}}</span>
             </div>
             <div class="d-p">
-                <span>{{formatMinPrice pack.priceRange}}</span>
+                <span>{{getFormattedPriceNoSplit pack}}</span>
                 <span>{{getDisplayWeight pack.totalWeight 'g' user.preferredUOM}}</span>
             </div>
         </div>

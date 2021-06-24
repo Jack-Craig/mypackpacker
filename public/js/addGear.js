@@ -284,7 +284,6 @@ const submitNewGear = e => {
             if (shouldAddToPack && someSuccess) {
                 // Changes made to pack
                 $.get('/api/pack/render').done(d => {
-                    console.log('Re-Rendering')
                     $('.pack-complete-data').html(d)
                     const qsData = $('#build-quickstats-data')
                     $('#total-price').text(qsData.attr('data-displayPrice'))

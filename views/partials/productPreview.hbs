@@ -10,7 +10,7 @@
         <div>
             <h2 class="p-name">{{product.displayName}}</h2>
             <div class="d-p">
-                <span>{{getFormattedMinPrice product}}</span>
+                <span>{{getFormattedPriceNoSplit product}}</span>
                 {{> icons/dot}}
                 <span>{{getDisplayWeight product.productInfo.weight 'g' user.preferredUOM}}</span>
             </div>

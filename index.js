@@ -21,7 +21,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {maxAge: 2592000000},
+    cookie: { maxAge: 2592000000 },
     store: new mongoStore({
         mongooseConnection: mongoose.connection,
         collection: 'sessions'
@@ -31,13 +31,13 @@ app.use(session({
 app.use((req, res, next) => {
     // The 'x-forwarded-proto' check is for Heroku
     if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
-      return res.redirect('https://' + req.get('host') + req.url);
+        return res.redirect('https://' + req.get('host') + req.url);
     }
     next();
-  }
+}
 )
-app.use(express.static(__dirname + '/public',{maxAge: process.env.NODE_ENV === "development" ? '0' : '60000'}))
-app.use(bodyParser.json()); 
+app.use(express.static(__dirname + '/public', { maxAge: process.env.NODE_ENV === "development" ? '0' : '60000' }))
+app.use(bodyParser.json());
 app.use(express.urlencoded({
     extended: true
 }))
@@ -67,6 +67,7 @@ app.engine('hbs', handlebars({
         formatPriceInfo: priceRangeHelpers.formatPriceInfo,
         getFormattedMinPrice: priceRangeHelpers.getFormattedMinPrice,
         formatMinPrice: priceRangeHelpers.formatMinPrice,
+        getFormattedPriceNoSplit: priceRangeHelpers.getFormattedPriceNoSplit,
         lower: a => a.toLowerCase(),
         lookup: (obj, key) => {
             if (!obj) {
@@ -92,13 +93,14 @@ app.engine('hbs', handlebars({
                 return obj.length
             return 0
         },
-        minus: (a, b) => parseInt(a) - parseInt(b),
-        plus: (a, b) => parseInt(a) + parseInt(b),
+        minus: (a, b) => parseFloat(a) - parseFloat(b),
+        plus: (a, b) => parseFloat(a) + parseFloat(b),
         formatDate: (dateObj) => {
-            return `${dateObj.getMonth()+1}/${dateObj.getDate()}/${dateObj.getFullYear()}`
+            return `${dateObj.getMonth() + 1}/${dateObj.getDate()}/${dateObj.getFullYear()}`
         },
-        gt: (a, b) => parseInt(a) > parseInt(b),
-        lt: (a, b) => parseInt(a) < parseInt(b),
+        gt: (a, b) => parseFloat(a) > parseFloat(b),
+        lt: (a, b) => parseFloat(a) < parseFloat(b),
+        lte: (a, b) => parseFloat(a) <= parseFloat(b),
         ne: (a, b) => a != b,
         eq: (a, b) => a == b,
         idEq: (a, b) => String(a) === String(b),
@@ -112,7 +114,7 @@ app.engine('hbs', handlebars({
         abs: (a) => Math.abs(a),
         json: JSON.stringify,
         and: (a, b) => a && b,
-        or: (a,b) => a || b,
+        or: (a, b) => a || b,
         nt: a => !a,
         UOM_ConvertTo: uomHelpers.UOM_ConvertTo,
         getDisplayWeight: uomHelpers.getDisplayWeight,
@@ -125,6 +127,7 @@ app.engine('hbs', handlebars({
                 return url
             return `${url.slice(0, dIdx)}?size=${dim}x${dim}`
         },
+        max: a => Math.max(...a),
         getStarCode: product => {
             const b_r = product.productInfo.rating.r
             const floorVal = Math.floor(b_r)
@@ -136,12 +139,22 @@ app.engine('hbs', handlebars({
             let n_half = 0
             if (c_r < f_r && c_r < m_r)
                 n_half = 1 // Half star
-            
+
             n_empty = 5 - n_full - n_half
-            return [n_full, n_half, n_empty] 
+            return [n_full, n_half, n_empty]
         },
         tern: (con, o1, o2) => con ? o1 : o2,
         flr: (n, m) => Math.floor(n * m) / m,
+        sFlr: n => {
+            // Smart floor: Limit to a practical number of decimal places given magnitude of number
+            const digitSpan = 3
+            let nDigits = 0
+            nDigits = n == 0 ? 1 : Math.floor(Math.log10(n) + 1)
+            if (nDigits > digitSpan)
+                return Math.floor(n)
+            return Math.floor(n * Math.pow(10, (digitSpan - nDigits))) / Math.pow(10, (digitSpan - nDigits))
+        },
+        urlEncode: encodeURIComponent,
         percentile: v => {
             let lastDigit = String(v)
             let last2Digits = lastDigit.substr(lastDigit.length - 2, 2)
@@ -154,14 +167,26 @@ app.engine('hbs', handlebars({
             switch (lastDigit) {
                 case '1': return v + 'st percentile'
                 case '2': return v + 'nd percentile'
-                case '3': return v + 'rd percentile' 
+                case '3': return v + 'rd percentile'
             }
             return v + 'th percentile'
         },
         perc: a => a * 100,
-        div: (a,b) => a / b,
-        mult: (a,b) => a * b,
-        getFirstSentence: a => a.split('.')[0] + '.' // Could do firstIndexOf and then substring, might be better big O
+        div: (a, b) => a / b,
+        mult: (a, b) => a * b,
+        getFirstSentence: a => a.split('.')[0] + '.', // Could do firstIndexOf and then substring, might be better big O
+        orExists: (a, b) => a ? a : b,
+        uomHistData: (rawHistData, unit) => {
+            let rData = {
+                bars: rawHistData.bars,
+                start: uomHelpers.UOM_ConvertTo(rawHistData.start, 'g', unit),
+                partitionWidth: uomHelpers.UOM_ConvertTo(rawHistData.partitionWidth, 'g', unit),
+            }
+            return rData
+        },
+        removeMetaText: t => {
+            return t.replace(/\([\s\S]*\)*/g, '')
+        }
     }
 }));
 
@@ -178,10 +203,10 @@ app.use('/help', require('./routes/help'))
 app.use('/admin', require('./routes/admin'))
 app.use('*', require('./routes/404'))
 
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser:true, useUnifiedTopology:true })
-  .then(()=>{
-      console.log('Mongo connected')
-    
-}).catch(err=>console.log(err))
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('Mongo connected')
 
-app.listen(port, ()=>console.log('App listening on port ' + port))
+    }).catch(err => console.error(err))
+
+app.listen(port, () => console.log('App listening on port ' + port))

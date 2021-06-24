@@ -40,6 +40,15 @@ const getLast = array => {
     else 
         return null
 }
+const getFormattedPriceNoSplit = product => {
+    if (product.hasOwnProperty('lowestPriceRange')) {
+        return `$${Math.round(product.lowestPriceRange.minPrice*100) / 100}` 
+    }
+    if (product.hasOwnProperty('priceRange')) {
+        return `$${Math.round(product.priceRange.minPrice*100) / 100}` 
+    }
+    return '$0'
+}
 const getFormattedMinPrice = (product) => {
     if (product.hasOwnProperty('lowestPriceRange')) {
         return formatPriceInfo(product.lowestPriceRange)
@@ -52,3 +61,4 @@ module.exports.formatPriceInfo = formatPriceInfo
 module.exports.getLast = getLast
 module.exports.getFormattedMinPrice = getFormattedMinPrice 
 module.exports.formatMinPrice = formatMinPrice
+module.exports.getFormattedPriceNoSplit = getFormattedPriceNoSplit
