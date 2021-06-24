@@ -1,3 +1,4 @@
+<h2>Pack Composition Analysis</h2>
 <div class="analytics-grid">
     <div class="analytics-pie-chart-container">
         <canvas id="price-chart" class="analytics-pie-chart"></canvas>
@@ -8,5 +9,6 @@
 </div>
 {{#unless @root.scriptLoadedPackAnalytics}}
 {{assign 'scriptLoadedPackAnalytics' true}}
-<script id="packAnalytics" src='/js/packAnalytics.js' data-target-pack="{{pack._id}}" data-puom="{{user.preferredUOM}}"></script>
+<script id="packAnalytics" src='/js/packAnalytics.js' data-target-pack="{{pack._id}}"
+    data-puom="{{user.preferredUOM}}"></script>
 {{/unless}}
