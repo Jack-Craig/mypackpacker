@@ -186,7 +186,8 @@ app.engine('hbs', handlebars({
         },
         removeMetaText: t => {
             return t.replace(/\([\s\S]*\)*/g, '')
-        }
+        },
+        isOdd: v => v % 2 != 0
     }
 }));
 

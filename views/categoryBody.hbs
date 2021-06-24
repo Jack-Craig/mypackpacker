@@ -67,7 +67,7 @@
         <td class="stand-td-brand">{{this.brand}}</td>
         {{/unless}}
         {{#each ../category.fields}}
-        <td class="cat-specific">
+        <td class="cat-specific" style='--content:"{{this.displayName}}"'>
             {{dlookup ../this this.lookupKey}}{{this.suffix}}
         </td>
         {{/each}}
