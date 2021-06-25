@@ -1282,6 +1282,8 @@ span.emphasized-span {
 	grid-template-columns: auto 1fr max(20%, 160px);
 	grid-template-rows: auto auto auto;
 	grid-gap: 20px;
+	max-width: 1200px;
+	margin: 0 auto 0 auto;
 }
 #product-image-container {
 	grid-row: 1 / span 2;
