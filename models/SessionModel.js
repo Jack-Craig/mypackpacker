@@ -5,6 +5,8 @@ const SessionModel = mongoose.model('session', new mongoose.Schema({
     expires: Date,
     session: String,
     activePackId: mongoose.Schema.Types.ObjectId,
-}, { collection: 'sessions' }))
+    lastAction: Date,
+    user: mongoose.ObjectId,
+}, { collection: 'sessions', strict: false }))
 
 module.exports = SessionModel

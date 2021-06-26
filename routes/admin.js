@@ -2,6 +2,7 @@ const router = require('express').Router()
 const UserModel = require('../models/user')
 const ProductModel = require('../models/Product')
 const BuildModel = require('../models/Build')
+const SessionsModel = require('../models/SessionModel')
 const ImageModel = require('../models/Image')
 const ensureAdmin = require('../helpers/auth').ensureAdmin
 const MessageModel = require('../models/Message')
@@ -12,10 +13,26 @@ const AnalyticsHistoryRange = 4500
 
 router.get('/', ensureAdmin, async (req, res) => {
     Promise.all([
-        UserModel.find().lean(),
+        UserModel.aggregate([
+            {
+                $lookup: {
+                    from: 'sessions',
+                    let: {'cId':'$_id'},
+                    pipeline: [
+                        {$match: {$expr: {$eq: ['$user', '$$cId']}}},
+                        {$sort: {lastAction: -1}},
+                        {$limit: 1}
+                    ],
+                    as: 'session'
+                }
+            },            
+            { $unwind: { path: '$session', preserveNullAndEmptyArrays: true } }
+        ]),
         ImageModel.countDocuments().lean(),
         MessageModel.find({ isAdminMessage: true }).lean(),
         AnalyticsModel.findById(MASTER_ANALYTICS_KEY).lean(),
+        SessionsModel.countDocuments({lastAction: {$gt: Date.now() - (1000 * 10 * 60)}}),
+        SessionsModel.countDocuments({lastAction: {$gt: Date.now() - (1000 * 60 * 60 * 24)}}),
     ]).then(async results => { // TODO: Add num packs compilation create pack endpoint
         const a = await AnalyticsModel.find({ entryNumber: { $gt: results[3].numEntries - AnalyticsHistoryRange } }).sort({ entryNumber: 1 }).lean()
         const lA = a[a.length - 1]
@@ -26,6 +43,8 @@ router.get('/', ensureAdmin, async (req, res) => {
             numSessionPacks: lA.numSessionPacks,
             numImages: results[1],
             messages: results[2],
+            liveUsers: results[4],
+            dailyActive: results[5],
             analyticsHistory: a
         }
         res.render('admin', { user: req.user, data: data })

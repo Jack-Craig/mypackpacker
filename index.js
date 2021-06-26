@@ -8,6 +8,7 @@ const mongoStore = require('connect-mongo')(session)
 const cookieParser = require('cookie-parser')
 const flash = require('connect-flash')
 const _ = require('lodash')
+const SessionModel = require('./models/SessionModel')
 const passport = require('passport')
 const app = express()
 
@@ -34,8 +35,7 @@ app.use((req, res, next) => {
         return res.redirect('https://' + req.get('host') + req.url);
     }
     next();
-}
-)
+})
 app.use(express.static(__dirname + '/public', { maxAge: process.env.NODE_ENV === "development" ? '0' : '60000' }))
 app.use(bodyParser.json());
 app.use(express.urlencoded({
@@ -48,6 +48,11 @@ app.set('trust proxy', 1) // trust first proxy
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
+
+app.use(async (req, res, next) => {
+    await SessionModel.findByIdAndUpdate(req.sessionID, {lastAction: Date.now(), user: req.hasOwnProperty('user') ? req.user._id : null})
+    next();
+})
 
 // Prepare handlebars (.fuck)
 app.engine('hbs', handlebars({
@@ -187,7 +192,25 @@ app.engine('hbs', handlebars({
         removeMetaText: t => {
             return t.replace(/\([\s\S]*\)*/g, '')
         },
-        isOdd: v => v % 2 != 0
+        isOdd: v => v % 2 != 0,
+        fDate: d => {
+            if (!d)
+                return 'No Data'
+            const dif = Date.now() - d
+            const hour = 1000 * 60 * 60
+            const day = hour * 24
+            const week = day * 7
+            if (dif < hour) {
+                return '<1hr'
+            } else if (dif < day) {
+                const nHours = Math.floor(dif / hour)
+                return nHours==1 ? `${nHours}hr` : `${nHours}hrs`
+            } else if (dif < week) {
+                const nDays = Math.floor(dif / day)
+                return `${nDays}day`
+            }
+            return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`
+        }
     }
 }));
 

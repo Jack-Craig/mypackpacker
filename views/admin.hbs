@@ -31,54 +31,66 @@
                     </div>
                 </form>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            Username
-                        </th>
-                        <th>
-                            Email
-                        </th>
-                        <th>
-                            Id
-                        </th>
-                        <th>
-                            Gear Wishlisted
-                        </th>
-                        <th>
-                            Gear Owned
-                        </th>
-                        <th>
-                            Edit
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each data.users}}
-                    <tr>
-                        <td>
-                            {{this.username}}
-                        </td>
-                        <td>
-                            {{this.email}}
-                        </td>
-                        <td>
-                            {{this._id}}
-                        </td>
-                        <td>
-                            {{length this.gearListSaved}}
-                        </td>
-                        <td>
-                            {{length this.gearListOwned}}
-                        </td>
-                        <td>
-                            <input type="checkbox" data-uid="{{this._id}}" class="bulk-edit-check">
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+            <div class="table-scroll-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Username
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Last Online
+                            </th>
+                            {{#if 0}}
+                            <th>
+                                WL
+                            </th>
+                            <th>
+                                OWN
+                            </th>
+                            {{/if}}
+                            <th>
+                                SEL
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each data.users}}
+                        <tr>
+                            <td>
+                                {{this.username}}
+                            </td>
+                            <td>
+                                {{this.email}}
+                            </td>
+                            <td>
+                                {{this._id}}
+                            </td>
+                            <td>
+                                {{fDate this.session.lastAction}}
+                            </td>
+                            {{#if 0}}
+                            <td>
+                                {{length this.gearListSaved}}
+                            </td>
+                            <td>
+                                {{length this.gearListOwned}}
+                            </td>
+                            {{/if}}
+                            <td>
+                                <input type="checkbox" data-uid="{{this._id}}" class="bulk-edit-check">
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="admin-tab hidden admin-panel" id="messages">
@@ -131,12 +143,12 @@
                         <h3>{{length data.users}}</h3>
                     </div>
                     <div class="label-group">
-                        <label>Active Users</label>
-                        <h3>No Data</h3>
+                        <label>Visitors 24h</label>
+                        <h3>{{data.dailyActive}}</h3>
                     </div>
                     <div class="label-group">
-                        <label>Live Users</label>
-                        <h3>No Data</h3>
+                        <label>Live Visitors</label>
+                        <h3>{{data.liveUsers}}</h3>
                     </div>
                 </div>
                 <div class="chart-sidebar"></div>
@@ -144,7 +156,7 @@
                     <canvas id="user-chart"></canvas>
                 </div>
             </div>
-             <div class="data-tab hidden" id="sessions-data">
+            <div class="data-tab hidden" id="sessions-data">
                 <div class="data-header">
                     <h1>Sessions</h1>
                 </div>
@@ -159,7 +171,7 @@
                     <canvas id="sessions-chart"></canvas>
                 </div>
             </div>
-           <div class="data-tab hidden" id="packs-data">
+            <div class="data-tab hidden" id="packs-data">
                 <div class="data-header">
                     <h1>Pack</h1>
                 </div>
