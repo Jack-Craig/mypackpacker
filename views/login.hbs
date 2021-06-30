@@ -5,26 +5,38 @@
             <p>Don't have an account? </p>
             <a class="secondary-login" href='/user/signup'>Sign Up</a>
         </div>
-        <span>{{message}}</span>
+        {{#if message}}
+        <span class="delete error-msg">{{message}}</span>
+        {{/if}}
         <form class='login-form' method='post' action='/user/login'>
             <div class='label-group'>
                 <label for='login-username'>Username or Email</label>
-                <input type='text' name='username' id='login-username' class='login-entry'>
+                <input type='text' name='username' id='login-username'
+                    class='login-entry {{#if (eq message "Invalid Username or Password")}}red-hl{{/if}}'>
             </div>
             <div class='label-group'>
                 <label for='login-password'>Password</label>
-                <input type='password' name='password' id='login-password' class='login-entry'>
+                <div class="sublabel-group">
+                    <input type='password' name='password' id='login-password'
+                        class='login-entry {{#if (eq message "Invalid Username or Password")}}red-hl{{/if}}'>
+                    {{#if (eq message "Invalid Username or Password")}}
+                    <label><a href="/user/forgot" class="forgot-pass">Forgot Password?</a></label>
+                    {{/if}}
+                </div>
             </div>
             {{#each errors}}
             <p>{{this}}</p>
             {{/each}}
-            <input type='submit' id='login-submit' class='login-button'>
+            <input type='submit' id='login-submit' class='login-button' value="Log In">
         </form>
+
+
         <div class="div-line"></div>
         <a class="google-button" href="/user/login/google">
             <button
                 style="cursor:pointer;display: flex; align-items: center; justify-content: space-between; padding: 8px; border: thin solid #757575; box-shadow:1px 1px 1px #757575; color:#757575; width:180px; height:40px; border-radius:3%; font-size: 14px; font-family: Roboto">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"style="width:30px; background:white; border-radius:50%; position: relative; left: -5px;" alt="">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+                    style="width:30px; background:white; border-radius:50%; position: relative; left: -5px;" alt="">
                 <b style="text-decoration-style: none; text-align: center;">Sign In With Google</b>
             </button>
         </a>

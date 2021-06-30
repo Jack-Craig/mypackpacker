@@ -1,0 +1,28 @@
+{{#if success}}
+<main>
+    <h2>Email Sent</h2>
+    <p>Check your email for a password reset request.</p>
+</main>
+{{else}}
+<main class="login-page-container">
+    <div class="login-container">
+        <h3 class="login-header">Forgot Password</h3>
+        <div class="secondary-login-container">
+            <p>Just Remembered?</p>
+            <a class="secondary-login" href='/user/login'>Login</a>
+        </div>
+        <span id="NoEmail" class="delete error-msg hidden" data-linked-input="reset-email">
+            No Email Was Provided
+        </span>
+        <form class='login-form jq-override-form' method='post' action='/user/account/requestreset'>
+            <div class='label-group'>
+                <label for='reset-email'>Email</label>
+                <input type='text' name='email' id='reset-email' class='login-entry reset-email'>
+            </div>
+            <input type='submit' id='login-submit' class='login-button' value="Send Email">
+        </form>
+    </div>
+</main>
+<script src="/js/jqOverride.js">
+</script>
+{{/if}}

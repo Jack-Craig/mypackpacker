@@ -54,7 +54,6 @@ app.use(async (req, res, next) => {
     next();
 })
 
-// Prepare handlebars (.fuck)
 app.engine('hbs', handlebars({
     layoutsDir: __dirname + '/views/layouts',
     partialsDir: __dirname + '/views/partials/',

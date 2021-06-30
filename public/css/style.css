@@ -139,7 +139,7 @@ select {
 	margin: 0 min(25px, 2.5%) 0 0;
 }
 main {
-	padding: 20px min(200px, 6%) 0 min(200px, 6%);
+	padding: 20px min(200px, 6%) 20px min(200px, 6%);
 	background-color: white;
 	background-clip: border-box;
 }
@@ -699,6 +699,7 @@ input[type="file"] {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	max-width: 300px;
 	padding: 5% 0 20% 0;
 }
 .login-container .div-line {
@@ -719,13 +720,27 @@ input[type="file"] {
 	font-size: 12px;
 	text-decoration: none;
 }
-
 .google-button:visited, .google-button {
 	text-decoration: none !important;
 	cursor: pointer;
 }
+.forgot-pass {
+	margin: 10px 0 10px 0;
+}
+.sublabel-group {
+	display: flex;
+	align-items: flex-end;
+	flex-direction: column;
+}
+.error-msg {
+	font-size: 12px;
+}
+.login-entry.red-hl {
+	border-color: red !important;
+}
 .login-button {
-	width: 100px;
+	min-width: 100px;
+	width: fit-content;
 	border: 1px solid black;
 	border-radius: 10px;
 	height: 35px;
@@ -748,7 +763,7 @@ input[type="file"] {
 .login-form .label-group {
 	margin: 0 0 20px 0;
 }
-.login-form input:not([type="submit"]) {
+.login-entry {
 	height: 30px;
 	width: 250px;
 	border-radius: 5px;
@@ -934,6 +949,13 @@ a > .pack-card {
 }
 .bottom-slider {
 	position: absolute;
+}
+.b-form {
+	max-width: 400px;
+	padding: 10px;
+}
+.b-form input {
+	margin: 5px 0 5px 0;
 }
 .publish-form {
 	max-width: 800px;
