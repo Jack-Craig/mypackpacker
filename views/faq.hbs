@@ -1,9 +1,149 @@
-<main>
+<main class="faq">
     <h1>Frequently Asked Questions</h1>
+    <div class="div-line"></div>
+    <h4>Table of Contents</h4>
+    <ul>
+        <li><a href="#general">General Questions</a></li>
+        <li><a href="#data">Gear Questions</a></li>
+        <li><a href="#social">Social Questions</a></li>
+        <li><a href="#security">Security Questions</a></li>
+    </ul>
+    <div class="div-line"></div>
+    <a id="general"></a>
+    <h2>General</h2>
     <ol>
         <li>
-            <h2></h2>
-            <p></p>
+            <h3>Does my pack expire?</h3>
+            <p>
+                Unfortunetly, yes, but only if you don't have an account. For security reasons we cannot store a session
+                for an infinite amount of time, so your pack will expire after 1 month. If you sign in or create an
+                account, your pack will automatically be moved into your account and will never expire!
+            </p>
+        </li>
+        <li>
+            <h3>Should I make an account?</h3>
+            <p>
+                I think so, yes (though I might be a little biased). Making an account gives you access to a ton of new
+                features, including (but not limited to) unlimited pack gear lists, sharing to <a href="/completed">Community Packs</a>, no pack
+                expiration, and viewing your pack lists on any device. For questions about account security, scroll to the <a href="#security">security section</a>.
+            </p>
+        </li>
+        <li>
+            <h3>I am new to backpacking and all this info is overwhelming. Where do I start?</h3>
+            <p>
+                Great question, MyPackPacker aims to help beginner backpackers but can certainly be too much at times.
+                We have a page explaining each category in more detail, which you can find <a
+                    href="/help/cats">here</a>. Additionally we have curated some beginner packs for you to build off
+                of, which you can find displayed on our <a href="/">home page</a>.
+            </p>
+        </li>
+        <li>
+            <h3>Does MyPackPacker recieve an affiliate kickback for products I buy?</h3>
+            <p>
+                No, not as of {{formatDate (today 0)}}. MyPackPacker is a fun and (hopefully) helpful project that is
+                not financially motivated. That's not to say we will never become affiliate-funded: if interest in this
+                project increases, we will need affiliate money to expand our hosting, gear sources, and security. No
+                matter what, MyPackPacker will always be free to use and provide an unbiased, analytical presentation of
+                the internet's outdoor gear.
+            </p>
+        </li>
+    </ol>
+    <a id="data"></a>
+    <h2>Gear</h2>
+    <ol>
+        <li>
+            <h3>I thought this was a backpacking site! Why are some of the gear items for car camping?</h3>
+            <p>
+                While MyPackPacker has a focus on backpacking, the world of gear lists doesn't stop there so neither do we. You can use
+                MyPackPacker for many more applications, such as car camping, emergency prep, or day hiking. If you have
+                a backpack, we can help pack it.
+            </p>
+        </li>
+        <li>
+            <h3>Where does all of this gear come from?</h3>
+            <p>
+                We get gear info from suppliers all over the internet. We have a robust data processing pipeline that
+                inducts valuable information and indexes all of these items to make it easy to find exactly what you
+                need. MyPackPacker does not create or distribute any products, we are an information hub that connects
+                you to the gear vendors all over the internet.
+            </p>
+        </li>
+        <li>
+            <h3>How do you decide what gear to show?</h3>
+            <p>
+                We don't, you do. We get as much gear as we are allowed from our sources, and leave it up to you to find
+                what you want. The system isn't perfect, when getting info from our sources sometimes it leaves out gear that is supposed to be included,
+                but it gets better every day.
+            </p>
+        </li>
+        <li>
+            <h3>How do you decide what vendors to support?</h3>
+            <p>
+                We would love to include as many vendors as possible. As of {{formatDate (today 0)}} we only have REI,
+                but we would like to add more as we grow.
+            </p>
+        </li>
+    </ol>
+    <a id="social"></a>
+    <h2>Social</h2>
+    <ol>
+        <li>
+            <h3>What options for I have for sharing my pack?</h3>
+            <p>
+                If you want to share your pack as a shopping list or wishlist, you can use a share URL that is on every
+                pack page. If you want to add a little more pizzazz, you can publish your pack to the <a href="/completed">Community Packs</a>
+                and add a picture and description. This gets shown to all MyPackPacker visitors, and can also be linked
+                to.
+            </p>
+        </li>
+        <li>
+            <h3>How do I add my pack to the Community Packs?</h3>
+            <p>
+                If you have an account, there is a publish button on each pack page. There you can write the description
+                and add a photo, then share it with the world. If you do not have an account, you cannot join in on the
+                fun.
+            </p>
+        </li>
+        <li>
+            <h3>My friend has a MyPackPacker account. Can I find their account and look through their stuff?</h3>
+            <p>
+                Not directly no. You can have them publish their pack to our <a href="/completed">Community Packs</a> section and find it there,
+                or you can share gear lists externally using a share URL. We have a group packing feature on the
+                roadmap (or trailmap, if you will) which will facilitate finding friends, making groups, and planning
+                trips, so stay tuned.
+            </p>
+        </li>
+        <li>
+            <h3>Does MyPackPacker have any social media?</h3>
+            <p>
+                No, mostly because I like building stuff much more than managing socials. I want to focus on building an
+                interesting site, so thats what I'm doing.
+            </p>
+        </li>
+    </ol>
+    <a id="security"></a>
+    <h2>Security</h2>
+    <ol>
+        <li>
+            <h3>Where does my information go?</h3>
+            <p>
+                The information you give MyPackPacker stays with MyPackPacker, no one will ever see it but you and
+                people you want to show it to. Deleting your account deletes all your data from our servers.
+            </p>
+        </li>
+        <li>
+            <h3>How is my email used?</h3>
+            <p>
+                Your email is only used for account security (verification and password reset). MyPackPacker is NOT a
+                sales engine, we do not send out a newsletter or product spotlights.
+            </p>
+        </li>
+        <li>
+            <h3>How is my password stored?</h3>
+            <p>
+                Your password is hashed and securely stored following <a href="https://owasp.org/">OWASP</a> industry
+                standards. Even in the unlikely event someone gets access to our user database, your password will not be exposed. Even MyPackPacker admins don't have access to your password, its just you yourself and you again.
+            </p>
         </li>
     </ol>
 </main>

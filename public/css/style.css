@@ -2024,6 +2024,19 @@ td.buy-on-site-td {
 	display: none !important;
 	z-index: 22;
 }
+.faq p, .faq h4 {
+	margin-left: 20px;
+}
+.faq h4 {
+	margin-bottom: 5px;
+	text-decoration: underline;
+}
+.faq .s-faq {
+	margin-left: 35px;
+}
+.faq ul:not(.toc) {
+	list-style-type: none;
+}
 @media screen and (max-width: 1400px) {
 	.slideshow-container {
 		width: min(800px, max(300px, 100%));

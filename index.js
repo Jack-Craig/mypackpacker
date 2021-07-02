@@ -102,6 +102,7 @@ app.engine('hbs', handlebars({
         formatDate: (dateObj) => {
             return `${dateObj.getMonth() + 1}/${dateObj.getDate()}/${dateObj.getFullYear()}`
         },
+        today: () => new Date(),
         gt: (a, b) => parseFloat(a) > parseFloat(b),
         lt: (a, b) => parseFloat(a) < parseFloat(b),
         lte: (a, b) => parseFloat(a) <= parseFloat(b),
