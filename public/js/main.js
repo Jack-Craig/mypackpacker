@@ -26,5 +26,5 @@
         newSlide.addClass("animate-copy")
       
     }
-    setInterval(runFrame, animDelay)
+    //setInterval(runFrame, animDelay)
 }

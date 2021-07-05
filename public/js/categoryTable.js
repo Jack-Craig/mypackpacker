@@ -4,13 +4,13 @@ $('.add-custom-gear').on('click', e => {
 })
 
 // TOOD: Use data attributes to select the inputs from THIS pack
-// Probs wont come up in practice bc when packs are shwon side by side they are not editable
+// Probs wont come up in practice bc when packs are shown side by side they are not editable
 $('.remove-item').on('click', event => {
     const $e = $(event.target)
     const itemId = $e.attr('data-id')
-    const parentRow = $e.parent().parent()
+    const parentRow = $e.parent().parent() // td > tr
     $.get(`/pack/remove/${itemId}`).done(()=>{
-        if ($(`.data-table-data-row[data-scat="${parentRow.attr('data-scat')}"]`).length == 1) {
+        if ($(`.data-table-data-row[data-scat="${parentRow.attr('data-scat')}"]`).length == 2) {
             $(`.pseudo-header-paint[data-scat="${parentRow.attr('data-scat')}"]`).removeClass('hidden')
         }
         parentRow.remove()

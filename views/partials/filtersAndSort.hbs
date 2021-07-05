@@ -1,5 +1,10 @@
 <form class="filters-and-sort-form" id="filter-form">
     <h2 class="sort-header">Narrow It Down</h2>
+    {{#if category.hasHelp}}
+    <p>
+        Not sure where to start? <a href="/help/cats#{{category._id}}">See Here</a>
+    </p>
+    {{/if}}
     <div class="label-group category-sort">
         <label>Sort</label>
         <select id="category-sort">
