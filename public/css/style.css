@@ -45,6 +45,11 @@ select {
 	padding-left: 5px;
 	padding-right: 10px;
 }
+@media (prefers-color-scheme: dark) {
+	#bright-mode-ico {
+		
+	}
+}
 #pref-uom {
 	width: 40px;
 }

@@ -1,5 +1,5 @@
 {
-    const animDelay = 7000
+    const animDelay = 6000
     const animDur = 400
     $('.slideshow-panel:not(.animate-copy)').css('top', '-'+$('.animate-copy').css('height'))
     const runFrame = () => {
@@ -26,5 +26,5 @@
         newSlide.addClass("animate-copy")
       
     }
-    //setInterval(runFrame, animDelay)
+    setInterval(runFrame, animDelay)
 }
