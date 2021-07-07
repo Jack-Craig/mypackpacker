@@ -14,8 +14,8 @@ const FilterEngine = require('../helpers/filterGenerator')
 const priceRangeHelpers = require('../helpers/priceRange')
 const PAGINATION_ROW_LIMIT = 50
 const r_SORT_KEY_OBJ = {
-  'reviews1': {'productInfo.rating.r': 1},
-  'reviews0': {'productInfo.rating.r': -1},
+  'reviews1': { 'productInfo.rating.r': 1 },
+  'reviews0': { 'productInfo.rating.r': -1 },
   'weight1': { 'productInfo.weight': 1 },
   'weight0': { 'productInfo.weight': -1 },
   'price1': { 'lowestPriceRange.minPrice': 1 },
@@ -23,8 +23,8 @@ const r_SORT_KEY_OBJ = {
   'brand': { 'brand': 1 }
 }
 const r_SORT_DISPLAY_VALS = [
-  {val: 'reviews0', text: 'Reviews: High to Low'},
-  {val: 'reviews1', text: 'Reviews: Low to High'},
+  { val: 'reviews0', text: 'Reviews: High to Low' },
+  { val: 'reviews1', text: 'Reviews: Low to High' },
   { val: 'weight1', text: "Weight: Low to High" },
   { val: 'weight0', text: "Weight: High to Low" },
   { val: 'price1', text: "Price: Low to High" },
@@ -127,7 +127,7 @@ router.post('/add/gear', ensureAuthenticated, async (req, res) => {
       promiseList.push(new Promise(async (res, rej) => {
         const newPack = await BuildModel.findByIdAndUpdate(req.user.activePackId, packUpdate, { upsert: true, setDefaultsOnInsert: true, new: true }).lean()
         if (newPack._id != req.user.activePackId) {
-          await UserModel.findByIdAndUpdate(req.user._id, {activePackId: newPack._id})
+          await UserModel.findByIdAndUpdate(req.user._id, { activePackId: newPack._id })
         }
         res()
       }))
@@ -153,9 +153,9 @@ router.get('/add/:id', async (req, res) => {
         productPriceRange.maxPrice = productPriceRange.minPrice
       const update = { '$inc': { wornWeight: aWWeight, baseWeight: aBWeight, totalWeight: aTWeight, 'priceRange.minPrice': productPriceRange.minPrice, 'priceRange.maxPrice': productPriceRange.maxPrice }, '$push': { 'build': pID }, $setOnInsert: { displayName: 'New Pack' } }
       if (user) {
-        BuildModel.findByIdAndUpdate(user.activePackId, {...update, autherUserID: user._id}, { upsert: true, setDefaultsOnInsert: true, new: true }).lean().then(async newDoc => {
+        BuildModel.findByIdAndUpdate(user.activePackId, { ...update, autherUserID: user._id }, { upsert: true, setDefaultsOnInsert: true, new: true }).lean().then(async newDoc => {
           if (newDoc._id !== user.activePackId) {
-            await UserModel.findByIdAndUpdate(user._id, {activePackId: newDoc._id})
+            await UserModel.findByIdAndUpdate(user._id, { activePackId: newDoc._id })
           }
           res.sendStatus(200)
         })
@@ -163,7 +163,7 @@ router.get('/add/:id', async (req, res) => {
         let id = req.session.activePackId
         if (!req.session.activePackId)
           id = new ObjectId()
-        BuildModel.findByIdAndUpdate(id, {...update, sessionID: sessionID}, {setDefaultsOnInsert: true, new:true, upsert: true}).lean().then(async newDoc => {
+        BuildModel.findByIdAndUpdate(id, { ...update, sessionID: sessionID }, { setDefaultsOnInsert: true, new: true, upsert: true }).lean().then(async newDoc => {
           if (req.session.activePackId !== newDoc._id)
             req.session.activePackId = newDoc._id
           res.sendStatus(200)
@@ -181,8 +181,8 @@ router.get('/remove/:id', async (req, res) => {
   const user = req.user
   const productDoc = await ProductModel.findById(pID).lean()
   const productCategory = await SubCategoryModel.findById(productDoc.categoryID).lean()
-  let activePack = await BuildModel.findById(req.user.activePackId, {build: 1}).lean()
-  
+  let activePack = await BuildModel.findById(req.user.activePackId, { build: 1 }).lean()
+
   for (let i = 0; i < activePack.build.length; ++i) {
     const strRep = activePack.build[i].toString()
     if (strRep === pID) {
@@ -221,9 +221,9 @@ router.get('/remove/:id', async (req, res) => {
 router.get('/', async (req, res) => {
   let query
   if (req.user)
-    query = {_id: req.user.activePackId}
+    query = { _id: req.user.activePackId }
   else {
-    query = {_id: ObjectId(req.session.activePackId)}
+    query = { _id: ObjectId(req.session.activePackId) }
   }
   Promise.all([
     CategoryModel.find().lean(),
@@ -290,7 +290,7 @@ router.get('/content/:categoryID', async (req, res) => {
     }
 
     const paginationData = { currentPage: page, maxPages: Math.ceil(data[1] / PAGINATION_ROW_LIMIT) }
-    res.render('categoryBody', {layout:'blank', category: category, products: data[0], user: req.user, paginationData: paginationData, userOwnedObj: userOwnedObj, userSavedObj: userSavedObj, filterData: filterData, sortVal: req.query.sort })
+    res.render('categoryBody', { layout: 'blank', category: category, products: data[0], user: req.user, paginationData: paginationData, userOwnedObj: userOwnedObj, userSavedObj: userSavedObj, filterData: filterData, sortVal: req.query.sort })
   }).catch(err => {
     console.error(err)
     res.sendStatus(500)
@@ -310,27 +310,44 @@ router.get('/:categoryID', async (req, res) => {
   filterData.categoryFilters.sort((a, b) => {
     if (a.t === 'list' && b.t === 'list')
       return 0
-    if (a.t==='in'||a.t==='inter')
+    if (a.t === 'in' || a.t === 'inter')
       return 1
     return -1
   })
-  res.render('category', { category: category, user: req.user, filterData: filterData})
+  res.render('category', { category: category, user: req.user, filterData: filterData })
 })
 
 router.get('/:categoryID/:productID', async (req, res) => {
-  const productID = req.params.productID
+  const productID = ObjectId(req.params.productID)
   const activePackId = req.user ? req.user.activePackId : req.session.actuvePackId
   Promise.all([
-    ProductModel.findById(productID).lean(),
+    ProductModel.aggregate([
+      { $match: { _id: productID } },
+      {
+        $lookup: {
+          from: 'sources',
+          localField: 'sources.srcId',
+          foreignField: '_id',
+          as: 'srcData'
+        }
+      },
+    ]),
     SubCategoryModel.findById(req.params.categoryID).lean(),
     BuildModel.findById(activePackId).lean()
   ]).then(d => {
-    if (!d[0])
+    if (!d[0].length)
       return res.render('404', { user: req.user })
-    res.render('product', { product: d[0], category: d[1], user: req.user, userPack: d[2] })
+    let p = d[0][0]
+    for (const source of p.sources) {
+      for (const sourceData of p.srcData) {
+        if (source.srcId == sourceData._id)
+        source.meta = sourceData
+      }
+    }
+    res.render('product', { product: p, category: d[1], user: req.user, userPack: d[2] })
   }).catch(err => {
     console.error(err)
-    res.render('/'+req.params.categoryID)
+    res.render('/' + req.params.categoryID)
   })
 })
 

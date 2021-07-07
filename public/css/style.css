@@ -1620,6 +1620,10 @@ td.buy-on-site-td {
 	width: 80px;
 	height: auto;
 }
+.source-logo-holder > img {
+	width: 100%;
+	height: auto;
+}
 .detail-col:last-of-type {
 	padding-right: 0px;
 }

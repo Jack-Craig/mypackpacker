@@ -36,17 +36,19 @@
                     </tr>
                 </thead>
                 <tbody class="nocollapse">
+                    {{#each product.sources}}
                     <tr class="nocollapse">
                         <td class="nocollapse">
                             <div class="source-logo-holder">
-                                {{> icons/reiLogo }}
+                                <img src="{{this.meta.logoUrl}}" alt="{{this.displayName}} logo">
                             </div>
                         </td>
-                        <td class="nocollapse">REI</td>
-                        <td class="nocollapse">${{product.lowestPriceRange.minPrice}}</td>
+                        <td class="nocollapse">{{this.displayName}}</td>
+                        <td class="nocollapse">${{this.price.minPrice}}</td>
                         <td class="buy-on-site-td nocollapse"><a class="action-button" target="_blank"
-                                href="https://{{product.productInfo.unaffiliatedUrl}}">Buy On Site</a></td>
+                                href="https://{{this.url}}">Buy On Site</a></td>
                     </tr>
+                    {{/each}}
                 </tbody>
             </table>
             <span>Note: More sources coming soon.</span>

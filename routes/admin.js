@@ -51,7 +51,7 @@ router.get('/', ensureAdmin, async (req, res) => {
     })
 })
 
-router.delete('/users', async (req, res) => {
+router.delete('/users', ensureAdmin, async (req, res) => {
     const usrs = req.query.usrs
     if (!usrs)
         return res.sendStatus(200)
@@ -64,6 +64,20 @@ router.delete('/users', async (req, res) => {
     // Delete all user info
     await UserModel.deleteMany({ _id: { $in: userIdList } }).lean()
     res.sendStatus(200)
+})
+
+router.post('/gear', ensureAdmin, async (req, res) => {
+    // Search for gear items
+    let query = {}
+    if (req.body.category !== 'any')
+        query.categoryID = req.body.category
+    if (req.body.brand !== 'any')
+        query.brand = req.body.brand
+    if (req.body.qs !== '')
+        query.$search = req.body.qs
+
+    const aps = await ProductModel.find(query).lean()
+    res.send({gearItems: aps})
 })
 
 module.exports = router

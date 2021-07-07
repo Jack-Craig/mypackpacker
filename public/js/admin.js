@@ -111,3 +111,12 @@ new Chart(document.getElementById('sessions-chart'), {
     data: sessionData,
     options: {scales:{yAxes:[{ticks:{beginAtZero:true, suggestedMax: maxSessions*1.5}}]}}
 })
+
+$('#gear-table-search').on('submit', e => {
+    e.preventDefault()
+    const elem = $(e.currentTarget)
+    $('#gear-table').DataTable({
+       ajax: '',
+       data: elem.serialize(),
+    })
+})
