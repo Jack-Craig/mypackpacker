@@ -6,7 +6,6 @@
 	--variation-color: #ED9B02;
 	--secondary-variation-color: #F71491;
 	--good-green: #6ae06a;
-
 	--header-font: 'Lato', sans-serif;;
 	--body-font: 'Poppins';
 }
@@ -25,6 +24,7 @@ td {
 }
 body {
     margin: 0;
+	position: relative;
 }
 a, a:visited {
 	color: blue;
