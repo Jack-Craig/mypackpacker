@@ -104,7 +104,7 @@ select {
 	padding-left: 15px;
 }
 .logo-container {
-	height: 
+	height: 100%;
 }
 .logo-container img {
     width: auto;
@@ -191,7 +191,7 @@ main {
 .category-link-heading {
 	border-top: 1px solid #eee;
 }
-.category-heading > td {
+.category-heading {
 	font-weight: 600;
 	font-size: 18px;
 	white-space: nowrap;
@@ -2177,11 +2177,32 @@ td.buy-on-site-td {
 		display: none;
 
 	}
-	td:not(.non-data, .nocollapse), .weight-cell {
+	td:not(.nocollapse, .choose-cat-section), .weight-cell {
 		max-width: 100%;
 		border: none;
 		position: relative;
 		padding-left: 40% !important;
+	}
+	.non-data {
+		padding: 0px;
+	}
+	.choose-cat-section {
+		padding-left: 6px;
+	}
+	tr {
+		margin: 5px 0 5px 0;
+	}
+	.category-heading {
+		font-size: 24px;
+		margin-top: 15px;
+		border: none;
+	}
+	.category-heading td {
+		padding: 0px !important;
+		text-align: center;
+	}
+	.first-of-cat-type {
+		margin-top: 10px;
 	}
 	.data-table .data-table-data-row {
 		height: fit-content;
@@ -2218,8 +2239,8 @@ td.buy-on-site-td {
 		font-size: 16px;
 		padding: 0;
 	}
-	.pack-table td:nth-of-type(2):before { content: "Category"; }
-	.pack-table td:nth-of-type(3):before { content: "Name"; }
+	
+	.pack-table td:nth-of-type(4):not(.choose-cat-section):before { content: "Name"; }
 	.pack-table td:nth-of-type(5):before { content: "Brand"; }
 	.pack-table td:nth-of-type(6):before { content: "Price"; }
 	.pack-table td:nth-of-type(7):before { content: "Weight"; }
@@ -2242,23 +2263,29 @@ td.buy-on-site-td {
 		background-color: #eee !important;
 	}
 	.gear-table td:nth-of-type(1):before {content: "Category";}
-	.gear-table td:nth-of-type(2):before {content: "Name";}
+	.gear-table td:nth-of-type(2):not(.choose-cat-section):before {content: "Name";}
 	.gear-table td:nth-of-type(3):before {content: "Price";}
 	.gear-table td:nth-of-type(4):before {content: "Weight";}
 	.gear-table td:nth-of-type(5):before {content: "Brand";}
 	.gear-table td:nth-of-type(6):before {content: "Select";}
-
+	.image-cell {
+		justify-content: flex-start;
+	}
 	.weight-text {
 		justify-content: left;
 	}
 	.pack-table td:nth-of-type(2):not(.non-data) {
-		background-color: var(--primary-color) !important;
+		left: 6px !important;
+		padding: 0px !important;
+		font-size: 18px;
 		min-height: 36px;
 		display: flex;
 		align-items: center;
+		border-top: 1px solid var(--tertiary-color);
+		border-bottom: 1px solid var(--tertiary-color);
 	}
 	.pack-table td:nth-of-type(2):not(.non-data) a, .pack-table td:nth-of-type(2):not(.non-data) a:visited {
-		color: white;
+		color: var(--primary-color);
 	}
 	.pack-table td:nth-of-type(2):not(.non-data):before {
 		font-size: 18px;
@@ -2288,9 +2315,7 @@ td.buy-on-site-td {
 	}
 }
 @media screen and (max-width: 768px) {
-	.category-heading {
-		display: none !important;
-	}
+	
 	.pricing-table td, th {
 		padding-right: 0;
 	}
