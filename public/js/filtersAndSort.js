@@ -19,6 +19,8 @@ $('#filter-form').on('submit', event => {
             case '2ws':
                 let unencMin = elem.getAttribute('unenc-min')
                 let unencMax = elem.getAttribute('unenc-max')
+                if (unencMin == null || unencMax == null)
+                    break
                 if (unencMin === elem.getAttribute('min') && unencMax == elem.getAttribute('max'))
                     break
                 if (elem.hasAttribute('data-uom')) {
