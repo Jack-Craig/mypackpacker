@@ -129,7 +129,7 @@ app.engine('hbs', handlebars({
                 return ''
             const dIdx = url.indexOf('?size=')
             if (dIdx < 0)
-                return url
+                return url + `?size=${dim}x${dim}`
             return `${url.slice(0, dIdx)}?size=${dim}x${dim}`
         },
         max: a => Math.max(...a),

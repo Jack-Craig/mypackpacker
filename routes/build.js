@@ -7,6 +7,7 @@ const CategoryModel = require('../models/Category')
 const SubCategoryModel = require('../models/SubCategory')
 const ProductModel = require('../models/Product')
 const BuildModel = require('../models/Build')
+const SourceModel = require('../models/Source')
 const UserModel = require('../models/user')
 const BuildAgg = require('../helpers/aggregatePack')
 const FilterEngine = require('../helpers/filterGenerator')
@@ -288,7 +289,6 @@ router.get('/content/:categoryID', async (req, res) => {
       categoryFilters: [{ t: 'list', labelText: 'Rating', vsKey: 'rat', step: .5, suffix: ' stars' }, ...category.filters],
       vsStore: category.vsStore
     }
-
     const paginationData = { currentPage: page, maxPages: Math.ceil(data[1] / PAGINATION_ROW_LIMIT) }
     res.render('categoryBody', { layout: 'blank', category: category, products: data[0], user: req.user, paginationData: paginationData, userOwnedObj: userOwnedObj, userSavedObj: userSavedObj, filterData: filterData, sortVal: req.query.sort })
   }).catch(err => {
@@ -323,25 +323,33 @@ router.get('/:categoryID/:productID', async (req, res) => {
   Promise.all([
     ProductModel.aggregate([
       { $match: { _id: productID } },
+      /**
+      {$objectToArray: '$sources'},
       {
         $lookup: {
-          from: 'sources',
+          from: 'sources.k',
           localField: 'sources.srcId',
           foreignField: '_id',
           as: 'srcData'
         }
       },
+       */
     ]),
     SubCategoryModel.findById(req.params.categoryID).lean(),
     BuildModel.findById(activePackId).lean()
-  ]).then(d => {
+  ]).then(async d => {
     if (!d[0].length)
       return res.render('404', { user: req.user })
     let p = d[0][0]
-    for (const source of p.sources) {
-      for (const sourceData of p.srcData) {
-        if (source.srcId == sourceData._id)
-        source.meta = sourceData
+    let sourceIds = []
+    for (const sourceId of Object.keys(p.sources)) {
+      sourceIds.push(sourceId)
+    }
+    const sourceObjs = await SourceModel.find({ _id: { $in: sourceIds } }).lean()
+    for (const sourceId of Object.keys(p.sources)) {
+      for (const sourceData of sourceObjs) {
+        if (sourceId == sourceData._id)
+          p.sources[sourceId].global = sourceData
       }
     }
     res.render('product', { product: p, category: d[1], user: req.user, userPack: d[2] })

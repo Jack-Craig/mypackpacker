@@ -40,13 +40,13 @@
                     <tr class="nocollapse">
                         <td class="nocollapse">
                             <div class="source-logo-holder">
-                                <img src="{{this.meta.logoUrl}}" alt="{{this.displayName}} logo">
+                                <img src="{{this.global.logoUrl}}" alt="{{this.displayName}} logo">
                             </div>
                         </td>
-                        <td class="nocollapse">{{this.displayName}}</td>
+                        <td class="nocollapse">{{this.global.displayName}}</td>
                         <td class="nocollapse">${{this.price.minPrice}}</td>
                         <td class="buy-on-site-td nocollapse"><a class="action-button" target="_blank"
-                                href="https://{{this.url}}">Buy On Site</a></td>
+                                href="{{this.url}}">Buy On Site</a></td>
                     </tr>
                     {{/each}}
                 </tbody>
