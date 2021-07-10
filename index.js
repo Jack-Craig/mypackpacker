@@ -225,6 +225,7 @@ app.use('/api', require('./routes/api'))
 app.use('/blog', require('./routes/blog'))
 app.use('/help', require('./routes/help'))
 app.use('/admin', require('./routes/admin'))
+app.use('/tracking', require('./routes/tracking'))
 app.use('*', require('./routes/404'))
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })

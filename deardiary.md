@@ -52,4 +52,9 @@ Today's Alexa rank: 3841878 (https://smallseotools.com/alexa-rank-checker/). Woo
 
 Today is also a great day because I might have found a way to get global identifiers for REI products during the webscrape phase. I spent a couple hours making a cool CL script that would go through the REI products, find the 5 closest matches FlexOffers products, and then have me pick which one was right. It ended up being super slow because the FlexOffers API can be pretty slow, but it helped me realize how I could find the REI global ids. Time to figure out how to add this to the web scraper.
 
-Ended up making the choice that MID and UPCs will be tracked for products, but since a product can have multiple different universalIds for its different variants, a product will 
+Ended up making the choice that MID and UPCs will be tracked for products, but since a product can have multiple different universalIds for its different variants, a product will have multiple universalIds. This comes in the form of a list of MPNs and UPCs that I have no idea how to query efficiently. It might make sense to have a one-to-many collection, with the id of the product and the MID/UPC right there.
+
+### July 10, 20201
+Today's Alexa Rank: 3840596. Woo a 1282 decrease!
+
+I need to find a way to decrease my Alexa score faster.
