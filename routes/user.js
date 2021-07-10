@@ -18,34 +18,34 @@ router.use('/packs', require('./subroutes/userpacks'))
 
 // Rendering Routes
 router.get('/login', (req, res) => {
-    res.render('login', { message: req.flash('error') })
+    res.render('login', { message: req.flash('error'), pageTitle: 'Login'})
 })
 
 router.get('/signup', (req, res) => {
-    res.render('signup')
+    res.render('signup', {pageTitle: 'Sign Up'})
 })
 
 router.get('/account', ensureAuthenticated, async (req, res) => {
-    res.render('account', { user: req.user })
+    res.render('account', { user: req.user, pageTitle: 'Account'})
 })
 
 router.get('/forgot', async (req, res) => {
     if (req.user)
-        return res.render('404', { user: req.user })
-    res.render('forgot', { success: req.query.success })
+        return res.render('404', { user: req.user, pageTitle: 'Lost'})
+    res.render('forgot', { success: req.query.success, pageTitle: 'Forgot'})
 })
 
 router.get('/account/reset/:uid', async (req, res) => {
     if (req.user)
-        return res.render('404', { user: req.user })
+        return res.render('404', { user: req.user, pageTitle: 'Lost'})
     const uid_key = req.params.uid
     // Check if valid
     const tUID = await TempUIDModel.findOne({ tempId: uid_key }).lean()
     if (tUID) {
         const user = await UserModel.findById(tUID._id).lean()
-        res.render('passwordReset', { user: null, tempUser: user, uid: tUID.tempId })
+        res.render('passwordReset', { user: null, tempUser: user, uid: tUID.tempId, pageTitle: 'Reset'})
     } else {
-        res.render('passwordReset', { user: req.user, tempUser: null, success: req.query.success })
+        res.render('passwordReset', { user: req.user, tempUser: null, success: req.query.success, pageTitle: 'Reset'})
     }
 })
 

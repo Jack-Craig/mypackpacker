@@ -251,7 +251,7 @@ router.get('/', async (req, res) => {
         cat.subCategories[i] = _.find(subCategories, (c) => c._id === cat.subCategories[i])
       }
     }
-    res.render('build', { categoryList: categories, buildData: sessionBuildData, user: req.user, editable: true, userOwnedObj: userOwnedObj, userSavedObj: userSavedObj })
+    res.render('build', { categoryList: categories, buildData: sessionBuildData, user: req.user, editable: true, userOwnedObj: userOwnedObj, userSavedObj: userSavedObj, pageTitle: 'Create'})
   }).catch(e => {
     console.error(e)
     res.redirect('/pack')
@@ -314,7 +314,7 @@ router.get('/:categoryID', async (req, res) => {
       return 1
     return -1
   })
-  res.render('category', { category: category, user: req.user, filterData: filterData })
+  res.render('category', { category: category, user: req.user, filterData: filterData, pageTitle: category.displayName })
 })
 
 router.get('/:categoryID/:productID', async (req, res) => {
@@ -339,7 +339,7 @@ router.get('/:categoryID/:productID', async (req, res) => {
     BuildModel.findById(activePackId).lean()
   ]).then(async d => {
     if (!d[0].length)
-      return res.render('404', { user: req.user })
+      return res.render('404', { user: req.user, pageTitle: 'Lost' })
     let p = d[0][0]
     let sourceIds = []
     for (const sourceId of Object.keys(p.sources)) {
@@ -352,10 +352,10 @@ router.get('/:categoryID/:productID', async (req, res) => {
           p.sources[sourceId].global = sourceData
       }
     }
-    res.render('product', { product: p, category: d[1], user: req.user, userPack: d[2] })
+    res.render('product', { product: p, category: d[1], user: req.user, userPack: d[2], pageTitle: p.displayName })
   }).catch(err => {
     console.error(err)
-    res.render('/' + req.params.categoryID)
+    res.redirect('/' + req.params.categoryID)
   })
 })
 

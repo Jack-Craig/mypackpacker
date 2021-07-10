@@ -47,7 +47,7 @@ router.get('/', ensureAdmin, async (req, res) => {
             dailyActive: results[5],
             analyticsHistory: a
         }
-        res.render('admin', { user: req.user, data: data })
+        res.render('admin', { user: req.user, data: data, pageTitle: 'Admin' })
     })
 })
 

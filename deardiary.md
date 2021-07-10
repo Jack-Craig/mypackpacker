@@ -47,4 +47,9 @@ p1.manufacturer === p2.manufacturer && p1.mId == p2.mId
 
 This is great because I can get accurate price info for multiple different websites. I am running into several problems, however, like inconsistencies and lack gear stats that lead me to believe I might have to do that by hand. I'm waiting to see if I get into AvantLink to make a decision because I think their API is better. I don't think my Alexa rank is high enough to get accepted, so I'll have to increase that. If I get denied I'll have to decide if my focus should be on increasing Alexa rank or on writing web scrapers and an admin tool for adding all of the new vendors FlexOffers has opened up to me.
 
+### July 9, 2021
+Today's Alexa rank: 3841878 (https://smallseotools.com/alexa-rank-checker/). Wooo! a 2600 decrease!
 
+Today is also a great day because I might have found a way to get global identifiers for REI products during the webscrape phase. I spent a couple hours making a cool CL script that would go through the REI products, find the 5 closest matches FlexOffers products, and then have me pick which one was right. It ended up being super slow because the FlexOffers API can be pretty slow, but it helped me realize how I could find the REI global ids. Time to figure out how to add this to the web scraper.
+
+Ended up making the choice that MID and UPCs will be tracked for products, but since a product can have multiple different universalIds for its different variants, a product will 

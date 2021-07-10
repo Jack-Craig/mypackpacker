@@ -41,10 +41,10 @@ router.get('/', async (req, res) => {
       pack.build = p
     }
     featuredPacks.reverse()
-    res.render('main', { user: req.user, communityPacks: results[2], featuredProducts: results[0], featuredPacks: results[1] })
+    res.render('main', { user: req.user, communityPacks: results[2], featuredProducts: results[0], featuredPacks: results[1], pageTitle: 'Home'})
   }).catch(err => {
     console.log(err)
-    res.render('main', { user: req.user })
+    res.render('main', { user: req.user, pageTitle: 'Home'})
   })
 })
 module.exports = router

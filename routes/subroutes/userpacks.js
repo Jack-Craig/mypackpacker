@@ -35,7 +35,7 @@ router.get('/', ensureAuthenticated, async (req, res) => {
             }
         }
         packList.sort((a, b) => (a.displayName.localeCompare(b.displayName)))
-        res.render('userPacks', { categoryList: categories, user: req.user, userPacks: packList, editable: false, userOwnedObj: userOwnedObj, userSavedObj: userSavedObj })
+        res.render('userPacks', { categoryList: categories, user: req.user, userPacks: packList, editable: false, userOwnedObj: userOwnedObj, userSavedObj: userSavedObj, pageTitle: 'My Packs' })
     }).catch(err => {
         console.log(err)
         res.sendStatus(500)
@@ -45,8 +45,8 @@ router.get('/', ensureAuthenticated, async (req, res) => {
 router.get('/publish/:packID', ensureAuthenticated, async (req, res) => {
     BuildModel.findById(req.params.packID).lean().then(pack => {
         if (!pack)
-            return res.render('404', { user: user })
-        res.render('publish', { user: req.user, pack: pack })
+            return res.render('404', { user: user, pageTitle: 'lost'})
+        res.render('publish', { user: req.user, pack: pack, pageTitle: 'Publish' })
     })
 })
 

@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
       categoryFilters: [ { t: 'list', key: 'upvotes', labelText: 'Likes', vsKey: 'upv', step:1}],
       vsStore: filterVS.vsStore
     }
-    res.render('completed', { user: req.user, filterData: filterData, sortVal: req.query.sort})
+    res.render('completed', { user: req.user, filterData: filterData, sortVal: req.query.sort, pageTitle: 'Community'})
 })
 
 router.get('/content', async (req, res) => {
@@ -149,7 +149,7 @@ router.get('/:packId', async (req, res) => {
     totalWeight = Math.floor(totalWeight * 100) / 100
     baseWeight = Math.floor(baseWeight * 100) / 100
     wornWeight = Math.floor(wornWeight * 100) / 100
-    res.render('completedSingle', { user: req.user, pack: pack, categoryList: categories, tWeight: totalWeight, bWeight: baseWeight, wWeight: wornWeight, editable: false })
+    res.render('completedSingle', { user: req.user, pack: pack, categoryList: categories, tWeight: totalWeight, bWeight: baseWeight, wWeight: wornWeight, editable: false, pageTitle: pack.displayName})
   })
 })
 

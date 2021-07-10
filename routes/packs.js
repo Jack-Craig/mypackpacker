@@ -23,9 +23,9 @@ router.get('/:packID', function (req, res) {
             }
         }
         if (buildData.length) {
-            res.render('build', {categoryList: categories, buildData: buildData[0], user: req.user, editable: false})
+            res.render('build', {categoryList: categories, buildData: buildData[0], user: req.user, editable: false, pageTitle: 'List'})
         } else {
-            res.render('404', {user: req.session.user})
+            res.render('404', {user: req.session.user, pageTitle: 'Lost'})
         }
     }).catch(e => {
         console.log(e)
