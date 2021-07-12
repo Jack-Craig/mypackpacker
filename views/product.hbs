@@ -21,7 +21,7 @@
                 <a href="" class="breadcrumb">{{product.displayName}}</a>
             </div>
             <div class="detail-image-container">
-                <img src="{{reqDim product.productInfo.pictures.[0] 500}}">
+                <img src="{{reqDim (getProductPicture product) 500}}">
             </div>
         </div>
         <div id="product-sources-container" class="detail-col sources-col">

@@ -58,7 +58,7 @@
                 {{assign 'fRb' (tern ../histData (plus @root.hObjOld.start (mult (plus @index 1) @root.hObjOld.partitionWidth)) @root.rb)}}
                 {{assign 'rawVal' (dlookup ../p ../pKey)}}
                 {{assign 'isFeatured' (and (lt @root.fLb @root.rawVal) (lte @root.rawVal @root.fRb))}}
-                {{assign 'isFeatured' (or @root.isFeatured (and (eq @index 0) (eq @root.lb @root.rawVal)))}}
+                {{assign 'isFeatured' (or @root.isFeatured (and (eq @index 0) (lte @root.rawVal @root.fLb)))}}
                 <dd class="hist-bar{{#if @root.isFeatured}} histo-featured{{/if}}"
                     style="height: {{perc (div this @root.maxVal)}}%;">
                     <a target="blank_" href="/pack/{{../c._id}}#{{../vsKey}}={{@root.fLb}}%2C{{@root.fRb}}&pt={{urlEncode ../p.productInfo.type}}">

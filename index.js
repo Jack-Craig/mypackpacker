@@ -210,6 +210,13 @@ app.engine('hbs', handlebars({
                 return `${nDays}day`
             }
             return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`
+        },
+        getProductPicture: p => {
+            if (p.hasOwnProperty('variants')) {
+                let key = Object.keys(p.variants)[0]
+                return p.variants[key].image
+            } else
+                return p.productInfo.pictures[0]
         }
     }
 }));

@@ -38,7 +38,7 @@
         <td>
             <div class="image-cell">
                 {{#unless this.userCreated}}
-                <img src="{{reqDim this.productInfo.pictures.[0] 40}}">
+                <img src="{{reqDim (getProductPicture this) 40}}">
                 {{/unless}}
             </div>
         </td>
