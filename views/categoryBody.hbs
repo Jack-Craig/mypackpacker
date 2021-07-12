@@ -17,9 +17,7 @@
                 </div>
             </th>
             {{/unless}}
-            {{#unless true}}
             <th>Brand</th>
-            {{/unless}}
             {{#each category.fields}}
             <th class="cat-specific">{{this.displayName}}</th>
             {{/each}}
@@ -63,9 +61,7 @@
             </div>
         </td>
         {{/unless}}
-        {{#unless true}}
         <td class="stand-td-brand">{{this.brand}}</td>
-        {{/unless}}
         {{#each ../category.fields}}
         <td class="cat-specific" style='--content:"{{this.displayName}}"'>
             {{dlookup ../this this.lookupKey}}{{this.suffix}}

@@ -54,7 +54,29 @@ Today is also a great day because I might have found a way to get global identif
 
 Ended up making the choice that MID and UPCs will be tracked for products, but since a product can have multiple different universalIds for its different variants, a product will have multiple universalIds. This comes in the form of a list of MPNs and UPCs that I have no idea how to query efficiently. It might make sense to have a one-to-many collection, with the id of the product and the MID/UPC right there.
 
-### July 10, 20201
+### July 10, 2021
 Today's Alexa Rank: 3840596. Woo a 1282 decrease!
 
 I need to find a way to decrease my Alexa score faster.
+
+In other news the new REI scraper has done well, it's added/updated 2217 products with universalIds, making the total number of products 3291 with maybe 1 or 2 hundred more to come. Some problems that it has risen:
+1. There are some things that do fit in a category but do NOT fit well in a category filter, I think there were some good examples in stoves.
+1. Some of the photos are weird and are the last one, rather than the first one displayed. I think I can fix this with a quick .first() call or something.
+1. Some of the data isn't real, it will record some weights as 0 and stuff like that. I can add a validator but I have to make sure it's not too strict. In the meantime, I'll delete them by hand.
+
+I now want to work on adding better GID lookup (using the one-to-many) and then add FlexOffers links. After that, I can work on making FlexOffers web scrapers. After that, I need to automate the whole process to happen multiple times a day. Scraping an entire website is pretty time consuming so maybe I'll have a circular queue with URLs and only wakes up once an hour, does 20 minutes of work, then sleeps. The problem with that is it absorbs dyno time, maybe I should run it from a home machine.
+
+I'm running google ads to try and get some traffic but it's not effective. I'm getting clicks but I don't think I'm getting much retention. I might pause the campaign but I don't know what I would do in the meantime. I guess make scrapers so the data is A+, and then add all the other features. The problem is I've been adding features for months, shouldn't there be users by now? I'm going to keep it running and work on the FlexOffers stuff. Who knows, maybe a cookie will get me a dollar to pay for 1 ad (haha).
+
+I cannot believe this, I am such a dummy. I'm going to start making manual back-ups of the DB because I just deleted the entire products collection on accident. I meant to drop the UIDs but apparently you spell "uids" a lot like "products". The loss isn't big, I don't have any active users or shared community packs that aren't from someone I know, but still how irresponsible was that. The admin panel is going to tell a funny story thats for sure. I'm not going to unshare the empty community packs, I'm going to leave them broken and if they want they can fix them.
+
+### July 11, 2021
+Today's Alexa Rank: 3838042. Woo a 2554 decrease!
+
+Lighterpack.com's Alexa Rank is 285246, which I think shows the minimum of the maximum range in popularity MyPackPacker can reach. BoardGameAtlas, however, is at 185482 which I think is a much better medium-end goal. I know the community is a large aspect of BGA, so I wonder how Trent was able to convince people to do their community stuff on his website, rather than reddit or some other forum. I think the advanced forum components that he build in are huge for that, like mentioning a board game with #"board game name". I could work something in if I did that for product reviews and added a pack-trip logger thing for trail reports. 
+
+
+### July 12, 2021
+TAR: 3834794. Woo! a 4000 increase?
+
+Makes sense, I stopped google ads for now. I had an idea for a more specific version of product reviews where you ask the reviewer something much more specific than "Review this product". Something that open ended is tough to come up with and you only really know what to say if you really loved it or really hated it. I like structured review systems that ask for pros and cons, I think something like that but like "What did you learn about this gear item / tips and tricks" and it adds more experience and skill to the gear item. Then you can filter through the reviews to only show the pros, only the cons, or only the tips. 
