@@ -342,6 +342,8 @@ router.get('/:categoryID/:productID', async (req, res) => {
       return res.render('404', { user: req.user, pageTitle: 'Lost' })
     let p = d[0][0]
 
+    // TODO: Reduce the below loops into 2 loops somehow
+
     let selectedVariant = req.query.sv
     if (p.hasOwnProperty('variants') && selectedVariant == undefined) {
       let minVal = Number.MAX_VALUE
@@ -361,8 +363,12 @@ router.get('/:categoryID/:productID', async (req, res) => {
     for (const sourceData of sourceObjs) {
       sources[sourceData._id] = sourceData
     }
-    console.log(sources)
-    res.render('product', { product: p, category: d[1], user: req.user, userPack: d[2], selectedVariant: selectedVariant, sources: sources, pageTitle: p.displayName })
+    let sortedSources = sourceIds
+    if (p.hasOwnProperty('variants')) {
+      const cv = p.variants[selectedVariant].sources
+      sortedSources.sort((a,b) => cv[a].price - cv[b].price)
+    }
+    res.render('product', { product: p, category: d[1], user: req.user, userPack: d[2], selectedVariant: selectedVariant, sortedSources: sortedSources, sources: sources, pageTitle: p.displayName })
   }).catch(err => {
     console.error(err)
     res.redirect('/pack/' + req.params.categoryID)

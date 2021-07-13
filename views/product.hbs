@@ -37,19 +37,21 @@
                 </thead>
                 <tbody class="nocollapse">
                     {{#if selectedVariant}}
-                    {{#each (lookup (lookup product.variants selectedVariant) 'sources')}}
-                    <tr class="nocollapse">
-                        <td class="nocollapse">
-                            <div class="source-logo-holder">
-                                <img src="{{lookup (lookup ../sources this.srcKey) 'logoUrl'}}" alt="{{this.displayName}} logo">
-                            </div>
-                        </td>
-                        <td class="nocollapse">{{lookup (lookup ../sources this.srcKey) 'displayName'}}</td>
-                        <td class="nocollapse">${{this.price}}</td>
-                        <td class="buy-on-site-td nocollapse">
-                            <a class="action-button" target="_blank" href="{{this.url}}">View on Site</a>
-                        </td>
-                    </tr>
+                    {{assign 'srcObj' (lookup (lookup product.variants selectedVariant) 'sources')}}
+                    {{#each sortedSources}}
+                        {{ assign 'cSrc' (lookup @root.srcObj this) }}
+                        <tr class="nocollapse">
+                            <td class="nocollapse">
+                                <div class="source-logo-holder">
+                                    <img src="{{lookup (lookup ../sources this) 'logoUrl'}}" alt="{{this}} logo">
+                                </div>
+                            </td>
+                            <td class="nocollapse">{{lookup (lookup ../sources this) 'displayName'}}</td>
+                            <td class="nocollapse">${{tf @root.cSrc.price 2}}</td>
+                            <td class="buy-on-site-td nocollapse">
+                                <a class="action-button" target="_blank" href="{{@root.cSrc.url}}">View on Site</a>
+                            </td>
+                        </tr>
                     {{/each}}
                     {{else}}
 

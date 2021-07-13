@@ -217,7 +217,8 @@ app.engine('hbs', handlebars({
                 return p.variants[key].image
             } else
                 return p.productInfo.pictures[0]
-        }
+        },
+        tf: (n, m) => n.toFixed(m)
     }
 }));
 
