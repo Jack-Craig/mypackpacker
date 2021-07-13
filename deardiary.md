@@ -77,8 +77,29 @@ Lighterpack.com's Alexa Rank is 285246, which I think shows the minimum of the m
 
 
 ### July 12, 2021
-TAR: 3834794. Woo! a 4000 increase?
+TAR: 3834794. Woo! a 3248 decrease
 
-Makes sense, I stopped google ads for now. I had an idea for a more specific version of product reviews where you ask the reviewer something much more specific than "Review this product". Something that open ended is tough to come up with and you only really know what to say if you really loved it or really hated it. I like structured review systems that ask for pros and cons, I think something like that but like "What did you learn about this gear item / tips and tricks" and it adds more experience and skill to the gear item. Then you can filter through the reviews to only show the pros, only the cons, or only the tips. 
+I stopped running google ads and it dropped like a rock. Hmmm. I had an idea for a more specific version of product reviews where you ask the reviewer something much more specific than "Review this product". Something that open ended is tough to come up with and you only really know what to say if you really loved it or really hated it. I like structured review systems that ask for pros and cons, I think something like that but like "What did you learn about this gear item / tips and tricks" and it adds more experience and skill to the gear item. Then you can filter through the reviews to only show the pros, only the cons, or only the tips. 
 
 Somehow the pack filters script and the gear relative stats compiler havn't been running in months which is absolutely wild I really need a better admin panel. Someone on reddit said the site feels like a regular e-commerce site and they're 100% right the site is just mediocre data with run-of-the-mill stats that's kind of cool but gets old fast. He suggested more personalized/gear list specific features like suggesting socks if you have shoes or something like that. I think the site needs a lot more connectivity, like BoardGameAtlas does so well, I just have to figure out what that is. In the meantime I'll keep adding data feeds and make the core as good as possible then go back to the user experience jaunt.
+
+I finished linking up the FlexOffers links to the products I scraped from REI which looks super cool, you can buy products from more than just REI now! Also the site is technically monetized! I felt like when I got to this point it would feel good but I feel no different than before, I still have stuff to work on and it's nowhere near done. A nice step in the right direction though, that's for sure. I'm probably going to spend the next few days working on automating the scraping so accurate and up-to-date information flows in on the regular. Now it'll actually be worth having multiple sources, for tracking prices and stuff. I'm going to turn google ads back on and see what happens.
+
+### July 13, 2021
+TAR: 3833644. Woo! a 1150 decrease
+
+I started google ads again yesterday evening and got about 15 clicks in that time.
+
+Today I'm going to figure out the scraping protocol for multiple sources and do some logging to figure out how effective it actually is.
+
+Ok I got my IP blocked from REI for a seamingly infinite period of time so that's a bit of a hurdle. I guess the focus now is to add a crawl delay to the script, try and refactor it as much as possible, and run it once a day from the AWS server. I wonder if that will get blocked? REI.com has no mention of a crawl delay in their robots.txt and, while there was no hard limit, my delay was around half a second. I think the major issue was all the requests coming in at once. Maybe I should email them? I'll see if it's temporary then try and figure some jaunt out. 
+
+I'll finish that, though it sucks because I can't exactly test it, then look into my other sources and building scrapers for them. I need to figure out which of my advertisers actually want me to sell products, as far as I can tell it's only Moosejaw and Mountain Hardwear, everyone else either has a completely different inventory or only puts promotions on the API.
+
+I wouldn't be lying if I said I was getting a bit overwhelmed with the complexity of this whole thing. By this whole thing I mean the web scraper network and getting accurate and consistent data. I guess I'll write it all out here and hope writing it in a list helps straighten it all out.
+
+#### Problems
+1. 
+#### Solutions
+
+I was thinking about this REI business and now I'm stressed they are going to sue me for using their images and data, but where does it say anywhere that I cannot? I think they won't because last night both the website and images on my website were blocked, but tonight only I am blocked and the images load just fine. Oops, that's wrong and I'm a dummy. The cache was active on my desktop and not my laptop, I'm just banned. Back to being stressed :/. I'll put my email on the site so they can say something before they kill me.
