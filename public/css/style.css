@@ -236,9 +236,15 @@ select,input {
 	cursor: pointer;
 }
 .image-cell {
-	width: 100%;
+	height: 30px;
+	width: auto;
 	display: flex;
+	align-items: flex-start;
 	justify-content: center;
+}
+.image-cell img {
+	width: auto;
+	height: 100%;
 }
 .side-nav {
 	height: 100%;
@@ -1618,7 +1624,11 @@ td.buy-on-site-td {
 }
 .source-logo-holder {
 	width: 80px;
+	min-height: 50px;
 	height: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .source-logo-holder > img {
 	width: 100%;

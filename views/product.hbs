@@ -21,7 +21,7 @@
                 <a href="" class="breadcrumb">{{product.displayName}}</a>
             </div>
             <div class="detail-image-container">
-                <img src="{{reqDim (getProductPicture product) 500}}">
+                <img src="{{getProductPicture product}}">
             </div>
         </div>
         <div id="product-sources-container" class="detail-col sources-col">
@@ -36,6 +36,23 @@
                     </tr>
                 </thead>
                 <tbody class="nocollapse">
+                    {{#if selectedVariant}}
+                    {{#each (lookup (lookup product.variants selectedVariant) 'sources')}}
+                    <tr class="nocollapse">
+                        <td class="nocollapse">
+                            <div class="source-logo-holder">
+                                <img src="{{lookup (lookup ../sources this.srcKey) 'logoUrl'}}" alt="{{this.displayName}} logo">
+                            </div>
+                        </td>
+                        <td class="nocollapse">{{lookup (lookup ../sources this.srcKey) 'displayName'}}</td>
+                        <td class="nocollapse">${{this.price}}</td>
+                        <td class="buy-on-site-td nocollapse">
+                            <a class="action-button" target="_blank" href="{{this.url}}">View on Site</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                    {{else}}
+
                     {{#each product.sources}}
                     <tr class="nocollapse">
                         <td class="nocollapse">
@@ -45,16 +62,18 @@
                         </td>
                         <td class="nocollapse">{{this.global.displayName}}</td>
                         <td class="nocollapse">${{this.price.minPrice}}</td>
-                        <td class="buy-on-site-td nocollapse"><a class="action-button" target="_blank"
-                                href="{{this.url}}">View on Site</a></td>
+                        <td class="buy-on-site-td nocollapse">
+                            <a class="action-button" target="_blank" href="{{this.url}}">View on Site</a>
+                        </td>
                     </tr>
                     {{/each}}
+
+                    {{/if}}
                 </tbody>
             </table>
-            <span>Note: More sources coming soon.</span>
         </div>
         <div id="product-rel-stats-container" class="product-statistics-container">
-            {{> productStatistic 
+            {{> productStatistic
             rText="More expensive"
             p=product
             c=category
@@ -68,7 +87,7 @@
             suffix=""
             prefix="$"
             }}
-            {{> productStatistic 
+            {{> productStatistic
             rText="Heavier"
             p=product
             c=category
@@ -184,22 +203,22 @@
         </div>
         <div id="product-info-container">
             <div class="non-comp-specbox">
-            {{#each category.filters}}
-            {{#if (and (idEq this.t 'in') (lookup ../product this.key))}}
-            <div>
-                <div class="spec-header">
-                    <span>
-                        {{this.labelText}}
-                    </span>
+                {{#each category.filters}}
+                {{#if (and (idEq this.t 'in') (lookup ../product this.key))}}
+                <div>
+                    <div class="spec-header">
+                        <span>
+                            {{this.labelText}}
+                        </span>
+                    </div>
+                    <div class="spec-data">
+                        <span>
+                            {{lookup ../product this.key}}
+                        </span>
+                    </div>
                 </div>
-                <div class="spec-data">
-                    <span>
-                        {{lookup ../product this.key}}
-                    </span>
-                </div>
-            </div>
-            {{/if}}
-            {{/each}}
+                {{/if}}
+                {{/each}}
             </div>
         </div>
     </div>

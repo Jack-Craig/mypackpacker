@@ -251,7 +251,7 @@ router.get('/', async (req, res) => {
         cat.subCategories[i] = _.find(subCategories, (c) => c._id === cat.subCategories[i])
       }
     }
-    res.render('build', { categoryList: categories, buildData: sessionBuildData, user: req.user, editable: true, userOwnedObj: userOwnedObj, userSavedObj: userSavedObj, pageTitle: 'Create'})
+    res.render('build', { categoryList: categories, buildData: sessionBuildData, user: req.user, editable: true, userOwnedObj: userOwnedObj, userSavedObj: userSavedObj, pageTitle: 'Create' })
   }).catch(e => {
     console.error(e)
     res.redirect('/pack')
@@ -341,21 +341,31 @@ router.get('/:categoryID/:productID', async (req, res) => {
     if (!d[0].length)
       return res.render('404', { user: req.user, pageTitle: 'Lost' })
     let p = d[0][0]
-    let sourceIds = []
-    for (const sourceId of Object.keys(p.sources)) {
-      sourceIds.push(sourceId)
-    }
-    const sourceObjs = await SourceModel.find({ _id: { $in: sourceIds } }).lean()
-    for (const sourceId of Object.keys(p.sources)) {
-      for (const sourceData of sourceObjs) {
-        if (sourceId == sourceData._id)
-          p.sources[sourceId].global = sourceData
+
+    let selectedVariant = req.query.sv
+    if (p.hasOwnProperty('variants') && selectedVariant == undefined) {
+      let minVal = Number.MAX_VALUE
+      for (const key of Object.keys(p.variants)) {
+        for (const source of Object.keys(p.variants[key].sources)) {
+          if (p.variants[key].sources[source].price < minVal) {
+            minVal = p.variants[key].sources[source].price
+            selectedVariant = key
+          }
+        }
       }
     }
-    res.render('product', { product: p, category: d[1], user: req.user, userPack: d[2], pageTitle: p.displayName })
+
+    let sourceIds = Object.keys(p.variants[selectedVariant].sources)
+    const sourceObjs = await SourceModel.find({ _id: { $in: sourceIds } }).lean()
+    let sources = {}
+    for (const sourceData of sourceObjs) {
+      sources[sourceData._id] = sourceData
+    }
+    console.log(sources)
+    res.render('product', { product: p, category: d[1], user: req.user, userPack: d[2], selectedVariant: selectedVariant, sources: sources, pageTitle: p.displayName })
   }).catch(err => {
     console.error(err)
-    res.redirect('/' + req.params.categoryID)
+    res.redirect('/pack/' + req.params.categoryID)
   })
 })
 
