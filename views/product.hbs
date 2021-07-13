@@ -54,15 +54,14 @@
                         </tr>
                     {{/each}}
                     {{else}}
-
                     {{#each product.sources}}
                     <tr class="nocollapse">
                         <td class="nocollapse">
                             <div class="source-logo-holder">
-                                <img src="{{this.global.logoUrl}}" alt="{{this.displayName}} logo">
+                                <img src="{{lookup (lookup ../sources this.srcId) 'logoUrl'}}" alt="{{this.displayName}} logo">
                             </div>
                         </td>
-                        <td class="nocollapse">{{this.global.displayName}}</td>
+                        <td class="nocollapse">{{lookup (lookup ../sources this.srcId) 'displayName'}}</td>
                         <td class="nocollapse">${{this.price.minPrice}}</td>
                         <td class="buy-on-site-td nocollapse">
                             <a class="action-button" target="_blank" href="{{this.url}}">View on Site</a>
