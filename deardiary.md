@@ -99,7 +99,13 @@ I'll finish that, though it sucks because I can't exactly test it, then look int
 I wouldn't be lying if I said I was getting a bit overwhelmed with the complexity of this whole thing. By this whole thing I mean the web scraper network and getting accurate and consistent data. I guess I'll write it all out here and hope writing it in a list helps straighten it all out.
 
 #### Problems
+1. How to make sure the spread is enough? Like how do I ensure I am getting every single tent out there?
+1. How to create a common language between scrapers? Like Moosejaw calls boot sizing something different than REI, but I need to figure out what is the same about that. 
+1. What if one site has really great data and another site has really poor data, do I have to reduce the quality of the site to account for a wider reach?
 1. 
 #### Solutions
-
-I was thinking about this REI business and now I'm stressed they are going to sue me for using their images and data, but where does it say anywhere that I cannot? I think they won't because last night both the website and images on my website were blocked, but tonight only I am blocked and the images load just fine. Oops, that's wrong and I'm a dummy. The cache was active on my desktop and not my laptop, I'm just banned. Back to being stressed :/. I'll put my email on the site so they can say something before they kill me.
+1. I guess there really isn't a way to do this other than time and people alerting me to missing gear. Really sucks but it is what it is.
+1. Create a funnel/script that all finished products go through that translates from their site-specific dialect to mine. That works well because I can also reduce a lot of the annoying items, like how many different fuel types there are and REI's confusing ankle support language. 
+1. I think quality is much better than quantity. Every layer that get's added on to the data-pipeline reduces the throughput by some percentage, but I have to think of that as a good thing and that the blocked data was data I didn't want. 
+1.
+I was thinking about this REI business and now I'm stressed they are going to sue me for using their images and data, but where does it say anywhere that I cannot? I think they won't because last night both the website and images on my website were blocked, but tonight only I am blocked and the images load just fine. Oops, that's wrong and I'm a dummy. The cache was active on my desktop and not my laptop, I'm just banned. Back to being stressed :/. I'll put my email on the site so they can say something before they kill me. I looked into sending them an email but I can't find the email because their /help dir is blocked (obviously I can still use my phone or a VPN).
