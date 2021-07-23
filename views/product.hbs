@@ -39,26 +39,27 @@
                     {{#if selectedVariant}}
                     {{assign 'srcObj' (lookup (lookup product.variants selectedVariant) 'sources')}}
                     {{#each sortedSources}}
-                        {{ assign 'cSrc' (lookup @root.srcObj this) }}
-                        <tr class="nocollapse">
-                            <td class="nocollapse">
-                                <div class="source-logo-holder">
-                                    <img src="{{lookup (lookup ../sources this) 'logoUrl'}}" alt="{{this}} logo">
-                                </div>
-                            </td>
-                            <td class="nocollapse">{{lookup (lookup ../sources this) 'displayName'}}</td>
-                            <td class="nocollapse">${{tf @root.cSrc.price 2}}</td>
-                            <td class="buy-on-site-td nocollapse">
-                                <a class="action-button" target="_blank" href="{{@root.cSrc.url}}">View on Site</a>
-                            </td>
-                        </tr>
+                    {{ assign 'cSrc' (lookup @root.srcObj this) }}
+                    <tr class="nocollapse">
+                        <td class="nocollapse">
+                            <div class="source-logo-holder">
+                                <img src="{{lookup (lookup ../sources this) 'logoUrl'}}" alt="{{this}} logo">
+                            </div>
+                        </td>
+                        <td class="nocollapse">{{lookup (lookup ../sources this) 'displayName'}}</td>
+                        <td class="nocollapse">${{tf @root.cSrc.price 2}}</td>
+                        <td class="buy-on-site-td nocollapse">
+                            <a class="action-button" target="_blank" href="{{@root.cSrc.url}}">View on Site</a>
+                        </td>
+                    </tr>
                     {{/each}}
                     {{else}}
                     {{#each product.sources}}
                     <tr class="nocollapse">
                         <td class="nocollapse">
                             <div class="source-logo-holder">
-                                <img src="{{lookup (lookup ../sources this.srcId) 'logoUrl'}}" alt="{{this.displayName}} logo">
+                                <img src="{{lookup (lookup ../sources this.srcId) 'logoUrl'}}"
+                                    alt="{{this.displayName}} logo">
                             </div>
                         </td>
                         <td class="nocollapse">{{lookup (lookup ../sources this.srcId) 'displayName'}}</td>

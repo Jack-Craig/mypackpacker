@@ -140,7 +140,7 @@
         <td {{#if (nt ../../../editable)}}class="non-data cat-buy" {{/if}}>
             {{#unless this.userCreated}}
             <a class="data-button" style="color:black;" target="_blank" data-id="{{this._id}}"
-                href="https://{{this.sources.rei.url}}">
+                href="{{lookup (getBestVariantSource this) 'url'}}">
                 view
             </a>
             {{/unless}}

@@ -207,7 +207,7 @@ app.engine('hbs', handlebars({
                 return nHours==1 ? `${nHours}hr` : `${nHours}hrs`
             } else if (dif < week) {
                 const nDays = Math.floor(dif / day)
-                return `${nDays}day`
+                return nDays == 1 ? `${nDays} day` : `${nDays} days`
             }
             return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`
         },
@@ -217,6 +217,17 @@ app.engine('hbs', handlebars({
                 return p.variants[key].image
             } else
                 return p.productInfo.pictures[0]
+        },
+        getBestVariantSource: p => {
+            let bestVariantSource = null
+            for (const upc of Object.keys(p.variants)) {
+                for (const srcKey of Object.keys(p.variants[upc].sources)) {
+                    if (bestVariantSource == null || p.variants[upc].sources[srcKey].price < bestVariantSource.price) {
+                        bestVariantSource = p.variants[upc].sources[srcKey]
+                    }
+                }
+            }
+            return bestVariantSource
         },
         tf: (n, m) => n.toFixed(m)
     }

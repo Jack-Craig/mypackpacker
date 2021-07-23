@@ -102,10 +102,30 @@ I wouldn't be lying if I said I was getting a bit overwhelmed with the complexit
 1. How to make sure the spread is enough? Like how do I ensure I am getting every single tent out there?
 1. How to create a common language between scrapers? Like Moosejaw calls boot sizing something different than REI, but I need to figure out what is the same about that. 
 1. What if one site has really great data and another site has really poor data, do I have to reduce the quality of the site to account for a wider reach?
-1. 
 #### Solutions
 1. I guess there really isn't a way to do this other than time and people alerting me to missing gear. Really sucks but it is what it is.
 1. Create a funnel/script that all finished products go through that translates from their site-specific dialect to mine. That works well because I can also reduce a lot of the annoying items, like how many different fuel types there are and REI's confusing ankle support language. 
-1. I think quality is much better than quantity. Every layer that get's added on to the data-pipeline reduces the throughput by some percentage, but I have to think of that as a good thing and that the blocked data was data I didn't want. 
-1.
+1. I think quality is much better than quantity. Every layer that get's added on to the data-pipeline reduces the throughput by some percentage, but I have to think of that as a good thing and that the blocked data was data I didn't want. Having less products but more data is better, to a certain extent, and I think I'm currently sitting at that threshold with 2,
 I was thinking about this REI business and now I'm stressed they are going to sue me for using their images and data, but where does it say anywhere that I cannot? I think they won't because last night both the website and images on my website were blocked, but tonight only I am blocked and the images load just fine. Oops, that's wrong and I'm a dummy. The cache was active on my desktop and not my laptop, I'm just banned. Back to being stressed :/. I'll put my email on the site so they can say something before they kill me. I looked into sending them an email but I can't find the email because their /help dir is blocked (obviously I can still use my phone or a VPN).
+### July 21, 2021
+TAR: 2596909 (A huge decrease since last week). It must be delayed, this is the score I would expect after the reddit buzz.
+
+I have not been working on MPP for around a week because I'm just so burned out. I want to be working on something, but I'm not convinced MPP can be a success. It always seems like there's a little more work to be done here, or a new feature there and it never ends. I can see the final image with people on the site sharing their packs and checking gear out and all that good stuff, and really all of those features are in place but the users are not falling into place. After I show people they're like wow looks great, congratulations! and I'm like tf ok would you use it? At the end of the day that's the only question that matters, and for most of these people it's currently no. If I wanted to keep grinding myself into the ground I would keep adding products and re-add the custom gear feature but I've had several of these moments where I was like "to get users, I fix/add/remove feature X", then I spend a few days doing that, then nothing happens, then I keep doing it. God it's tiring. Nothing is sticking!!!! It has potential but I don't know if I can unearth that potential.
+
+I reapplied to AvantLink because for whatever reason the Alexa Rank is under 3 million and that is apparently around the limit they have. The site is good enough to pass that check, so I don't see any reason why I wouldn't be accepted. I guess that would add some motivation? The most motivating thing I could possibly see would be daily active users, I would love to see real users interacting with the site and looking at gear and actually USING what I put out.
+
+Another reason I'm feeling burned out is being unclear about what I have to do next. Some insane data stuff whose exact details are unclear to me. I also have to make an updates notification/tracking system to try and bring users back in. I also have to add the import gear feature, especially from lighterpack, and I have to make the gear data tab more prevelant on the site. Those charts are important! I don't know where to start, or if I even want to start. While the 20,000 lines I've written over the past few months would be thrown away if I stopped, so would the next 5,000 lines if I continued. I don't want to grind for grind's sake.
+
+I've decided I'm going to wait until I get word from AvantLink, and go from there. If I am accepted I'll be able to run all of the data ingestion from an API sources then to a conditional webscraper then to the DB. Otherwise it's super messy AND REI has to be polled for pricing data, although technically it can be streamlined because you don't need to go to detail pages. Regardless, the best way to do things would be if AvantLink accepts the site. If they deny us I'm pissed and idk what I'm going to do.
+
+### July 22, 2021
+TAR: 2595922 (Another decrease, wtf?)
+
+I got denied by AvantLink again, but I was also sent an email that said we may reconsider if you give us some details. It was kind of fishy and I'm not really sure how clarifying these details would make them reconsider, it felt like REI might have put them up to this honestly. I responded and hopefully they like what I said, because if not I'm back to being screwed. It felt weird talking about all the stuff I had planned for the future when the future seemed so unlikely, but whatever who dares wins and all that. I checked AvantLink's AlexaRank and it is 4448. That is crazy and insane wow I did not realize I was dealing with such a hotshot. Flexoffers, however, is 4760. About the same which is pretty cool.
+
+Im working on my API pipeline and honestly the plan seems pretty solid. I'm really leaning into asynchronous task queues in ways I have not done before which should be interesting. It also kind of makes development easier. The plan is to have product discovery and joining eventually consistent rather than always on point. There are a few problems that arise but all of the can be fixed pretty easily I think.
+
+### July 23, 2021
+TAR: 2595023 (Slight decrease)
+
+The AvantLink rep seems to want to give me access to the API but is just trying to find some reason to. I can't find one though which is terrible. She asked for a reference from a vendor I am currently working with, but I don't have one I just work with FlexOffers. I'm going to work on adding the web worker and think about it. She also told me about a bug, which is funny, so I'm going to fix that and push it. 
